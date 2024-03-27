@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">TMDB</string>
     <string name="Synopsis">"Synopsis: "</string>
+    <string name="regisseur">Regisseur:</string>
+    <string name="acteurs">Actuers: </string>
+    <string name="duur_movie">Duur:</string>
+    <string name="Leeftijd">Leeftijd:</string>
+    <string name="Movie_taal">Taal:</string>
 </resources>
