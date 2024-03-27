@@ -38,33 +38,39 @@
       <TextView
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:text="@string/Synopsis"/>
+          android:text="@string/Synopsis"
+          android:id="@+id/movie_synopsis"/>
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/regisseur"/>
+                android:text="@string/regisseur"
+                android:id="@+id/movie_regisseur"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/acteurs"/>
+                android:text="@string/acteurs"
+                android:id="@+id/movie_acteurs"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/duur_movie"/>
+                android:text="@string/duur_movie"
+                android:id="@+id/movie_duur"/>
             
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Leeftijd"/>
+                android:text="@string/Leeftijd"
+                android:id="@+id/Movie_leeftijd"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Movie_taal"/>
+                android:text="@string/Movie_taal"
+                android:id="@+id/Movie_taal"/>
 
 
 
