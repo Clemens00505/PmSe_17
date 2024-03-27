@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TMDB</string>
+    <string name="Synopsis">"Synopsis: "</string>
 </resources>
