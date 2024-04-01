@@ -1,6 +1,8 @@
 package com.example.tmdb.domain;
 
-public class List {
+import java.io.Serializable;
+
+public class List implements Serializable {
     private int listId;
     private String name;
     private String listType;

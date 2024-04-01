@@ -1,6 +1,8 @@
 package com.example.tmdb.domain;
 
-public class Movie {
+import java.io.Serializable;
+
+public class Movie implements Serializable {
     private int movieId;
     private String title;
     private String tagline;
