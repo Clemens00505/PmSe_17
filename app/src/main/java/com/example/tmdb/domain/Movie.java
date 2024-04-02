@@ -26,11 +26,11 @@ public class Movie implements Serializable {
     private double voteAverage;
     private int rating;
     private String overview;
-    private String posterPath;
-    private String backdropPath;
+    private String poster_path;
+    private String backdrop_path;
     private double popularity;
 
-    public Movie(int id, String title, String tagline, String status, boolean adult, String genre, String runtime, String releaseDate, String original_language, double voteAverage, String overview, String posterPath, String backdropPath, double popularity) {
+    public Movie(int id, String title, String tagline, String status, boolean adult, String genre, String runtime, String releaseDate, String original_language, double voteAverage, String overview, String poster_path, String backdrop_path, double popularity) {
         this.id = id;
         this.title = title;
         this.tagline = tagline;
@@ -42,8 +42,8 @@ public class Movie implements Serializable {
         this.original_language = original_language;
         this.voteAverage = voteAverage;
         this.overview = overview;
-        this.posterPath = posterPath;
-        this.backdropPath = backdropPath;
+        this.poster_path = poster_path;
+        this.backdrop_path = backdrop_path;
         this.popularity = popularity;
     }
 
@@ -143,21 +143,23 @@ public class Movie implements Serializable {
         this.overview = overview;
     }
 
-    public String getPosterPath() {
-        return posterPath;
+    public String getPoster_path() {
+        return poster_path;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
+
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
     }
 
-    public String getBackdropPath() {
-        return backdropPath;
+    public String getBackdrop_path() {
+        return backdrop_path;
     }
 
-    public void setBackdropPath(String backdropPath) {
-        this.backdropPath = backdropPath;
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
     }
+
 
     public double getPopularity() {
         return popularity;

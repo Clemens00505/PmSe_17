@@ -19,6 +19,7 @@ import com.example.tmdb.App;
 import com.example.tmdb.R;
 import com.example.tmdb.domain.Movie;
 import com.example.tmdb.ui.detail.MovieDetailActivity;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
@@ -32,6 +33,8 @@ import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.PopularMovieHolder> {
+
+    private static final String TAG = "MovieAdapter";
 
     private List<Movie> popularMovieList;
     private final Context context;
@@ -55,38 +58,56 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.PopularMovie
     @Override
     public PopularMovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         App.instance().appComponent().inject(this);
+        Timber.d("onCreateViewHolder: Creating PopularMovieHolder");
         return new PopularMovieHolder(LayoutInflater.from(context).inflate(R.layout.movie_list_item, parent, false));
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull final PopularMovieHolder holder, final int position) {
+        Timber.d("onBindViewHolder: Binding data to PopularMovieHolder at position %d", position);
         Movie movie = popularMovieList.get(position);
         holder.tvPopularMovieTitle.setText(movie.getTitle());
 
-        // Use the correct method to load the image with Picasso
-        Picasso.get().load(IMAGE_BASE_URL_500 + movie.getPosterPath()).into(holder.ivPopularPoster);
+        // Log before loading the image
+        Timber.d("Loading image for movie ID %d with URL: %s", movie.getId(), IMAGE_BASE_URL_500 + movie.getPoster_path());
 
-        holder.itemView.setOnClickListener(view -> tmDbAPI.getMovieDetail(movie.getId(), TMDb_API_KEY)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
+        // Use Picasso to load the image
+        Picasso.get().load(IMAGE_BASE_URL_500 + movie.getPoster_path()).into(holder.ivPopularPoster, new Callback() {
+            @Override
+            public void onSuccess() {
+                // Log when the image is successfully loaded
+                Timber.d("Image loaded successfully for movie ID %d", movie.getId());
+            }
 
-                    Intent intent = new Intent(view.getContext(), MovieDetailActivity.class);
-                    intent.putExtra("id", movie.getId());
-                    intent.putExtra("title", movie.getTitle());
-                    intent.putExtra("backdrop", movie.getBackdropPath());
-                    intent.putExtra("poster", movie.getPosterPath());
-                    intent.putExtra("overview", movie.getOverview());
-                    intent.putExtra("popularity", movie.getPopularity());
-                    intent.putExtra("release_date", movie.getReleaseDate());
-                    intent.putExtra("genres", (Serializable) response.getGenres());
-                    view.getContext().startActivity(intent);
+            @Override
+            public void onError(Exception e) {
+                // Log if there's an error loading the image
+                Timber.e(e, "Error loading image for movie ID %d", movie.getId());
+            }
+        });
 
-                }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage())));
+        holder.itemView.setOnClickListener(view -> {
+            Timber.d("Item clicked at position %d", position);
+            tmDbAPI.getMovieDetail(movie.getId(), TMDb_API_KEY)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(response -> {
+                        Timber.d("Movie detail response received for movie with ID %d", movie.getId());
+                        Intent intent = new Intent(view.getContext(), MovieDetailActivity.class);
+                        intent.putExtra("id", movie.getId());
+                        intent.putExtra("title", movie.getTitle());
+                        intent.putExtra("backdrop", movie.getBackdrop_path());
+                        intent.putExtra("poster", movie.getPoster_path());
+                        intent.putExtra("overview", movie.getOverview());
+                        intent.putExtra("popularity", movie.getPopularity());
+                        intent.putExtra("release_date", movie.getReleaseDate());
+                        intent.putExtra("genres", (Serializable) response.getGenres());
+                        view.getContext().startActivity(intent);
+                    }, e -> {
+                        Timber.e(e, "Error fetching movie details for movie with ID %d: %s", movie.getId(), e.getMessage());
+                    });
+        });
     }
-
-
 
 
     @Override
@@ -102,7 +123,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.PopularMovie
             super(itemView);
             tvPopularMovieTitle = itemView.findViewById(R.id.tvPopularMovieTitle);
             ivPopularPoster = itemView.findViewById(R.id.ivPopularPoster);
-
         }
     }
 }

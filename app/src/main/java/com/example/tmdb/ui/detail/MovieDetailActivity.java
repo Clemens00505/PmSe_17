@@ -60,9 +60,6 @@ public class MovieDetailActivity extends Activity {
     public RecyclerView.LayoutManager castLayoutManager;
     public List<Cast> castDataList;
 
-    public RecyclerView rvRecommendContents;
-    public RecyclerView.Adapter recommendAdapter;
-    public RecyclerView.LayoutManager recommendLayoutManager;
     public List<Movie> recommendDataList;
 
     @SuppressLint("SetTextI18n")
@@ -182,11 +179,6 @@ public class MovieDetailActivity extends Activity {
                     .subscribe(response -> {
                         if (response != null && response.getResults() != null) {
                             recommendDataList.addAll(response.getResults());
-                            if (recommendAdapter != null) {
-                                recommendAdapter.notifyDataSetChanged();
-                            } else {
-                                Log.e(TAG, "recommendAdapter is null");
-                            }
                         }
                     }, e -> {
                         Timber.e(e, "Error fetching recommended movies: %s", e.getMessage());
