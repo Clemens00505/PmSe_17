@@ -9,7 +9,6 @@ import androidx.room.Update;
 import com.example.tmdb.domain.Collection;
 import com.example.tmdb.domain.Movie;
 
-import java.util.List;
 
 @Dao
 public interface DAO {

@@ -37,12 +37,20 @@ public class Repository {
         }
     }
 
+    void updateMovie(Movie movie) {
+        new updateMovieAsyncTask(dao).execute();
+    }
+
+    void updateCollection(Collection collection) {
+        new updateCollectionAsyncTask(dao).execute();
+    }
+
     void deleteAllMovies(){
-        new deleteAllAsyncTask(dao, "movie_table").execute();
+        new deleteAllMoviesAsyncTask(dao).execute();
     }
 
     void deleteAllLists() {
-        new deleteAllAsyncTask(dao, "collection_table").execute();
+        new deleteAllCollectionsAsyncTask(dao).execute();
     }
 
     public static class insertCollectionAsyncTask extends AsyncTask<Collection, Void, Void> {
@@ -69,22 +77,58 @@ public class Repository {
             return null;
         }
     }
-    public static class deleteAllAsyncTask extends AsyncTask<Void, Void, Void> {
+
+    public static class updateMovieAsyncTask extends AsyncTask<Movie, Void, Void> {
         private DAO asyncTaskDao;
-        String mytableName;
-        deleteAllAsyncTask(DAO dao, String tableName) {
+
+        updateMovieAsyncTask(DAO dao){
             asyncTaskDao = dao;
-            mytableName = tableName;
         }
+
         @Override
-        protected Void doInBackground(Void... voids) {
-            if (mytableName.equals("movie_table")) {
-                asyncTaskDao.deleteAllMovies();
-            } else if (mytableName.equals("collection_table")) {
-                asyncTaskDao.deleteAllCollections();
-            }
+        protected Void doInBackground(Movie... movies) {
+            asyncTaskDao.updateMovie(movies[0]);
             return null;
         }
     }
+
+    public static class updateCollectionAsyncTask extends AsyncTask<Collection, Void, Void> {
+        private DAO asyncTaskDao;
+
+        updateCollectionAsyncTask(DAO dao){
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Collection... collections) {
+            asyncTaskDao.updateCollection(collections[0]);
+            return null;
+        }
+    }
+
+    public static class deleteAllMoviesAsyncTask extends AsyncTask<Void, Void, Void> {
+        private DAO asyncTaskDao;
+        deleteAllMoviesAsyncTask(DAO dao) {
+            asyncTaskDao = dao;
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            asyncTaskDao.deleteAllMovies();
+            return null;
+        }
+    }
+
+    public static class deleteAllCollectionsAsyncTask extends AsyncTask<Void, Void, Void> {
+        private DAO asyncTaskDao;
+        deleteAllCollectionsAsyncTask(DAO dao) {
+            asyncTaskDao = dao;
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            asyncTaskDao.deleteAllCollections();
+            return null;
+        }
+    }
+
 
 }
