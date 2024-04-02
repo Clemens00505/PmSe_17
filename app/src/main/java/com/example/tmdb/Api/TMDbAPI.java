@@ -12,8 +12,8 @@ import rx.Observable;
 
 public interface TMDbAPI {
 
-    String IMAGE_BASE_URL_500 = "https://image.tmdb.org/t/p/w500";
-    String IMAGE_BASE_URL_1280 = "https://image.tmdb.org/t/p/w1280";
+    static final String IMAGE_BASE_URL_500 = "https://image.tmdb.org/t/p/w500";
+    static final String IMAGE_BASE_URL_1280 = "https://image.tmdb.org/t/p/w1280";
 
     String TMDb_API_KEY = "e2510df5c4693ebfbf806cd9c6900aab";
 

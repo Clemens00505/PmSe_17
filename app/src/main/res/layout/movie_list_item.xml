@@ -35,30 +35,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Text 1"
-                android:layout_margin="8dp"
-                />
+                android:layout_margin="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Text 2"
-                android:layout_margin="8dp"
-                />
+                android:layout_margin="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Text 3"
-                android:layout_margin="8dp"
-                />
+                android:layout_margin="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Text 4"
-                android:layout_margin="8dp"
-                />
-
+                android:layout_margin="8dp" />
 
         </GridLayout>
 
@@ -67,20 +62,19 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@android:color/white"
-            android:layout_margin="3dp"
-            />
+            android:layout_margin="3dp" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="75dp"
             android:layout_height="100dp"
+            android:layout_marginRight="10dp"
             app:cardCornerRadius="4dp"
-            app:cardElevation="2dp"
-            android:layout_marginRight="10dp">
+            app:cardElevation="2dp">
 
             <ImageView
                 android:id="@+id/ivPopularPoster"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:scaleType="fitXY" />
 
         </androidx.cardview.widget.CardView>

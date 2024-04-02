@@ -63,6 +63,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.PopularMovie
     public void onBindViewHolder(@NonNull final PopularMovieHolder holder, final int position) {
         Movie movie = popularMovieList.get(position);
         holder.tvPopularMovieTitle.setText(movie.getTitle());
+
+        // Use the correct method to load the image with Picasso
         Picasso.get().load(IMAGE_BASE_URL_500 + movie.getPosterPath()).into(holder.ivPopularPoster);
 
         holder.itemView.setOnClickListener(view -> tmDbAPI.getMovieDetail(movie.getId(), TMDb_API_KEY)
@@ -83,6 +85,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.PopularMovie
 
                 }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage())));
     }
+
+
+
 
     @Override
     public int getItemCount() {
