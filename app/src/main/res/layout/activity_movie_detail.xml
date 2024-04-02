@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="4"
                     android:paddingStart="5dp"
-                    android:textColor="#ffffff"
+                    android:textColor="#111111"
                     app:animation_duration="750">
 
 
