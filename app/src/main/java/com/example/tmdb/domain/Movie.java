@@ -1,8 +1,18 @@
 package com.example.tmdb.domain;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity(tableName = "movie_table")
 public class Movie implements Serializable {
+
+    @PrimaryKey
+    @ColumnInfo(name = "movie_id")
+    @NonNull
     private int movieId;
     private String title;
     private String tagline;
@@ -10,6 +20,7 @@ public class Movie implements Serializable {
     private boolean adult;
     private String genre;
     private String runtime;
+    @ColumnInfo(name = "release_date")
     private String releaseDate;
     private String language;
     private int voteAverage;

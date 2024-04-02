@@ -2,3 +2,7 @@
 plugins {
 id 'com.android.application' version '8.2.2' apply false
 }
+ext {
+    roomVersion = '1.1.1'
+    archLifecycleVersion = '1.1.1'
+}
