@@ -1,4 +1,4 @@
-package com.example.tmdb.data.models;
+package com.example.tmdb.domain;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ public class ResponseNowPlaying {
 
     private Integer page;
     private Integer total_pages;
-    private List<Results> results;
+    private List<Movie> results;
 
     public Integer getPage() {
         return page;
@@ -24,11 +24,11 @@ public class ResponseNowPlaying {
         this.total_pages = total_pages;
     }
 
-    public List<Results> getResults() {
+    public List<Movie> getResults() {
         return results;
     }
 
-    public void setResults(List<Results> results) {
+    public void setResults(List<Movie> results) {
         this.results = results;
     }
 }

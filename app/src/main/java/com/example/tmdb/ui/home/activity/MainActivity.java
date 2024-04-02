@@ -1,4 +1,4 @@
-package com.example.tmdb;
+package com.example.tmdb.ui.home.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,10 +9,17 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
+import com.example.tmdb.Api.TMDbAPI;
+import com.example.tmdb.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import javax.inject.Inject;
+
 public class MainActivity extends AppCompatActivity {
+
+    @Inject
+    TMDbAPI tmDbAPI;
 
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
@@ -46,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         public Fragment createFragment(int position) {
             switch(position) {
                 case 0:
-                    return new PopulairMoviesFragment();
+                    return PopularMoviesFragment.newInstance();
                 case 1:
                     return new ListsFragment();
                 case 2:

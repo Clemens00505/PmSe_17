@@ -1,4 +1,4 @@
-package com.example.tmdb.data.models;
+package com.example.tmdb.domain;
 
 public class Cast {
 

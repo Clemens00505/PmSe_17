@@ -13,7 +13,7 @@ public class Movie implements Serializable {
     @PrimaryKey
     @ColumnInfo(name = "movie_id")
     @NonNull
-    private int movieId;
+    private int id;
     private String title;
     private String tagline;
     private String status;
@@ -22,12 +22,16 @@ public class Movie implements Serializable {
     private String runtime;
     @ColumnInfo(name = "release_date")
     private String releaseDate;
-    private String language;
-    private int voteAverage;
+    private String original_language;
+    private double voteAverage;
     private int rating;
+    private String overview;
+    private String posterPath;
+    private String backdropPath;
+    private double popularity;
 
-    public Movie(int movieId, String title, String tagline, String status, boolean adult, String genre, String runtime, String releaseDate, String language, int voteAverage) {
-        this.movieId = movieId;
+    public Movie(int id, String title, String tagline, String status, boolean adult, String genre, String runtime, String releaseDate, String original_language, double voteAverage, String overview, String posterPath, String backdropPath, double popularity) {
+        this.id = id;
         this.title = title;
         this.tagline = tagline;
         this.status = status;
@@ -35,95 +39,131 @@ public class Movie implements Serializable {
         this.genre = genre;
         this.runtime = runtime;
         this.releaseDate = releaseDate;
-        this.language = language;
+        this.original_language = original_language;
         this.voteAverage = voteAverage;
+        this.overview = overview;
+        this.posterPath = posterPath;
+        this.backdropPath = backdropPath;
+        this.popularity = popularity;
     }
 
-    public int getMovieId() {
-        return movieId;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getTagline() {
-        return tagline;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public boolean isAdult() {
-        return adult;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public String getRuntime() {
-        return runtime;
-    }
-
-    public String getReleaseDate() {
-        return releaseDate;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public int getVoteAverage() {
-        return voteAverage;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
-    }
-
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getTagline() {
+        return tagline;
     }
 
     public void setTagline(String tagline) {
         this.tagline = tagline;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public boolean isAdult() {
+        return adult;
     }
 
     public void setAdult(boolean adult) {
         this.adult = adult;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public String getRuntime() {
+        return runtime;
     }
 
     public void setRuntime(String runtime) {
         this.runtime = runtime;
     }
 
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public String getOriginal_language() {
+        return original_language;
     }
 
-    public void setVoteAverage(int voteAverage) {
+    public void setOriginal_language(String original_language) {
+        this.original_language = original_language;
+    }
+
+    public double getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
+    }
+
+    public int getRating() {
+        return rating;
     }
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    public String getBackdropPath() {
+        return backdropPath;
+    }
+
+    public void setBackdropPath(String backdropPath) {
+        this.backdropPath = backdropPath;
+    }
+
+    public double getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(double popularity) {
+        this.popularity = popularity;
     }
 }

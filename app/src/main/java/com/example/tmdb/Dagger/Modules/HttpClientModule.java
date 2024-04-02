@@ -3,7 +3,7 @@ package com.example.tmdb.Dagger.Modules;
 import android.app.Application;
 
 import com.example.tmdb.Dagger.AppScope;
-import com.example.tmdb.data.Api.TMDbAPI;
+import com.example.tmdb.Api.TMDbAPI;
 import com.squareup.moshi.Moshi;
 
 import java.io.File;

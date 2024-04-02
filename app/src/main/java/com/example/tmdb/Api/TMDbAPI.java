@@ -1,9 +1,9 @@
-package com.example.tmdb.data.Api;
+package com.example.tmdb.Api;
 
 import com.example.tmdb.Dagger.Modules.HttpClientModule;
-import com.example.tmdb.data.models.ResponseCreditDetail;
-import com.example.tmdb.data.models.ResponseMovieDetail;
-import com.example.tmdb.data.models.ResponseNowPlaying;
+import com.example.tmdb.domain.ResponseCreditDetail;
+import com.example.tmdb.domain.ResponseMovieDetail;
+import com.example.tmdb.domain.ResponseNowPlaying;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -21,7 +21,9 @@ public interface TMDbAPI {
     Observable<ResponseNowPlaying> getNowPlaying(
             @Query("api_key") String api_key,
             @Query("page") int page
+
     );
+
 
     @GET(HttpClientModule.POPULAR)
     Observable<ResponseNowPlaying> getPopularMovie(
