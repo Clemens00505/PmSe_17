@@ -71,7 +71,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.PopularMovie
         // Log before loading the image
         Timber.d("Loading image for movie ID %d with URL: %s", movie.getId(), IMAGE_BASE_URL_500 + movie.getPoster_path());
 
-        // Use Picasso to load the image
         Picasso.get().load(IMAGE_BASE_URL_500 + movie.getPoster_path()).into(holder.ivPopularPoster, new Callback() {
             @Override
             public void onSuccess() {

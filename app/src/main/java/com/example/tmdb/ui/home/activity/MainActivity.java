@@ -8,6 +8,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.R;
@@ -32,6 +34,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ImageView settingsIcon = findViewById(R.id.settings_icon);
+        ImageView menuIcon = findViewById(R.id.menu_icon);
+
+        settingsIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle click on settings icon
+            }
+        });
+
+        menuIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle click on menu icon
+            }
+        });
+
         viewPager = findViewById(R.id.view_pager);
         fragmentAdapter = new FragmentAdapter(this);
         viewPager.setAdapter(fragmentAdapter);
@@ -41,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         }).attach();
 
     }
+
 
 
     private static class FragmentAdapter extends FragmentStateAdapter {
