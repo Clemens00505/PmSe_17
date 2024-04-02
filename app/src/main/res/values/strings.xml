@@ -13,4 +13,6 @@
     <string name="language_title">Language</string>
     <string name="api_key_title">API key</string>
     <string name="api_settings_header">Settings</string>
+    <string name="action_settings">Settings\n</string>
+    <string name="picture_of_movie">Picture of movie</string>
 </resources>
