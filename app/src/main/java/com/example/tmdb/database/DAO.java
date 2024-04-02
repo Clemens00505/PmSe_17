@@ -14,10 +14,10 @@ import java.util.List;
 @Dao
 public interface DAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(Movie movie);
+    void insertMovie(Movie movie);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(List<Movie> movies);
+    void insertCollection(Collection collection);
 
     @Query("DELETE FROM movie_table")
     void deleteAllMovies();
@@ -26,7 +26,10 @@ public interface DAO {
     void deleteAllCollections();
 
     @Update
-    void update(Movie movie);
+    void updateMovie(Movie movie);
+
+    @Update
+    void updateCollection(Collection collection);
 
     @Query("DELETE FROM movie_table WHERE :columnId = :objectId")
     void delete(String columnId, String objectId);
