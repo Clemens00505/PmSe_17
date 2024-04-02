@@ -8,4 +8,9 @@
     <string name="Movie_taal">Taal:</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="save_settings_title">Save</string>
+    <string name="dark_mode_title">Dark mode</string>
+    <string name="language_title">Language</string>
+    <string name="api_key_title">API key</string>
+    <string name="api_settings_header">Settings</string>
 </resources>
