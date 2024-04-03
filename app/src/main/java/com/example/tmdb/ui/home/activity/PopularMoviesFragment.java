@@ -8,13 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.tmdb.Api.TMDbAPI;
-import static com.example.tmdb.Api.TMDbAPI.IMAGE_BASE_URL_500;
 
 import com.example.tmdb.App;
 import com.example.tmdb.R;
 import com.example.tmdb.domain.Movie;
 import com.example.tmdb.ui.home.adapters.MovieAdapter;
-import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -51,13 +50,13 @@ public class PopularMoviesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_popular_movies, container, false);
+        View view = inflater.inflate(R.layout.movie_list, container, false);
 
         popularMovieDataList = new ArrayList<>();
         adapter = new MovieAdapter(popularMovieDataList, getActivity());
         popularMovieLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
-        rvPopularMovie = view.findViewById(R.id.popular_movies_rv);
+        rvPopularMovie = view.findViewById(R.id.movies_rv);
         rvPopularMovie.setHasFixedSize(true);
         rvPopularMovie.setLayoutManager(popularMovieLayoutManager);
         rvPopularMovie.setAdapter(adapter);

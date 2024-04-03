@@ -39,7 +39,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/ivPopularPoster"
+        android:id="@+id/ivPoster"
         android:layout_width="100sp"
         android:layout_height="100sp"
         android:layout_margin="8sp"
