@@ -3,10 +3,13 @@ package com.example.tmdb.database;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.tmdb.domain.Collection;
 import com.example.tmdb.domain.Movie;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Repository {
 
@@ -52,6 +55,11 @@ public class Repository {
     void deleteAllLists() {
         new deleteAllCollectionsAsyncTask(dao).execute();
     }
+
+    public LiveData<List<Collection>> getAllCollections() {
+        return dao.getAllCollections();
+    }
+
 
     public static class insertCollectionAsyncTask extends AsyncTask<Collection, Void, Void> {
         private DAO asyncTaskDao;
