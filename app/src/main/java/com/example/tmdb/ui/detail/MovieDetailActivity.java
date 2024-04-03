@@ -52,7 +52,7 @@ public class MovieDetailActivity extends Activity {
     TextView tvTitle, tvGenres, tvPopularity, tvReleaseDate;
     ExpandableTextView etvOverview;
     Button btnToggle;
-    ImageButton btnUp;
+    ImageButton upBtn;
 
     @Inject
     TMDbAPI tmDbAPI;
@@ -86,7 +86,7 @@ public class MovieDetailActivity extends Activity {
         tvReleaseDate = findViewById(R.id.tvReleaseDate);
         etvOverview = findViewById(R.id.etvOverview);
         btnToggle = findViewById(R.id.btnToggle);
-        btnUp = findViewById(R.id.upButton);
+        upBtn = findViewById(R.id.upButton);
 
         castDataList = new ArrayList<>();
         castAdapter = new MovieCastAdapter(castDataList, this);
@@ -107,7 +107,9 @@ public class MovieDetailActivity extends Activity {
             etvOverview.toggle();
         });
 
-        btnUp.setOnClickListener(new View.OnClickListener() {
+
+        upBtn.setImageResource(R.drawable.ic_back);
+        upBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
