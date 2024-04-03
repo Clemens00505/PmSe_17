@@ -5,10 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.activity.ListsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLists"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="lists" />
+        android:padding="4dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add" />
 
 </FrameLayout>
