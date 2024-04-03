@@ -1,5 +1,6 @@
 package com.example.tmdb.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Insert;
@@ -8,6 +9,8 @@ import androidx.room.Update;
 
 import com.example.tmdb.domain.Collection;
 import com.example.tmdb.domain.Movie;
+
+import java.util.List;
 
 
 @Dao
@@ -32,5 +35,9 @@ public interface DAO {
 
     @Query("DELETE FROM movie_table WHERE :columnId = :objectId")
     void delete(String columnId, String objectId);
+
+    @Query("SELECT * FROM collection_table")
+    LiveData<List<Collection>> getAllCollections();
+
 
 }
