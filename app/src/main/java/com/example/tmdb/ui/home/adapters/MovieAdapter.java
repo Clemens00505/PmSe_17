@@ -99,7 +99,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.PopularMovie
                         intent.putExtra("poster", movie.getPoster_path());
                         intent.putExtra("overview", movie.getOverview());
                         intent.putExtra("popularity", movie.getPopularity());
-                        intent.putExtra("release_date", movie.getReleaseDate());
+                        intent.putExtra("release_date", movie.getRelease_date());
                         intent.putExtra("genres", (Serializable) response.getGenres());
                         view.getContext().startActivity(intent);
                     }, e -> {

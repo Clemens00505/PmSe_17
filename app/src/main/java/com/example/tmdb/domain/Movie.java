@@ -21,7 +21,7 @@ public class Movie implements Serializable {
     private String genre;
     private String runtime;
     @ColumnInfo(name = "release_date")
-    private String releaseDate;
+    private String release_date;
     private String original_language;
     private double voteAverage;
     private int rating;
@@ -30,7 +30,7 @@ public class Movie implements Serializable {
     private String backdrop_path;
     private double popularity;
 
-    public Movie(int id, String title, String tagline, String status, boolean adult, String genre, String runtime, String releaseDate, String original_language, double voteAverage, String overview, String poster_path, String backdrop_path, double popularity) {
+    public Movie(int id, String title, String tagline, String status, boolean adult, String genre, String runtime, String release_date, String original_language, double voteAverage, String overview, String poster_path, String backdrop_path, double popularity) {
         this.id = id;
         this.title = title;
         this.tagline = tagline;
@@ -38,7 +38,7 @@ public class Movie implements Serializable {
         this.adult = adult;
         this.genre = genre;
         this.runtime = runtime;
-        this.releaseDate = releaseDate;
+        this.release_date = release_date;
         this.original_language = original_language;
         this.voteAverage = voteAverage;
         this.overview = overview;
@@ -103,12 +103,12 @@ public class Movie implements Serializable {
         this.runtime = runtime;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public String getRelease_date() {
+        return release_date;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setRelease_Date(String release_date) {
+        this.release_date = release_date;
     }
 
     public String getOriginal_language() {
