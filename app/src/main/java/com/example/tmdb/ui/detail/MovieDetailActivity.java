@@ -7,6 +7,7 @@ import static com.example.tmdb.Api.TMDbAPI.TMDb_API_KEY;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.example.tmdb.domain.Cast;
 import com.example.tmdb.domain.Genres;
 import com.example.tmdb.domain.Movie;
 import com.example.tmdb.ui.detail.adapters.MovieCastAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import com.example.tmdb.App;
@@ -111,6 +113,22 @@ public class MovieDetailActivity extends Activity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+        // The FloatingActionButton click listener should be set here
+        FloatingActionButton fabAddToList = findViewById(R.id.fabAddToList);
+        fabAddToList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new Dialog(MovieDetailActivity.this);
+                dialog.setContentView(R.layout.dialog_add_to_list); // replace with your dialog layout name
+
+                Button buttonCancel = dialog.findViewById(R.id.buttonCancel);
+                buttonCancel.setOnClickListener(v -> dialog.dismiss());
+
+                // Set up the ListView and other elements of the dialog as needed
+
+                dialog.show();
             }
         });
 
