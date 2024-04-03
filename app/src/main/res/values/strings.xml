@@ -1,18 +1,19 @@
 <resources>
     <string name="app_name">TMDB</string>
     <string name="Synopsis">"Synopsis: "</string>
-    <string name="regisseur">Regisseur:</string>
-    <string name="acteurs">Actuers: </string>
-    <string name="duur_movie">Duur:</string>
-    <string name="Leeftijd">Leeftijd:</string>
-    <string name="Movie_taal">Taal:</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="regisseur">Director:</string>
+    <string name="acteurs">Actors:</string>
+    <string name="duur_movie">Duration:</string>
+    <string name="Leeftijd">Age:</string>
+    <string name="Movie_taal">Language:</string>
     <string name="save_settings_title">Save</string>
     <string name="dark_mode_title">Dark mode</string>
     <string name="language_title">Language</string>
     <string name="api_key_title">API key</string>
     <string name="api_settings_header">Settings</string>
-    <string name="action_settings">Settings\n</string>
     <string name="picture_of_movie">Picture of movie</string>
+    <string name="dutch">Dutch</string>
+    <string name="english">English</string>
+
+
 </resources>

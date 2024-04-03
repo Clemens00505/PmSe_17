@@ -9,24 +9,37 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toolbar;
+import android.widget.Switch;
+import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.tmdb.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 
 public class Settings extends Activity implements AdapterView.OnItemSelectedListener{
-    String[] languages = {"Dutch", "English"};
 
     ImageButton upBtn;
+
+    TextView apiKey;
+    TextInputEditText apiKeyInput;
+    TextView language;
+    Spinner languageInput;
+    TextView colorMode;
+    Switch colorModeSwitch;
+    Button save;
+
+
 
      @Override
     public void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
          setContentView(R.layout.activity_settings);
-         Toolbar toolbar = findViewById(R.id.toolbar);
+         String[] languages = {getResources().getString(R.string.dutch), getResources().getString(R.string.english)};
          upBtn = findViewById(R.id.upButton);
 
          upBtn.setImageResource(R.drawable.ic_back);
@@ -36,13 +49,18 @@ public class Settings extends Activity implements AdapterView.OnItemSelectedList
                  onBackPressed();
              }
          });
+         apiKey = findViewById(R.id.api_key_tv);
+         language = findViewById(R.id.language_tv);
+         colorMode = findViewById(R.id.darkmode_tv);
 
-         Spinner spinner = (Spinner) findViewById(R.id.language_spinner);
 
-         spinner.setOnItemSelectedListener(this);
+
+         languageInput = (Spinner) findViewById(R.id.language_spinner);
+
+         languageInput.setOnItemSelectedListener(this);
          ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, languages);
          arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-         spinner.setAdapter(arrayAdapter);
+         languageInput.setAdapter(arrayAdapter);
 
 
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TMDB</string>
+    <string name="Synopsis">Synopsis:</string>
+    <string name="regisseur">Regisseur:</string>
+    <string name="acteurs">Acteurs:</string>
+    <string name="duur_movie">Duur:</string>
+    <string name="Leeftijd">Leeftijd:</string>
+    <string name="Movie_taal">Taal:</string>
+    <string name="save_settings_title">Opslaan</string>
+    <string name="dark_mode_title">Donkere modus</string>
+    <string name="language_title">Taal</string>
+    <string name="api_key_title">API sleutel</string>
+    <string name="api_settings_header">Instellingen</string>
+    <string name="picture_of_movie">Foto van film</string>
+    <string name="dutch">Nederlands</string>
+    <string name="english">Engels</string>
+</resources>
