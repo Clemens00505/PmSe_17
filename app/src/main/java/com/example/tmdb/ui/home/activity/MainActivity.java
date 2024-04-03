@@ -4,15 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.R;
+import com.example.tmdb.ui.Settings;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -37,10 +43,13 @@ public class MainActivity extends AppCompatActivity {
         ImageView settingsIcon = findViewById(R.id.settings_icon);
         ImageView menuIcon = findViewById(R.id.menu_icon);
 
+
+
         settingsIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle click on settings icon
+               Intent intent = new Intent(v.getContext(), Settings.class);
+               v.getContext().startActivity(intent);
             }
         });
 
@@ -78,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     return new ListsFragment();
                 case 2:
                     return new UpcomingMoviesFragment();
+
                 default:
                     return null;
             }

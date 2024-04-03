@@ -49,10 +49,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.PopularMovie
         inflater = LayoutInflater.from(context);
     }
 
-    public void setPopularMovieList(ArrayList<Movie> movies) {
-        this.popularMovieList = movies;
-        this.notifyDataSetChanged();
-    }
 
     @NonNull
     @Override
