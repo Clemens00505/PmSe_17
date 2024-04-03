@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.Dagger.Modules.ApplicationModule;
 import com.example.tmdb.R;
+import com.example.tmdb.database.CollectionViewModel;
 import com.example.tmdb.domain.Cast;
 import com.example.tmdb.domain.Genres;
 import com.example.tmdb.domain.Movie;
@@ -53,6 +54,9 @@ public class MovieDetailActivity extends Activity {
     ExpandableTextView etvOverview;
     Button btnToggle;
     ImageButton upBtn;
+
+
+
 
     @Inject
     TMDbAPI tmDbAPI;
