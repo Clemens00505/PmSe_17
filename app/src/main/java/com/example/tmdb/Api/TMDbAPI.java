@@ -21,7 +21,6 @@ public interface TMDbAPI {
     Observable<ResponseNowPlaying> getNowPlaying(
             @Query("api_key") String api_key,
             @Query("page") int page
-
     );
 
 
@@ -48,5 +47,11 @@ public interface TMDbAPI {
     Observable<ResponseNowPlaying> getRecommendDetail(
             @Path("movie_id") int movie_id,
             @Query("api_key") String api_key
+    );
+
+    @GET(HttpClientModule.UPCOMING_MOVIES)
+    Observable<ResponseNowPlaying> getUpcomingMovies(
+            @Query("api_key") String api_key,
+            @Query("page") int page
     );
 }

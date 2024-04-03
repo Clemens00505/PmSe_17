@@ -10,4 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter list name" />
+
+    <!-- Submission Button -->
+    <Button
+        android:id="@+id/buttonCreate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create"
+        android:layout_marginTop="8dp" />
+
+    <!-- Cancellation Button -->
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:layout_marginTop="8dp" />
 </LinearLayout>

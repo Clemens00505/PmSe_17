@@ -7,6 +7,7 @@ import static com.example.tmdb.Api.TMDbAPI.TMDb_API_KEY;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,10 +23,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.Dagger.Modules.ApplicationModule;
 import com.example.tmdb.R;
+import com.example.tmdb.database.CollectionViewModel;
 import com.example.tmdb.domain.Cast;
 import com.example.tmdb.domain.Genres;
 import com.example.tmdb.domain.Movie;
 import com.example.tmdb.ui.detail.adapters.MovieCastAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import com.example.tmdb.App;
@@ -50,7 +53,10 @@ public class MovieDetailActivity extends Activity {
     TextView tvTitle, tvGenres, tvPopularity, tvReleaseDate;
     ExpandableTextView etvOverview;
     Button btnToggle;
-    ImageButton btnUp;
+    ImageButton upBtn;
+
+
+
 
     @Inject
     TMDbAPI tmDbAPI;
@@ -84,7 +90,7 @@ public class MovieDetailActivity extends Activity {
         tvReleaseDate = findViewById(R.id.tvReleaseDate);
         etvOverview = findViewById(R.id.etvOverview);
         btnToggle = findViewById(R.id.btnToggle);
-        btnUp = findViewById(R.id.upButton);
+        upBtn = findViewById(R.id.upButton);
 
         castDataList = new ArrayList<>();
         castAdapter = new MovieCastAdapter(castDataList, this);
@@ -105,10 +111,28 @@ public class MovieDetailActivity extends Activity {
             etvOverview.toggle();
         });
 
-        btnUp.setOnClickListener(new View.OnClickListener() {
+
+        upBtn.setImageResource(R.drawable.ic_back);
+        upBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+        // The FloatingActionButton click listener should be set here
+        FloatingActionButton fabAddToList = findViewById(R.id.fabAddToList);
+        fabAddToList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new Dialog(MovieDetailActivity.this);
+                dialog.setContentView(R.layout.dialog_add_to_list); // replace with your dialog layout name
+
+                Button buttonCancel = dialog.findViewById(R.id.buttonCancel);
+                buttonCancel.setOnClickListener(v -> dialog.dismiss());
+
+                // Set up the ListView and other elements of the dialog as needed
+
+                dialog.show();
             }
         });
 

@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Entity(tableName = "collection_table")
 public class Collection implements Serializable {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "list_id")
     @NonNull
     private int collectionId;
