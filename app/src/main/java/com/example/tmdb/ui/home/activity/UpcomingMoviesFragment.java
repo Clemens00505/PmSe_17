@@ -3,12 +3,27 @@ package com.example.tmdb.ui.home.activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tmdb.Api.TMDbAPI;
+import com.example.tmdb.App;
 import com.example.tmdb.R;
+import com.example.tmdb.domain.Movie;
+import com.example.tmdb.ui.home.adapters.MovieAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,50 +32,55 @@ import com.example.tmdb.R;
  */
 public class UpcomingMoviesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private MovieAdapter adapter;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @Inject
+    TMDbAPI tmDbAPI;
+
+    public RecyclerView rvUpcomingMovies;
+    public RecyclerView.LayoutManager upcomingMovieLayoutManager;
+    public List<Movie> upcomingMovieDataList;
 
     public UpcomingMoviesFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UpcomingMoviesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UpcomingMoviesFragment newInstance(String param1, String param2) {
-        UpcomingMoviesFragment fragment = new UpcomingMoviesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static UpcomingMoviesFragment newInstance() {
+        return new UpcomingMoviesFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        App.instance().appComponent().inject(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_upcoming_movies, container, false);
+        View view = inflater.inflate(R.layout.movie_list, container, false);
+
+        upcomingMovieDataList = new ArrayList<>();
+        adapter = new MovieAdapter(upcomingMovieDataList, getActivity());
+        upcomingMovieLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+        rvUpcomingMovies = view.findViewById(R.id.movies_rv);
+        rvUpcomingMovies.setHasFixedSize(true);
+        rvUpcomingMovies.setLayoutManager(upcomingMovieLayoutManager);
+        rvUpcomingMovies.setAdapter(adapter);
+
+        getUpcomingMovies();
+
+        return view;
+    }
+
+    public void getUpcomingMovies() {
+        tmDbAPI.getUpcomingMovies(TMDbAPI.TMDb_API_KEY, 1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                    upcomingMovieDataList.addAll(response.getResults());
+                    adapter.notifyDataSetChanged();
+                }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage()));
     }
 }
