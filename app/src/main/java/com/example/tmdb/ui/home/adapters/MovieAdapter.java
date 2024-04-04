@@ -68,6 +68,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
         Timber.d("onBindViewHolder: Binding data to MovieHolder at position %d", position);
         Movie movie = movieList.get(position);
         holder.tvMovieTitle.setText(movie.getTitle());
+        holder.tvReleaseDate.setText(movie.getRelease_date());
+        holder.tvRating.setText(String.valueOf(movie.getVote_average()));
+
+        // Check if tvReleaseDate and movie release date are not null
+        if (holder.tvReleaseDate != null && movie.getRelease_date() != null) {
+            holder.tvReleaseDate.setText(movie.getRelease_date());
+        } else {
+            Timber.e("tvReleaseDate or movie release date is null");
+        }
 
         // Log before loading the image
         Timber.d("Loading image for movie ID %d with URL: %s", movie.getId(), IMAGE_BASE_URL_500 + movie.getPoster_path());
@@ -118,11 +127,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
     public static class movieHolder extends RecyclerView.ViewHolder {
         private final TextView tvMovieTitle;
         private final ImageView ivPoster;
+        private final TextView tvReleaseDate;
+        private final TextView tvRating;
 
         public movieHolder(View itemView) {
             super(itemView);
             tvMovieTitle = itemView.findViewById(R.id.tvMovieTitle);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            tvReleaseDate = itemView.findViewById(R.id.tvReleaseDate);
+            tvRating = itemView.findViewById(R.id.tvRating);
         }
     }
 }

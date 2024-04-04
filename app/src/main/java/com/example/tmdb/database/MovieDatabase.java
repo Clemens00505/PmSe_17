@@ -9,7 +9,7 @@ import com.example.tmdb.domain.Collection;
 import com.example.tmdb.domain.Movie;
 
 
-@Database(entities = {Movie.class, Collection.class}, version = 2)
+@Database(entities = {Movie.class, Collection.class}, version = 3)
 public abstract class MovieDatabase extends RoomDatabase {
     public abstract DAO getDAO();
 
