@@ -30,4 +30,8 @@
     <string name="populair_movies">Populaire Films</string>
     <string name="my_lists">Mijn Lijsten</string>
     <string name="upcoming_movies">Aankomende Films</string>
+    <string name="enter_api_key">Voer API key in</string>
+    <string name="choose_language">Kies taal</string>
+    <string name="dark_mode_description">Schakel donkere modus in</string>
+    <string name="language_description">Voer gewenste taal in</string>
 </resources>

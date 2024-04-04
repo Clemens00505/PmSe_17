@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,7 +70,7 @@ public class PopularMoviesFragment extends Fragment {
     }
 
     public void getNowPlaying() {
-        tmDbAPI.getNowPlaying(TMDbAPI.TMDb_API_KEY, 1)
+        tmDbAPI.getNowPlaying(TMDbAPI.getApiKey(this.getContext()), 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -76,7 +78,10 @@ public class PopularMoviesFragment extends Fragment {
                         popularMovieDataList.addAll(response.getResults());
                         adapter.notifyDataSetChanged();
                     }
-                }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage()));
+                }, e -> {
+                    Timber.e(e, "Error fetching now popular movies: %s", e.getMessage());
+
+                });
     }
 
     public void setFilteredList(ArrayList<Movie> movieList) {

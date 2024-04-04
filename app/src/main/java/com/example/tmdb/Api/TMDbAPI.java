@@ -1,5 +1,10 @@
 package com.example.tmdb.Api;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import androidx.preference.PreferenceManager;
+
 import com.example.tmdb.Dagger.Modules.HttpClientModule;
 import com.example.tmdb.domain.ListDetailResponse;
 import com.example.tmdb.domain.ResponseCreditDetail;
@@ -19,7 +24,15 @@ public interface TMDbAPI {
     static final String IMAGE_BASE_URL_500 = "https://image.tmdb.org/t/p/w500";
     static final String IMAGE_BASE_URL_1280 = "https://image.tmdb.org/t/p/w1280";
 
+
     String TMDb_API_KEY = "e2510df5c4693ebfbf806cd9c6900aab";
+
+    static String getApiKey(Context context) {
+        SharedPreferences sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getString("pref_api_key", TMDb_API_KEY);
+    }
+
+
 
     @GET(HttpClientModule.NOW_ON_PLAYING)
     Observable<ResponseNowPlaying> getNowPlaying(

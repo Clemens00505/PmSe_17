@@ -75,7 +75,7 @@ public class UpcomingMoviesFragment extends Fragment {
     }
 
     public void getUpcomingMovies() {
-        tmDbAPI.getUpcomingMovies(TMDbAPI.TMDb_API_KEY, 1)
+        tmDbAPI.getUpcomingMovies(TMDbAPI.getApiKey(this.getContext()), 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {

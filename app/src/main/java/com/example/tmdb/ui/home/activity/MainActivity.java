@@ -10,7 +10,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -67,9 +70,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.i("theme", "onCreate in MainActivity");
         //setTheme(R.style.AppTheme_Light);
-
         updateTheme();
-        setLocale();
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -126,7 +128,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList(newText);
+                if(!newText.isBlank()) {
+                    filterList(newText);
+                }
                 return true;
             }
         });
@@ -192,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     private void filterList(String text) {
+        Log.i("lala", "dit is de text van de searchview:" + text + "!");
         int currentPosition = viewPager.getCurrentItem();
         Fragment fragment = fragmentAdapter.createFragment(currentPosition);
 
@@ -204,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
             }
             Log.d("MainActivity", "Filtered list size: " + filteredList.size());
             if (filteredList.isEmpty()) {
-                Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "No data found1", Toast.LENGTH_SHORT).show();
             } else {
                 ((PopularMoviesFragment) fragment).setFilteredList(filteredList);
             }
@@ -217,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
             }
             Log.d("MainActivity", "Filtered list size: " + filteredList.size());
             if (filteredList.isEmpty()) {
-                Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "No data found2", Toast.LENGTH_SHORT).show();
             } else {
                 ((ListsFragment) fragment).setFilteredList(filteredList);
             }
@@ -230,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
             }
             Log.d("MainActivity", "Filtered list size: " + filteredList.size());
             if (filteredList.isEmpty()) {
-                Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "No data found3", Toast.LENGTH_SHORT).show();
             } else {
                 ((UpcomingMoviesFragment) fragment).setFilteredList(filteredList);
             }
@@ -271,26 +276,37 @@ public class MainActivity extends AppCompatActivity {
     private void fetchPopularMovies() {
         // Fetch popular movies from the API
         // Example code:
-        tmDbAPI.getPopularMovie(TMDbAPI.TMDb_API_KEY, 1)
+        tmDbAPI.getPopularMovie(TMDbAPI.getApiKey(this), 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     popularMoviesList = response.getResults();
                     // Notify fragments or update UI as needed
-                }, e -> Timber.e(e, "Error fetching popular movies: %s", e.getMessage()));
+                }, e -> {
+                    Timber.e(e, "Error fetching popular movies: %s", e.getMessage());
+                    Toast.makeText(this, "Invalid API Key! Please check your settings.", Toast.LENGTH_SHORT).show();
+                });
+
+
     }
 
     private void fetchUpcomingMovies() {
         // Fetch upcoming movies from the API
         // Example code:
-        tmDbAPI.getUpcomingMovies(TMDbAPI.TMDb_API_KEY, 1)
+        tmDbAPI.getUpcomingMovies(TMDbAPI.getApiKey(this), 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     upcomingMoviesList = response.getResults();
                     // Notify fragments or update UI as needed
-                }, e -> Timber.e(e, "Error fetching upcoming movies: %s", e.getMessage()));
+                }, e -> {
+                    Timber.e(e, "Error fetching upcoming movies: %s", e.getMessage());
+                    Toast.makeText(this, "Invalid API Key! Please check your settings.", Toast.LENGTH_SHORT).show();
+                });
+
     }
+
+
     private void updateTheme() {
         sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
         boolean darkModeEnabled = sharedPreferences.getBoolean("pref_dark_theme", false);

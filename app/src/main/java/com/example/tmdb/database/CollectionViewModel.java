@@ -34,7 +34,7 @@
             }
             // Method to call repository to fetch movies for a specific list ID
             public void fetchMoviesForCollection(int listId) {
-                repository.fetchAndSaveMoviesFromList(listId)
+                repository.fetchAndSaveMoviesFromList(listId, getApplication())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(movies -> {

@@ -3,7 +3,8 @@ package com.example.tmdb.ui.detail;
 import static android.content.ContentValues.TAG;
 import static com.example.tmdb.Api.TMDbAPI.IMAGE_BASE_URL_1280;
 import static com.example.tmdb.Api.TMDbAPI.IMAGE_BASE_URL_500;
-import static com.example.tmdb.Api.TMDbAPI.TMDb_API_KEY;
+import static com.example.tmdb.Api.TMDbAPI.getApiKey;
+//import static com.example.tmdb.Api.TMDbAPI.TMDb_API_KEY;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -202,7 +203,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     public void getCastInfo() {
         Log.d(TAG, "Fetching cast info...");
         if (tmDbAPI != null) {
-            tmDbAPI.getCreditDetail(id, TMDb_API_KEY)
+            tmDbAPI.getCreditDetail(id, getApiKey(this))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(response -> {
@@ -227,7 +228,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     public void getRecommendMovie() {
         Log.d(TAG, "Fetching recommended movies...");
         if (tmDbAPI != null) {
-            tmDbAPI.getRecommendDetail(id, TMDb_API_KEY)
+            tmDbAPI.getRecommendDetail(id, getApiKey(this))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(response -> {

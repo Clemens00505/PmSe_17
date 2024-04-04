@@ -21,12 +21,17 @@
     <string name="my_lists">My Lists</string>
     <string name="upcoming_movies">Upcoming Movies</string>
 
-
-
+    <string name="filtering">Filter by</string>
+    <string name="sorting">Sorting by</string>
+    <string name="enter_api_key">Enter API Key</string>
+    <string name="choose_language">Choose language</string>
+    <string name="dark_mode_description">Enable dark mode</string>
+    <string name="language_description">Enter preferred language</string>
+    <string name="api_key_description">Change API key, this changes the account</string>
 
     <string-array name="available_languages">
-        <item>English</item>
-        <item>Dutch</item>
+        <item>@string/english</item>
+        <item>@string/dutch</item>
     </string-array>
 
     <string-array name="pref_languages">
@@ -34,22 +39,12 @@
         <item>nl</item>
     </string-array>
 
-
-
     <string name="standard_api">e2510df5c4693ebfbf806cd9c6900aab</string>
-    <string name="api_key_description">Change API key, this changes the account</string>
     <string name="pref_api_key">pref_api_key</string>
     <string name="pref_language">pref_language</string>
     <string name="pref_theme">pref_theme</string>
     <string name="pref_dark_theme">pref_dark_theme</string>
 
-
-    <string name="filtering">Filter by</string>
-    <string name="sorting">Sorting by</string>
-    <string name="enter_api_key">Enter API Key</string>
-    <string name="choose_language">Choose language</string>
-    <string name="dark_mode_description">Enable dark mode</string>
-    <string name="language_description">Enter prefered language</string>
 
 
 </resources>

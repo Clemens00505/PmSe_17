@@ -1,7 +1,7 @@
 package com.example.tmdb.ui.home.adapters;
 
 import static com.example.tmdb.Api.TMDbAPI.IMAGE_BASE_URL_500;
-import static com.example.tmdb.Api.TMDbAPI.TMDb_API_KEY;
+//import static com.example.tmdb.Api.TMDbAPI.TMDb_API_KEY;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import retrofit2.HttpException;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
@@ -119,7 +121,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
 
         holder.itemView.setOnClickListener(view -> {
             Timber.d("Item clicked at position %d", position);
-            tmDbAPI.getMovieDetail(movie.getId(), TMDb_API_KEY)
+            tmDbAPI.getMovieDetail(movie.getId(), TMDbAPI.getApiKey(this.context))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(response -> {
@@ -134,8 +136,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
                         intent.putExtra("release_date", movie.getRelease_date());
                         intent.putExtra("genres", (Serializable) response.getGenres());
                         view.getContext().startActivity(intent);
+
+
                     }, e -> {
                         Timber.e(e, "Error fetching movie details for movie with ID %d: %s", movie.getId(), e.getMessage());
+                        Toast.makeText(context, "Invalid API Key! Please check your settings.", Toast.LENGTH_SHORT).show();
                     });
         });
     }

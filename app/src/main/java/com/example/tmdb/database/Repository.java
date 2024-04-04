@@ -1,8 +1,9 @@
 package com.example.tmdb.database;
 
-import static com.example.tmdb.Api.TMDbAPI.TMDb_API_KEY;
+//import static com.example.tmdb.Api.TMDbAPI.TMDb_API_KEY;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -13,6 +14,7 @@ import com.example.tmdb.Api.CreateListResponse;
 import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.domain.Collection;
 import com.example.tmdb.domain.Movie;
+import com.example.tmdb.ui.home.activity.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +72,8 @@ public class Repository {
         return dao.getAllCollections();
     }
 
-    public Observable<List<Movie>> fetchAndSaveMoviesFromList(int listId) {
-        return tmDbAPI.getListDetail(listId, TMDb_API_KEY)
+    public Observable<List<Movie>> fetchAndSaveMoviesFromList(int listId, Context context) {
+        return tmDbAPI.getListDetail(listId, TMDbAPI.getApiKey(context))
                 .flatMap(listDetailResponse -> {
                     List<Movie> movies = listDetailResponse.getItems(); // Change "getMovies()" to "getItems()" or whatever the actual method name is based on the JSON structure
                     insertAllMovies(new ArrayList<>(movies));
