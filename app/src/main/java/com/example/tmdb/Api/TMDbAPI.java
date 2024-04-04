@@ -1,6 +1,7 @@
 package com.example.tmdb.Api;
 
 import com.example.tmdb.Dagger.Modules.HttpClientModule;
+import com.example.tmdb.domain.ListDetailResponse;
 import com.example.tmdb.domain.ResponseCreditDetail;
 import com.example.tmdb.domain.ResponseMovieDetail;
 import com.example.tmdb.domain.ResponseNowPlaying;
@@ -64,6 +65,10 @@ public interface TMDbAPI {
             "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjUxMGRmNWM0NjkzZWJmYmY4MDZjZDljNjkwMGFhYiIsInN1YiI6IjY1Zjk0ZmRmYWJkZWMwMDE4NjZiM2NjOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VF9AifirswDTY5KXFktfN-nmDydEye6WoQK6owmDtQg"})
     Observable<CreateListResponse> createList(@Body CreateListRequest requestBody);
 
-
+    @GET("3/list/{list_id}")
+    Observable<ListDetailResponse> getListDetail(
+            @Path("list_id") int listId,
+            @Query("api_key") String apiKey
+    );
 }
 
