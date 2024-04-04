@@ -1,24 +1,31 @@
 package com.example.tmdb.database;
 
+import static com.example.tmdb.Api.TMDbAPI.TMDb_API_KEY;
+
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.domain.Collection;
 import com.example.tmdb.domain.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
+
 public class Repository {
 
     private final DAO dao;
+    private TMDbAPI tmDbAPI;
 
 
     Repository(Application application) {
         MovieDatabase db = MovieDatabase.getDatabase(application);
         dao = db.getDAO();
+
     }
     void insertMovie(Movie movie) {
         new insertMovieAsyncTask(dao).execute(movie);
@@ -60,7 +67,14 @@ public class Repository {
         return dao.getAllCollections();
     }
 
-
+    public Observable<List<Movie>> fetchAndSaveMoviesFromList(int listId) {
+        return tmDbAPI.getListDetail(listId, TMDb_API_KEY)
+                .flatMap(listDetailResponse -> {
+                    List<Movie> movies = listDetailResponse.getItems(); // Change "getMovies()" to "getItems()" or whatever the actual method name is based on the JSON structure
+                    insertAllMovies(new ArrayList<>(movies));
+                    return Observable.just(movies);
+                });
+    }
     public static class insertCollectionAsyncTask extends AsyncTask<Collection, Void, Void> {
         private DAO asyncTaskDao;
         insertCollectionAsyncTask(DAO dao) {
