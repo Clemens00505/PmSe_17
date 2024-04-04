@@ -27,6 +27,8 @@ public class HttpClientModule {
     public static final String MOVIE_DETAILS = "movie/";
     public static final String UPCOMING_MOVIES = "movie/upcoming";
 
+    public static final String LISTS = "list";
+
 
     @Provides
     @AppScope

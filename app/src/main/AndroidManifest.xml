@@ -30,4 +30,5 @@
         <activity android:name=".ui.Settings" />
     </application>
 
+
 </manifest>

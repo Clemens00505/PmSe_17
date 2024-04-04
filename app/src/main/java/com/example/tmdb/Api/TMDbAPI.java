@@ -5,7 +5,10 @@ import com.example.tmdb.domain.ResponseCreditDetail;
 import com.example.tmdb.domain.ResponseMovieDetail;
 import com.example.tmdb.domain.ResponseNowPlaying;
 
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -54,4 +57,13 @@ public interface TMDbAPI {
             @Query("api_key") String api_key,
             @Query("page") int page
     );
+
+    // Example assuming name is the only user-provided value
+    @POST("list")
+    @Headers({"Content-Type: application/json",
+            "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjUxMGRmNWM0NjkzZWJmYmY4MDZjZDljNjkwMGFhYiIsInN1YiI6IjY1Zjk0ZmRmYWJkZWMwMDE4NjZiM2NjOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VF9AifirswDTY5KXFktfN-nmDydEye6WoQK6owmDtQg"})
+    Observable<CreateListResponse> createList(@Body CreateListRequest requestBody);
+
+
 }
+
