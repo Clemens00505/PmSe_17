@@ -8,12 +8,14 @@ import static com.example.tmdb.Api.TMDbAPI.TMDb_API_KEY;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ImageButton;
 
@@ -162,10 +164,33 @@ public class MovieDetailActivity extends Activity {
         } else if (labelPS.size() == 0) {
             tvGenres.setText("");
         }
+
+        RatingBar ratingBar = findViewById(R.id.ratingBar);
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                saveRating(rating, id);
+            }
+        });
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        float savedRating = sharedPreferences.getFloat(String.valueOf(id), 0.0f); // use the movie's id as the key
+        ratingBar.setRating(savedRating);
+
         recommendDataList = new ArrayList<>(); // Initialize the list
         getCastInfo();
         getRecommendMovie();
+
     }
+
+    private void saveRating(float rating, int movieId) {
+        Log.d("RatingBar", "saveRating: rating=" + rating);
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putFloat(String.valueOf(movieId), rating);
+        myEdit.apply();
+    }
+
 
 
     @SuppressLint("NotifyDataSetChanged")

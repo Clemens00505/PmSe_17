@@ -26,7 +26,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- MovieDetailActivity -->
-        <activity android:name=".ui.detail.MovieDetailActivity" />
+        <activity android:name=".ui.detail.MovieDetailActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="www.example.com"
+                    android:scheme="http"
+                    android:pathPattern="/movies/.*" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.Settings" />
         <activity android:name=".ui.home.activity.ListDetailActivity" />
 
