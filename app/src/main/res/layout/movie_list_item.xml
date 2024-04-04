@@ -35,25 +35,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Text 1"
+                android:text="Genre"
                 android:layout_margin="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Text 2"
+                android:text="Age"
                 android:layout_margin="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Text 3"
+                android:text="Duur"
                 android:layout_margin="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Text 4"
+                android:text="Rating"
                 android:layout_margin="8dp" />
 
         </GridLayout>
