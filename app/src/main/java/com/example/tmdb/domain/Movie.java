@@ -23,14 +23,15 @@ public class Movie implements Serializable {
     @ColumnInfo(name = "release_date")
     private String release_date;
     private String original_language;
-    private double voteAverage;
+    @ColumnInfo(name = "vote_average")
+    private double vote_average;
     private int rating;
     private String overview;
     private String poster_path;
     private String backdrop_path;
     private double popularity;
 
-    public Movie(int id, String title, String tagline, String status, boolean adult, String genre, String runtime, String release_date, String original_language, double voteAverage, String overview, String poster_path, String backdrop_path, double popularity) {
+    public Movie(int id, String title, String tagline, String status, boolean adult, String genre, String runtime, String release_date, String original_language, double vote_average, String overview, String poster_path, String backdrop_path, double popularity) {
         this.id = id;
         this.title = title;
         this.tagline = tagline;
@@ -40,7 +41,7 @@ public class Movie implements Serializable {
         this.runtime = runtime;
         this.release_date = release_date;
         this.original_language = original_language;
-        this.voteAverage = voteAverage;
+        this.vote_average = vote_average;
         this.overview = overview;
         this.poster_path = poster_path;
         this.backdrop_path = backdrop_path;
@@ -119,12 +120,12 @@ public class Movie implements Serializable {
         this.original_language = original_language;
     }
 
-    public double getVoteAverage() {
-        return voteAverage;
+    public double getVote_average() {
+        return vote_average;
     }
 
-    public void setVoteAverage(double voteAverage) {
-        this.voteAverage = voteAverage;
+    public void setVote_average(double vote_average) {
+        this.vote_average = vote_average;
     }
 
     public int getRating() {

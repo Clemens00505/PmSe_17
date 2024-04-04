@@ -45,12 +45,14 @@
                 android:layout_margin="8dp" />
 
             <TextView
+                android:id="@+id/tvReleaseDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Duur"
+                android:text="ReleaseDate"
                 android:layout_margin="8dp" />
 
             <TextView
+                android:id="@+id/tvRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rating"
