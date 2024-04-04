@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.tmdb.R;
 import com.example.tmdb.domain.Collection;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.ViewHolder> {
@@ -65,5 +67,9 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
 
     public interface OnCollectionClickListener {
         void onCollectionClick(Collection collection);
+    }
+
+    private ArrayList<Collection> getCollectionList() {
+        return (ArrayList<Collection>) collections;
     }
 }

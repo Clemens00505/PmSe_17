@@ -50,10 +50,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
         inflater = LayoutInflater.from(context);
     }
 
-
     public void setMovieList(ArrayList<Movie> movies) {
         this.movieList = movies;
         this.notifyDataSetChanged();
+    }
+
+    public ArrayList<Movie> getMovieList() {
+        return (ArrayList<Movie>) movieList;
     }
 
     @NonNull
@@ -72,7 +75,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
         holder.tvReleaseDate.setText(movie.getRelease_date());
         holder.tvRating.setText(String.valueOf(movie.getVote_average()));
         holder.tvAge.setText(movie.isAdult() ? "18+" : "13+");
-        
+
 
         // Check if tvReleaseDate and movie release date are not null
         if (holder.tvReleaseDate != null && movie.getRelease_date() != null) {

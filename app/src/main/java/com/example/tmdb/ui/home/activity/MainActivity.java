@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.tmdb.Api.TMDbAPI;
+import com.example.tmdb.App;
 import com.example.tmdb.R;
 import com.example.tmdb.domain.Collection;
 import com.example.tmdb.domain.Movie;
@@ -33,6 +35,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,12 +54,14 @@ public class MainActivity extends AppCompatActivity {
     private String[] tabLabels = new String[]{"Populair Movies", "My Lists", "Upcoming Movies"};
     ImageButton menuBtn;
     SearchView searchView;
+    private boolean listsLoaded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        App.instance().appComponent().inject(this);
         ImageView settingsIcon = findViewById(R.id.settings_icon);
         menuBtn = findViewById(R.id.menu_icon);
         viewPager = findViewById(R.id.view_pager);
@@ -62,21 +70,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tab_layout);
         searchView = findViewById(R.id.search_view);
         searchView.clearFocus();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filterList(newText);
-                return true;
-            }
-        });
-
-
-
+        upcomingMoviesList = new ArrayList<>();
+        popularMoviesList = new ArrayList<>();
+        fetchPopularMovies();
+        fetchUpcomingMovies();
 
         settingsIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,65 +108,121 @@ public class MainActivity extends AppCompatActivity {
             tab.setText(tabLabels[position]);
         }).attach();
 
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                // When a page is selected, retrieve the data from the corresponding fragment
-                Fragment currentFragment = fragmentAdapter.createFragment(position);
-                if (currentFragment instanceof PopularMoviesFragment) {
-                    popularMoviesList = ((PopularMoviesFragment) currentFragment).getMovieList();
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-                } else if (currentFragment instanceof ListsFragment) {
-                    collectionList = ((ListsFragment) currentFragment).getCollectionsFromDataSource();
-
-                } else if (currentFragment instanceof UpcomingMoviesFragment) {
-                    upcomingMoviesList = ((UpcomingMoviesFragment) currentFragment).getMovieList();
-                }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
             }
         });
 
     }
 
-    private void filterList (String text) {
+//    private void filterList (String text) {
+//        int currentPosition = viewPager.getCurrentItem();
+//        if (currentPosition == 0) {
+//            ArrayList<Movie> filteredList = new ArrayList<>();
+//            for (Movie movie : popularMoviesList) {
+//                if (movie.getTitle().toLowerCase().contains(text.toLowerCase())) {
+//                    filteredList.add(movie);
+//                }
+//            }
+//            Log.d("MainActivity", "Filtered list size: " + filteredList.size());
+//            if (filteredList.isEmpty()) {
+//                Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+//            } else {
+//                Fragment fragment = fragmentAdapter.createFragment(currentPosition);
+//                if (fragment instanceof PopularMoviesFragment) {
+//                    // Call the method to update the fragment with the filtered list
+//                    ((PopularMoviesFragment) fragment).setFilteredList(filteredList);
+//                }
+//            }
+//
+//        } else if (currentPosition == 1) {
+//            ArrayList<Collection> filteredList = new ArrayList<>();
+//            for (Collection collection : collectionList) {
+//                if (collection.getName().toLowerCase().contains(text.toLowerCase())) {
+//                    filteredList.add(collection);
+//                }
+//            }
+//            Log.d("MainActivity", "Filtered list size: " + filteredList.size());
+//            if (filteredList.isEmpty()) {
+//                Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+//            } else {
+//                Fragment fragment = fragmentAdapter.createFragment(currentPosition);
+//                if (fragment instanceof PopularMoviesFragment) {
+//                    // Call the method to update the fragment with the filtered list
+//                    ((ListsFragment) fragment).setFilteredList(filteredList);
+//                }
+//            }
+//
+//        } else if (currentPosition == 2) {
+//            ArrayList<Movie> filteredList = new ArrayList<>();
+//            for (Movie movie : upcomingMoviesList) {
+//                if (movie.getTitle().toLowerCase().contains(text.toLowerCase())) {
+//                    filteredList.add(movie);
+//                }
+//            }
+//            Log.d("MainActivity", "Filtered list size: " + filteredList.size());
+//            if (filteredList.isEmpty()) {
+//                Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+//            } else {
+//                Fragment fragment = fragmentAdapter.createFragment(currentPosition);
+//                if (fragment instanceof UpcomingMoviesFragment) {
+//                    // Call the method to update the fragment with the filtered list
+//                    ((UpcomingMoviesFragment) fragment).setFilteredList(filteredList);
+//                }
+//            }
+//        }
+//    }
+
+    private void filterList(String text) {
         int currentPosition = viewPager.getCurrentItem();
-        if (currentPosition == 0) {
-            List<Movie> filteredList = new ArrayList<>();
+        Fragment fragment = fragmentAdapter.createFragment(currentPosition);
+
+        if (currentPosition == 0 && fragment instanceof PopularMoviesFragment) {
+            ArrayList<Movie> filteredList = new ArrayList<>();
             for (Movie movie : popularMoviesList) {
                 if (movie.getTitle().toLowerCase().contains(text.toLowerCase())) {
                     filteredList.add(movie);
                 }
             }
+            Log.d("MainActivity", "Filtered list size: " + filteredList.size());
             if (filteredList.isEmpty()) {
                 Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+            } else {
+                ((PopularMoviesFragment) fragment).setFilteredList(filteredList);
             }
-
-        } else if (currentPosition == 1) {
-            List<Collection> filteredList = new ArrayList<>();
+        } else if (currentPosition == 1 && fragment instanceof ListsFragment) {
+            ArrayList<Collection> filteredList = new ArrayList<>();
             for (Collection collection : collectionList) {
                 if (collection.getName().toLowerCase().contains(text.toLowerCase())) {
                     filteredList.add(collection);
                 }
             }
+            Log.d("MainActivity", "Filtered list size: " + filteredList.size());
             if (filteredList.isEmpty()) {
                 Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
             } else {
-
+                ((ListsFragment) fragment).setFilteredList(filteredList);
             }
-
-        } else if (currentPosition == 2) {
-            List<Movie> filteredList = new ArrayList<>();
+        } else if (currentPosition == 2 && fragment instanceof UpcomingMoviesFragment) {
+            ArrayList<Movie> filteredList = new ArrayList<>();
             for (Movie movie : upcomingMoviesList) {
                 if (movie.getTitle().toLowerCase().contains(text.toLowerCase())) {
                     filteredList.add(movie);
-                } else {
-
                 }
             }
+            Log.d("MainActivity", "Filtered list size: " + filteredList.size());
             if (filteredList.isEmpty()) {
                 Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
             } else {
-
+                ((UpcomingMoviesFragment) fragment).setFilteredList(filteredList);
             }
         }
     }
@@ -201,5 +254,29 @@ public class MainActivity extends AppCompatActivity {
         public int getItemCount() {
             return 3;
         }
+    }
+
+    private void fetchPopularMovies() {
+        // Fetch popular movies from the API
+        // Example code:
+        tmDbAPI.getPopularMovie(TMDbAPI.TMDb_API_KEY, 1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                    popularMoviesList = response.getResults();
+                    // Notify fragments or update UI as needed
+                }, e -> Timber.e(e, "Error fetching popular movies: %s", e.getMessage()));
+    }
+
+    private void fetchUpcomingMovies() {
+        // Fetch upcoming movies from the API
+        // Example code:
+        tmDbAPI.getUpcomingMovies(TMDbAPI.TMDb_API_KEY, 1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                    upcomingMoviesList = response.getResults();
+                    // Notify fragments or update UI as needed
+                }, e -> Timber.e(e, "Error fetching upcoming movies: %s", e.getMessage()));
     }
 }

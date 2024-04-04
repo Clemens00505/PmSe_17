@@ -33,6 +33,7 @@ import androidx.lifecycle.ViewModelProvider;
 public class ListsFragment extends Fragment {
 
     private CollectionViewModel collectionViewModel;
+    private CollectionAdapter adapter;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -92,7 +93,7 @@ public class ListsFragment extends Fragment {
         // Set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.rvLists);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        final CollectionAdapter adapter = new CollectionAdapter(new ArrayList<>(), collection -> {
+        adapter = new CollectionAdapter(new ArrayList<>(), collection -> {
             Intent detailIntent = new Intent(getContext(), ListDetailActivity.class);
             detailIntent.putExtra("collection_key", collection); // Ensure Collection implements Serializable
             startActivity(detailIntent);
@@ -157,5 +158,9 @@ public class ListsFragment extends Fragment {
     public List<Collection> getCollectionsFromDataSource() {
         // Fetch your collections from the database or other data source
         return new ArrayList<>(); // Return the actual list of collections
-}
     }
+
+    public void setFilteredList (ArrayList<Collection> filteredList) {
+        adapter.setCollections(filteredList);
+    }
+}
