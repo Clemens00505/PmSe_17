@@ -76,4 +76,8 @@ public class PopularMoviesFragment extends Fragment {
                 }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage()));
     }
 
+    public List<Movie> getMovieList() {
+        return popularMovieDataList;
+    }
+
 }

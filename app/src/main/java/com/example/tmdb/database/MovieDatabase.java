@@ -1,33 +1,38 @@
-package com.example.tmdb.database;
+    package com.example.tmdb.database;
 
-import android.content.Context;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
-import androidx.room.Database;
+    import android.content.Context;
+    import androidx.room.Room;
+    import androidx.room.RoomDatabase;
+    import androidx.room.Database;
 
-import com.example.tmdb.domain.Collection;
-import com.example.tmdb.domain.Movie;
+    import com.example.tmdb.domain.Collection;
+    import com.example.tmdb.domain.Movie;
 
 
-@Database(entities = {Movie.class, Collection.class}, version = 2)
+@Database(entities = {Movie.class, Collection.class}, version = 4)
 public abstract class MovieDatabase extends RoomDatabase {
     public abstract DAO getDAO();
 
-    private static MovieDatabase INSTANCE;
 
-    public static MovieDatabase getDatabase(final Context context) {
-        if (INSTANCE == null) {
-            synchronized (Database.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    MovieDatabase.class, "tmdb_database")
-                            .fallbackToDestructiveMigration()
-                            .build();
-                }
-            }
-        }
-        return INSTANCE;
+    public void saveListLocally(Collection collection) {
+        new Repository.insertCollectionAsyncTask(getDAO()).execute(collection);
     }
 
-}
+    private static MovieDatabase INSTANCE;
+
+        public static MovieDatabase getDatabase(final Context context) {
+            if (INSTANCE == null) {
+                synchronized (Database.class) {
+                    if (INSTANCE == null) {
+                        INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                                        MovieDatabase.class, "tmdb_database")
+                                .fallbackToDestructiveMigration()
+                                .build();
+                    }
+                }
+            }
+            return INSTANCE;
+        }
+
+    }
 

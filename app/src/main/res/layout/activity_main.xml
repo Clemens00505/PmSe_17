@@ -22,7 +22,7 @@
         android:layout_toEndOf="@id/settings_icon"
         android:layout_toStartOf="@id/menu_icon" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/menu_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
