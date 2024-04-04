@@ -20,4 +20,5 @@
     <string name="cast">Volledige Cast</string>
     <string name="popularity">Populariteit</string>
     <string name="api_key_description">Verander de API key, dit verandert het account</string>
+    <string name="release_date">Verschijningsdatum</string>
 </resources>
