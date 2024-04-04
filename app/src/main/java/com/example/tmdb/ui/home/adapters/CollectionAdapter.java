@@ -13,23 +13,25 @@ import java.util.List;
 public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.ViewHolder> {
 
     private List<Collection> collections;
+    private OnCollectionClickListener listener;
 
-    public CollectionAdapter(List<Collection> collections) {
+    public CollectionAdapter(List<Collection> collections, OnCollectionClickListener listener) {
         this.collections = collections;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_collection, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, listener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Collection collection = collections.get(position);
         holder.tvListTitle.setText(collection.getName());
-        // Set more data here if necessary
+        // Additional binding logic here if necessary
     }
 
     @Override
@@ -38,18 +40,30 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.Vi
     }
 
     public void setCollections(List<Collection> newCollections) {
-        this.collections = newCollections;
-        notifyDataSetChanged();
+        collections = newCollections; // Update your collections list
+        notifyDataSetChanged(); // Notify any registered observers that the data set has changed.
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvListTitle;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, final OnCollectionClickListener listener) {
             super(itemView);
             tvListTitle = itemView.findViewById(R.id.tvListTitle);
-            // Initialize other views here if you have more
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Collection clickedItem = collections.get(position); // Direct access to collections
+                        listener.onCollectionClick(clickedItem);
+                    }
+                }
+            });
         }
     }
 
+    public interface OnCollectionClickListener {
+        void onCollectionClick(Collection collection);
+    }
 }
