@@ -14,6 +14,7 @@
     <string name="picture_of_movie">Picture of movie</string>
     <string name="dutch">Dutch</string>
     <string name="english">English</string>
-
+    <string name="filtering">Filter by</string>
+    <string name="sorting">Sorting by</string>
 
 </resources>

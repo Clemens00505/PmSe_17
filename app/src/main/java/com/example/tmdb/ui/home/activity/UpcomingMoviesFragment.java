@@ -83,4 +83,8 @@ public class UpcomingMoviesFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                 }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage()));
     }
+
+    public List<Movie> getMovieList() {
+        return upcomingMovieDataList;
+    }
 }

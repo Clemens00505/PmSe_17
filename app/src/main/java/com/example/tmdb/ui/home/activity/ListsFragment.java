@@ -154,7 +154,7 @@ public class ListsFragment extends Fragment {
     }
 
     // This is a placeholder, replace it with your actual method to fetch collections
-    private List<Collection> getCollectionsFromDataSource() {
+    public List<Collection> getCollectionsFromDataSource() {
         // Fetch your collections from the database or other data source
         return new ArrayList<>(); // Return the actual list of collections
 }

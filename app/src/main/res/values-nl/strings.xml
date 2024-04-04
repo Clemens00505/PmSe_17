@@ -15,4 +15,6 @@
     <string name="picture_of_movie">Foto van film</string>
     <string name="dutch">Nederlands</string>
     <string name="english">Engels</string>
+    <string name="filtering">Filteren op</string>
+    <string name="sorting">Sorteren op</string>
 </resources>
