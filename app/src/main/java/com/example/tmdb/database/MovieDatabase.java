@@ -13,7 +13,12 @@
 public abstract class MovieDatabase extends RoomDatabase {
     public abstract DAO getDAO();
 
-        private static MovieDatabase INSTANCE;
+
+    public void saveListLocally(Collection collection) {
+        new Repository.insertCollectionAsyncTask(getDAO()).execute(collection);
+    }
+
+    private static MovieDatabase INSTANCE;
 
         public static MovieDatabase getDatabase(final Context context) {
             if (INSTANCE == null) {

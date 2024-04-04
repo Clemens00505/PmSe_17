@@ -4,9 +4,12 @@ import static com.example.tmdb.Api.TMDbAPI.TMDb_API_KEY;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.tmdb.Api.CreateListRequest;
+import com.example.tmdb.Api.CreateListResponse;
 import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.domain.Collection;
 import com.example.tmdb.domain.Movie;
@@ -75,6 +78,15 @@ public class Repository {
                     return Observable.just(movies);
                 });
     }
+    public Observable<CreateListResponse> createListInApi(CreateListRequest createListRequest) {
+        return tmDbAPI.createList(createListRequest)
+                .flatMap(createListResponse -> {
+                    // Optionally log the response or perform additional actions
+                    Log.d("Repository", "List created with ID: " + createListResponse.getList_id());
+                    return Observable.just(createListResponse);
+                });
+    }
+
     public static class insertCollectionAsyncTask extends AsyncTask<Collection, Void, Void> {
         private DAO asyncTaskDao;
         insertCollectionAsyncTask(DAO dao) {
