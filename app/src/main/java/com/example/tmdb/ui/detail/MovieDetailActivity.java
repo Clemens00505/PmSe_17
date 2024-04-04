@@ -147,8 +147,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         title = getIntent().getStringExtra("title");
         id = getIntent().getIntExtra("id", 0);
         tvTitle.setText(title);
-        tvPopularity.setText("Popularity : " + getIntent().getDoubleExtra("popularity", 0));
-        tvReleaseDate.setText("Release Date : " + getIntent().getStringExtra("release_date"));
+        tvPopularity.setText(R.string.popularity + ": " + getIntent().getDoubleExtra("popularity", 0));
+        tvReleaseDate.setText(R.string.release_date + ": " + getIntent().getStringExtra("release_date"));
 
         Picasso.get().load(IMAGE_BASE_URL_1280 + getIntent().getStringExtra("backdrop")).into(ivHorizontalPoster);
         Picasso.get().load(IMAGE_BASE_URL_500 + getIntent().getStringExtra("poster")).into(ivVerticalPoster);
@@ -247,10 +247,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         boolean darkModeEnabled = sharedPreferences.getBoolean("pref_dark_theme", false);
         if (darkModeEnabled) {
             setTheme(R.style.AppTheme_Dark);
-            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             setTheme(R.style.AppTheme_Light);
-            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
 

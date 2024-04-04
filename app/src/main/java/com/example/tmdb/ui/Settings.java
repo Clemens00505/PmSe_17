@@ -1,6 +1,7 @@
 package com.example.tmdb.ui;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceManager;
+import java.util.Locale;
 
 import com.example.tmdb.R;
 
@@ -17,6 +19,7 @@ public class Settings extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 
     ImageButton upBtn;
+    Button saveBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         updateTheme();
@@ -37,6 +40,16 @@ public class Settings extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        saveBtn = findViewById(R.id.save_button);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateTheme();
+                setLocale();
+            }
+        });
+
     }
     
     private void updateTheme() {
@@ -49,6 +62,15 @@ public class Settings extends AppCompatActivity {
             setTheme(R.style.AppTheme_Light);
             //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+    }
+    private void setLocale() {
+        String languageCode = sharedPreferences.getString("pref_language", "en");
+       
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
     }
 
     @Override

@@ -17,4 +17,7 @@
     <string name="english">Engels</string>
     <string name="filtering">Filteren op</string>
     <string name="sorting">Sorteren op</string>
+    <string name="cast">Volledige Cast</string>
+    <string name="popularity">Populariteit</string>
+    <string name="api_key_description">Verander de API key, dit verandert het account</string>
 </resources>
