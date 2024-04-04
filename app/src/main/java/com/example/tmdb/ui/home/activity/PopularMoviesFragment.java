@@ -1,6 +1,7 @@
 package com.example.tmdb.ui.home.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,13 +72,22 @@ public class PopularMoviesFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                    popularMovieDataList.addAll(response.getResults());
-                    adapter.notifyDataSetChanged();
+                    if (isAdded()) { // Check if fragment is still added
+                        popularMovieDataList.addAll(response.getResults());
+                        adapter.notifyDataSetChanged();
+                    }
                 }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage()));
     }
 
-    public List<Movie> getMovieList() {
-        return popularMovieDataList;
+    public void setFilteredList(ArrayList<Movie> movieList) {
+        if (adapter != null) {
+            adapter.setMovieList(movieList);
+            adapter.notifyDataSetChanged(); // Notify adapter after setting the filtered list
+            Log.d("PopularMoviesFragment", "updated the adapters list with the filtered list");
+        } else {
+            // Adapter is not initialized yet, store the filtered list and set it later
+            popularMovieDataList = movieList;
+            Log.d("PopularMoviesFragment", "updated this fragments list with the filtered list");
+        }
     }
-
 }
