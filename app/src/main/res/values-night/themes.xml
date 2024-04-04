@@ -1,8 +1,13 @@
 <resources>
     <style name="AppTheme_Dark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Define dark mode styles -->
-        <item name="colorPrimary">#AD1457</item>
+        <item name="colorPrimary">@color/dark_mode_pink</item>
         <item name="colorPrimaryDark">#6A1B9A</item>
+        <item name="android:textColorPrimary">@color/off_white</item>
+        <item name="android:textColorSecondary">@color/light_gray</item>
+        <item name="android:textColorTertiary">@color/dark_gray</item>
+        <item name="android:colorBackground">@color/background_gray</item>
+        <item name="colorTertiary">@color/dark_gray</item>
         <!-- Add more dark mode styles as needed -->
     </style>
 </resources>

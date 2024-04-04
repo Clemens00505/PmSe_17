@@ -1,8 +1,12 @@
 <resources>
     <style name="AppTheme_Light" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Define light mode styles -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/light_mode_green</item>
+        <item name="colorPrimaryDark">#1F614D</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/dark_gray</item>
+        <item name="android:textColorTertiary">@color/light_gray</item>
+        <item name="colorTertiary">@color/dark_gray</item>
         <!-- Add more light mode styles as needed -->
     </style>
 </resources>
