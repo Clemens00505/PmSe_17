@@ -81,7 +81,6 @@ public class Repository {
     public Observable<CreateListResponse> createListInApi(CreateListRequest createListRequest) {
         return tmDbAPI.createList(createListRequest)
                 .flatMap(createListResponse -> {
-                    // Optionally log the response or perform additional actions
                     Log.d("Repository", "List created with ID: " + createListResponse.getList_id());
                     return Observable.just(createListResponse);
                 });
