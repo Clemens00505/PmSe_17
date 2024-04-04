@@ -3,7 +3,7 @@ package com.example.tmdb.Api;
 public class CreateListRequest {
     private String name;
     private String description = "Created via MyApp"; // Default description
-    private String language = "en"; // Default language
+
 
     public CreateListRequest(String name) {
         this.name = name;

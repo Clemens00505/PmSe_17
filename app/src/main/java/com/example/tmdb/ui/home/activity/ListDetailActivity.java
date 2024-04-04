@@ -40,7 +40,9 @@ public class ListDetailActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(CollectionViewModel.class);
         int listId = getIntent().getIntExtra("list_id", -1);
+        Log.d("ListDetailActivity", "List ID: " + listId);
         if (listId != -1) {
+            Log.e("ListDetailActivity", "Invalid list ID");
             viewModel.fetchMoviesForCollection(listId);
             viewModel.getMoviesInCollection().observe(this, updatedMovies -> {
                 // Here, you update your RecyclerView adapter with the new list

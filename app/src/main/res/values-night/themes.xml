@@ -1,10 +1,8 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.TMDB" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-        <item name="colorPrimary">#05151b</item>
-        <item name="colorPrimaryDark">#05151b</item>
-        <item name="colorAccent">#05151b</item>
+<resources>
+    <style name="AppTheme_Dark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Define dark mode styles -->
+        <item name="colorPrimary">#AD1457</item>
+        <item name="colorPrimaryDark">#6A1B9A</item>
+        <!-- Add more dark mode styles as needed -->
     </style>
 </resources>

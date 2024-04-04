@@ -2,6 +2,11 @@ package com.example.tmdb;
 
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.CompoundButton;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.tmdb.Dagger.Components.ApplicationComponent;
 import com.example.tmdb.Dagger.Components.DaggerApplicationComponent;
@@ -15,6 +20,8 @@ public class App extends Application {
 
     private static App instance;
     private ApplicationComponent mApplicationComponent;
+
+
 
     @Override
     public void onCreate() {
@@ -30,6 +37,7 @@ public class App extends Application {
                 .build();
 
         mApplicationComponent.inject(this);
+
     }
 
     public static App instance() {
