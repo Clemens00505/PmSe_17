@@ -1,6 +1,7 @@
 package com.example.tmdb.ui.home.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -91,7 +92,19 @@ public class ListsFragment extends Fragment {
         // Set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.rvLists);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        final CollectionAdapter adapter = new CollectionAdapter(new ArrayList<>());
+        final CollectionAdapter adapter = new CollectionAdapter(new ArrayList<>(), collection -> {
+            Intent detailIntent = new Intent(getContext(), ListDetailActivity.class);
+            detailIntent.putExtra("collection_key", collection); // Ensure Collection implements Serializable
+            startActivity(detailIntent);
+        });
+
+        // For testing, add a dummy collection item
+        Collection dummyCollection = new Collection(0, "Dummy List", "Some attribute");
+        List<Collection> dummyList = new ArrayList<>();
+        dummyList.add(dummyCollection);
+        adapter.setCollections(dummyList); // Add the dummy list to the adapter
+
+        // Set the adapter to the RecyclerView
         recyclerView.setAdapter(adapter);
 
         // Initialize ViewModel and set up LiveData observation
