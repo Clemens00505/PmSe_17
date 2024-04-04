@@ -121,11 +121,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         setupTabLayoutMediator();
-//        String[] tabLabels = new String[]{getString(R.string.populair_movies), getString(R.string.my_lists), getString(R.string.upcoming_movies)};
-//
-//        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-//            tab.setText(tabLabels[position]);
-//        }).attach();
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
