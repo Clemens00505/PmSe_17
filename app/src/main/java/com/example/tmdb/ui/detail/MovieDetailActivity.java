@@ -8,6 +8,7 @@ import static com.example.tmdb.Api.TMDbAPI.TMDb_API_KEY;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,21 +18,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ImageButton;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.Dagger.Modules.ApplicationModule;
 import com.example.tmdb.R;
-import com.example.tmdb.database.CollectionViewModel;
 import com.example.tmdb.domain.Cast;
 import com.example.tmdb.domain.Genres;
 import com.example.tmdb.domain.Movie;
+import com.example.tmdb.ui.Settings;
 import com.example.tmdb.ui.detail.adapters.MovieCastAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
-import com.example.tmdb.App;
 import com.example.tmdb.Dagger.Components.ApplicationComponent;
 import com.example.tmdb.Dagger.Components.DaggerApplicationComponent;
 
@@ -45,7 +48,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class MovieDetailActivity extends Activity {
+public class MovieDetailActivity extends AppCompatActivity {
 
     String title;
     int id;
@@ -68,9 +71,12 @@ public class MovieDetailActivity extends Activity {
 
     public List<Movie> recommendDataList;
 
+    SharedPreferences sharedPreferences;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        updateTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
@@ -211,5 +217,22 @@ public class MovieDetailActivity extends Activity {
         } else {
             Log.e(TAG, "tmDbAPI is null");
         }
+    }
+    private void updateTheme() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean darkModeEnabled = sharedPreferences.getBoolean("pref_dark_theme", false);
+        if (darkModeEnabled) {
+            setTheme(R.style.AppTheme_Dark);
+            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            setTheme(R.style.AppTheme_Light);
+            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateTheme();
     }
 }

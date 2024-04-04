@@ -1,0 +1,67 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<PreferenceScreen-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android">-->
+
+<!--    &lt;!&ndash;below line is to create preference category&ndash;&gt;-->
+<!--    <PreferenceCategory>-->
+
+<!--        &lt;!&ndash;in below line we are creating a list preference-->
+<!--            and we are adding default selected value in list for 3 rd index&ndash;&gt;-->
+<!--        &lt;!&ndash;dialog title is to set title for our dialog box-->
+<!--            entries is used to add list of data which we-->
+<!--            are adding from our strings file-->
+<!--            entry values is to add values to our entries.-->
+<!--            key is use to add key to our list preferences-->
+<!--            summary is use to add description to our option-->
+<!--            title is use to add title to our list preferences.&ndash;&gt;-->
+<!--        &lt;!&ndash;this list preference is for remind me option&ndash;&gt;-->
+<!--        <EditTextPreference-->
+<!--            android:defaultValue="@string/standard_api"-->
+<!--            android:key="@string/pref_api_key"-->
+<!--            android:summary="@string/api_key_description"-->
+<!--            android:selectAllOnFocus="true"-->
+<!--            android:singleLine="true"-->
+<!--            android:title="@string/api_key_title" />-->
+
+<!--        <ListPreference-->
+<!--            android:defaultValue="0"-->
+<!--            android:dialogTitle="@string/language_title"-->
+<!--            android:entries="@array/available_languages"-->
+<!--            android:entryValues="@array/pref_languages"-->
+<!--            android:key="@string/pref_language"-->
+<!--            android:title="@string/language_title" />-->
+
+<!--        <SwitchPreference-->
+<!--            android:defaultValue="false"-->
+<!--            android:key="@string/pref_dark_theme"-->
+<!--            android:title="@string/dark_mode_title" />-->
+
+
+<!--    </PreferenceCategory>-->
+
+<!--</PreferenceScreen>-->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="pref_api_key"
+        android:title="API Key"
+        android:summary="Enter your API key"
+        android:inputType="text"
+        android:defaultValue=""
+        android:dialogTitle="Enter API Key" />
+
+    <ListPreference
+        android:key="pref_language"
+        android:title="Language"
+        android:summary="Choose your preferred language"
+        android:dialogTitle="Choose Language"
+        android:entries="@array/available_languages"
+        android:entryValues="@array/pref_languages"
+        android:defaultValue="en" />
+
+    <SwitchPreferenceCompat
+        android:key="pref_dark_theme"
+        android:title="Dark Mode"
+        android:summary="Enable dark mode"
+        android:defaultValue="false" />
+</PreferenceScreen>

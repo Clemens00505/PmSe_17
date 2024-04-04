@@ -2,6 +2,7 @@ package com.example.tmdb.ui.home.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -10,11 +11,16 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Switch;
 
 import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.R;
@@ -33,10 +39,16 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
 
     private FragmentAdapter fragmentAdapter;
+    SharedPreferences sharedPreferences;
     private String[] tabLabels = new String[]{"Populair Movies", "My Lists", "Upcoming Movies"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("theme", "onCreate in MainActivity");
+        //setTheme(R.style.AppTheme_Light);
+
+        updateTheme();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -72,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     private static class FragmentAdapter extends FragmentStateAdapter {
 
         public FragmentAdapter(FragmentActivity fragmentActivity) {
@@ -97,5 +111,24 @@ public class MainActivity extends AppCompatActivity {
         public int getItemCount() {
             return 3;
         }
+    }
+
+    private void updateTheme() {
+        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
+        boolean darkModeEnabled = sharedPreferences.getBoolean("pref_dark_theme", false);
+        if (darkModeEnabled) {
+            setTheme(R.style.AppTheme_Dark);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            setTheme(R.style.AppTheme_Light);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        Log.i("lala", "onresume in mainactivity");
+        super.onResume();
+        updateTheme();
     }
 }
