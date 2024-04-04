@@ -70,6 +70,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
         holder.tvMovieTitle.setText(movie.getTitle());
         holder.tvReleaseDate.setText(movie.getRelease_date());
         holder.tvRating.setText(String.valueOf(movie.getVote_average()));
+        holder.tvAge.setText(movie.isAdult() ? "18+" : "13+");
+        
 
         // Check if tvReleaseDate and movie release date are not null
         if (holder.tvReleaseDate != null && movie.getRelease_date() != null) {
@@ -129,6 +131,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
         private final ImageView ivPoster;
         private final TextView tvReleaseDate;
         private final TextView tvRating;
+        private final TextView tvAge;
 
         public movieHolder(View itemView) {
             super(itemView);
@@ -136,6 +139,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
             ivPoster = itemView.findViewById(R.id.ivPoster);
             tvReleaseDate = itemView.findViewById(R.id.tvReleaseDate);
             tvRating = itemView.findViewById(R.id.tvRating);
+            tvAge = itemView.findViewById(R.id.tvAge);
         }
     }
 }
