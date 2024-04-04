@@ -5,6 +5,7 @@ import static com.example.tmdb.Api.TMDbAPI.TMDb_API_KEY;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
         } else {
             Timber.e("tvReleaseDate or movie release date is null");
         }
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Movie movie = movieList.get(position);
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Share Movie Details");
+                String deepLink = "myapp://detailpage/" + movie.getId(); // replace with your actual deep link
+                String shareText = "Movie Title: " + movie.getTitle() + "\nRelease Date: " + movie.getRelease_date() + "\nLink: " + deepLink;
+                intent.putExtra(Intent.EXTRA_TEXT, shareText);
+                context.startActivity(Intent.createChooser(intent, "Share via"));
+                return true;
+            }
+        });
+
 
         // Log before loading the image
         Timber.d("Loading image for movie ID %d with URL: %s", movie.getId(), IMAGE_BASE_URL_500 + movie.getPoster_path());
