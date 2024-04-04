@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.ListPreference;
 import androidx.preference.PreferenceManager;
 import java.util.Locale;
 
@@ -41,12 +42,15 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+
+
         saveBtn = findViewById(R.id.save_button);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateTheme();
                 setLocale();
+                recreate();
             }
         });
 
@@ -65,7 +69,6 @@ public class Settings extends AppCompatActivity {
     }
     private void setLocale() {
         String languageCode = sharedPreferences.getString("pref_language", "en");
-       
         Locale locale = new Locale(languageCode);
         Locale.setDefault(locale);
         Configuration config = new Configuration();

@@ -44,24 +44,24 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <EditTextPreference
         android:key="pref_api_key"
-        android:title="API Key"
-        android:summary="Enter your API key"
+        android:title="@string/api_key_title"
+        android:summary="@string/api_key_description"
         android:inputType="text"
-        android:defaultValue=""
-        android:dialogTitle="Enter API Key" />
+        android:defaultValue="@string/standard_api"
+        android:dialogTitle="@string/enter_api_key" />
 
     <ListPreference
+
         android:key="pref_language"
-        android:title="Language"
-        android:summary="Choose your preferred language"
-        android:dialogTitle="Choose Language"
+        android:title="@string/language_title"
+        android:summary="@string/language_description"
+        android:dialogTitle="@string/choose_language"
         android:entries="@array/available_languages"
-        android:entryValues="@array/pref_languages"
-        android:defaultValue="en" />
+        android:entryValues="@array/pref_languages" />
 
     <SwitchPreferenceCompat
         android:key="pref_dark_theme"
-        android:title="Dark Mode"
-        android:summary="Enable dark mode"
+        android:title="@string/dark_mode_title"
+        android:summary="@string/dark_mode_description"
         android:defaultValue="false" />
 </PreferenceScreen>

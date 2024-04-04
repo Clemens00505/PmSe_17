@@ -21,4 +21,13 @@
     <string name="popularity">Populariteit</string>
     <string name="api_key_description">Verander de API key, dit verandert het account</string>
     <string name="release_date">Verschijningsdatum</string>
+
+    <string-array name="tabs">
+        <item>Populaire Films</item>
+        <item>Mijn Lijsten</item>
+        <item>Aankomende Films</item>
+    </string-array>
+    <string name="populair_movies">Populaire Films</string>
+    <string name="my_lists">Mijn Lijsten</string>
+    <string name="upcoming_movies">Aankomende Films</string>
 </resources>

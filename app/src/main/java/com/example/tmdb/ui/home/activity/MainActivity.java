@@ -12,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -36,6 +37,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -48,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
     private List<Movie> popularMoviesList;
     private List<Collection> collectionList;
     private ViewPager2 viewPager;
-    private TabLayout tabLayout;
     private FragmentAdapter fragmentAdapter;
     SharedPreferences sharedPreferences;
-    private String[] tabLabels = new String[]{"Populair Movies", "My Lists", "Upcoming Movies"};
+
+    TabLayout tabLayout;
     ImageButton menuBtn;
     SearchView searchView;
 
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         //setTheme(R.style.AppTheme_Light);
 
         updateTheme();
+        setLocale();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -117,10 +120,12 @@ public class MainActivity extends AppCompatActivity {
                 popupMenu.show();
             }
         });
-
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            tab.setText(tabLabels[position]);
-        }).attach();
+        setupTabLayoutMediator();
+//        String[] tabLabels = new String[]{getString(R.string.populair_movies), getString(R.string.my_lists), getString(R.string.upcoming_movies)};
+//
+//        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+//            tab.setText(tabLabels[position]);
+//        }).attach();
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -227,11 +232,34 @@ public class MainActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
+    private void setLocale() {
+        String languageCode = sharedPreferences.getString("pref_language", "en");
+        Locale locale = new Locale(languageCode);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
+
+    }
+
+    private void setupTabLayoutMediator() {
+        String[] tabLabels = new String[]{getString(R.string.populair_movies), getString(R.string.my_lists), getString(R.string.upcoming_movies)};
+
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            tab.setText(tabLabels[position]);
+        }).attach();
+    }
 
     @Override
     protected void onResume() {
-        Log.i("lala", "onresume in mainactivity");
+
+
         super.onResume();
+        Log.i("lala", "onresume in mainactivity");
         updateTheme();
+        setLocale();
+        setupTabLayoutMediator();
+
     }
 }
