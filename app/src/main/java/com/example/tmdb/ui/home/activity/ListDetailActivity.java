@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tmdb.Api.TMDbAPI;
+import com.example.tmdb.App;
 import com.example.tmdb.R;
 import com.example.tmdb.database.CollectionViewModel;
 import com.example.tmdb.domain.Collection;
@@ -34,6 +35,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
+
 public class ListDetailActivity extends AppCompatActivity {
 
     @Inject
@@ -48,6 +50,7 @@ public class ListDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        App.instance().appComponent().inject(this);
         setContentView(R.layout.activity_list_detail);
         Log.d(LOG_TAG, "onCreate: Activity created.");
 
@@ -123,7 +126,7 @@ public class ListDetailActivity extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
 
                 }, e -> {
-                    Timber.e(e, "Error fetching now popular movies: %s", e.getMessage());
+                    Timber.e(e, "Error fetching movies in list: %s", e.getMessage());
 
                 });
     }
