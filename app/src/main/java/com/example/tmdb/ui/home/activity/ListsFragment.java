@@ -76,7 +76,7 @@ public class ListsFragment extends Fragment {
         ;
         String requestToken = getRequestToken();
         Log.i("ListFragment", "Requesttoken: " + requestToken);
-        String sessionId = getSessionId(requestToken);
+        String sessionId = getSessionId("lala");
         Log.i("ListFragment", "Sessionid: " + sessionId);
 
         Collection newList = new Collection(listName);
@@ -203,14 +203,14 @@ public class ListsFragment extends Fragment {
     }
 
     public String getRequestToken() {
-        AtomicReference<String> requestToken = new AtomicReference<>();
+        AtomicReference<String> requestToken = new AtomicReference<>("");
         Log.i("LALA", "RequestToken initialize: " + requestToken);
         tmDbAPI.getRequestToken(getApiKey(this.getContext()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                    Log.i("LALA", "response" + response.getRequestToken());
-                    requestToken.set(response.getRequestToken());
+                    Log.i("LALA", "response" + response.getRequest_token());
+                    requestToken.set(response.getRequest_token());
                     Log.i("LALA", "RequestToken set: " + requestToken);
 
                 });
@@ -221,7 +221,7 @@ public class ListsFragment extends Fragment {
 
     public String getSessionId(String requestToken) {
         AtomicReference<String> sessionId = new AtomicReference<>("");
-        tmDbAPI.getSession(requestToken)
+        tmDbAPI.getSession(getApiKey(this.getContext()), requestToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {

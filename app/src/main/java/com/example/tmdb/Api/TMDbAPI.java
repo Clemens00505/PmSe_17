@@ -16,6 +16,7 @@ import com.example.tmdb.domain.ResponseNowPlaying;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -86,8 +87,8 @@ public interface TMDbAPI {
 
     @GET("list/{list_id}")
     Observable<ListDetailResponse> getListDetail(
-            @Path("list_id") int listId,
-            @Query("api_key") String apiKey
+            @Path("list_id") int list_Id,
+            @Query("api_key") String api_Key
     );
 
     @GET(HttpClientModule.GET_REQUEST_CODE)
@@ -97,6 +98,7 @@ public interface TMDbAPI {
 
     @POST(HttpClientModule.GET_SESSION)
     Observable<ResponseSession> getSession(
+            @Query("api_key") String api_key,
             @Body String requestToken
     );
 }
