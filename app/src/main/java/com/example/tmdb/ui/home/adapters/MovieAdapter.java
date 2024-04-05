@@ -76,7 +76,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
         holder.tvMovieTitle.setText(movie.getTitle());
         holder.tvReleaseDate.setText(movie.getRelease_date());
         holder.tvRating.setText(String.valueOf(movie.getVote_average()));
-        holder.tvAge.setText(movie.isAdult() ? "18+" : "13+");
+        holder.tvAge.setText(movie.isAdult() ? "Adult" : "NON-Adult");
 
 
         // Check if tvReleaseDate and movie release date are not null
@@ -140,7 +140,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
 
                     }, e -> {
                         Timber.e(e, "Error fetching movie details for movie with ID %d: %s", movie.getId(), e.getMessage());
-                        Toast.makeText(context, "Invalid API Key! Please check your settings.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "HTTP 400 or Invalid API Key! Please check your settings if no data shows.", Toast.LENGTH_SHORT).show();
                     });
         });
     }
