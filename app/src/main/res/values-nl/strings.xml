@@ -39,4 +39,21 @@
     <string name="dark_mode_description">Schakel donkere modus in</string>
     <string name="language_description">Voer gewenste taal in</string>
     <string name="created_list">"Gemaakte lijst: "</string>
+    <string name="rating">Beoordeling:</string>
+    <string name="new_list_name">Nieuwe naam lijst</string>
+    <string name="create_list">Lijst aanmaken</string>
+    <string name="save">Opslaan</string>
+    <string name="cancel">Annuleren</string>
+    <string name="created_list_toast">Gemaakte lijst:</string>
+    <string name="added_to_list_toast">Toegevoegde aan lijst:</string>
+    <string name="failed_to_fetch_cast_info_toast">Gefaald om acteurs op te halen</string>
+    <string name="nee_is_niet_gelukt_toast">Nee is niet gelukt</string>
+    <string name="rating_toast">Beoordeling</string>
+    <string name="current_position_popular_toast">Huidige positie populair</string>
+    <string name="sorting_lists_is_not_possible_toast">Sorteren lijsten niet mogelijk</string>
+    <string name="current_position_upcoming_toast">Huidige posities aankomende films</string>
+    <string name="release_toast">Verschijningsdatum</string>
+    <string name="current_position_popular_toastmain">Huidige positie populair</string>
+    <string name="sorting_lists_is_not_possible_toastmain">Sorteren lijsten is niet mogelijk</string>
+    <string name="current_position_upcoming_main">Huidige positie aankomende films</string>
 </resources>
