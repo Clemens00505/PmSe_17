@@ -44,9 +44,9 @@ public class DialogAddToListTest {
         onView(isRoot()).perform(waitFor(1000)); // Use a custom ViewAction to wait
 
         // Now check the RecyclerView
-        onView(withId(R.id.recyclerViewExistingLists))
+        onView(withId(R.id.spinnerExistingLists))
                 .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-                .check(matches(hasMinimumChildCount(0))); // This checks if RecyclerView has at least one item
+                .check(matches(hasMinimumChildCount(1))); // This checks if RecyclerView has at least one item
     }
 
     // Custom ViewAction to wait for a certain amount of time
