@@ -2,30 +2,21 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="DialogAddToListTest">
+      <entry key="app">
         <State>
-          <runningDeviceTargetSelectedWithDropDown>
+          <targetSelectedWithDropDown>
             <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
+              <type value="QUICK_BOOT_TARGET" />
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Max\.android\avd\Pixel_6_Pro_API_30.avd" />
+                  <value value="C:\Users\Milan Bollebakker\.android\avd\Small_Phone_API_30.avd" />
                 </Key>
               </deviceKey>
             </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-05T08:33:22.137436600Z" />
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-05T10:51:34.942036600Z" />
         </State>
-      </entry>
-      <entry key="MainActivityTest">
-        <State />
-      </entry>
-      <entry key="MovieDetailActivityTest">
-        <State />
-      </entry>
-      <entry key="app">
-        <State />
       </entry>
     </value>
   </component>

@@ -7,10 +7,6 @@
             <group
                 android:checkableBehavior="single" >
                 <item
-                    android:id="@+id/sort_by_genre"
-                    android:title="@string/sort_filter_genre">
-                </item>
-                <item
                     android:id="@+id/sort_by_rating"
                     android:title="@string/sort_rating"
                     />
@@ -157,6 +153,9 @@
                     </group>
                 </menu>
             </item>
+            <item
+                android:id="@+id/reset_filter"
+                android:title="Reset Filter" />
         </menu>
     </item>
 </menu>
