@@ -66,7 +66,6 @@ public class HttpClientModule {
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(moshiConverterFactory)
-                .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 

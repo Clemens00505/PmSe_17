@@ -28,6 +28,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/llInfo"
                 tools:layout_editor_absoluteX="0dp">
 
+
+
                 <at.blogc.android.views.ExpandableTextView
                     android:layout_margin="4dp"
                     android:id="@+id/etvOverview"
@@ -35,7 +37,6 @@
                     android:layout_height="wrap_content"
                     android:maxLines="4"
                     android:paddingStart="5dp"
-                    android:textColor="#111111"
                     app:animation_duration="750">
 
 

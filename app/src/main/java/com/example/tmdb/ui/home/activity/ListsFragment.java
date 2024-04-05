@@ -76,7 +76,7 @@ public class ListsFragment extends Fragment {
         ;
         String requestToken = getRequestToken();
         Log.i("ListFragment", "Requesttoken: " + requestToken);
-        String sessionId = getSessionId(requestToken);
+        String sessionId = getSessionId("lala");
         Log.i("ListFragment", "Sessionid: " + sessionId);
 
         Collection newList = new Collection(listName);
@@ -101,7 +101,7 @@ public class ListsFragment extends Fragment {
         if (apiListAdded.get()) {
             collectionViewModel.insertCollection(newList);
         } else {
-            Toast.makeText(this.getContext(), "nee is niet gelukt", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), getString(R.string.nee_is_niet_gelukt_toast), Toast.LENGTH_SHORT).show();
         }
 
 
@@ -209,8 +209,8 @@ public class ListsFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                    Log.i("LALA", "response" + response.getRequestToken());
-                    requestToken.set(response.getRequestToken());
+                    Log.i("LALA", "response" + response.getRequest_token());
+                    requestToken.set(response.getRequest_token());
                     Log.i("LALA", "RequestToken set: " + requestToken);
 
                 });
@@ -221,7 +221,7 @@ public class ListsFragment extends Fragment {
 
     public String getSessionId(String requestToken) {
         AtomicReference<String> sessionId = new AtomicReference<>("");
-        tmDbAPI.getSession(requestToken)
+        tmDbAPI.getSession(getApiKey(this.getContext()), requestToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
