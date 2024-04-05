@@ -14,10 +14,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -133,32 +136,43 @@ public class MovieDetailActivity extends AppCompatActivity {
                 final Dialog dialog = new Dialog(MovieDetailActivity.this);
                 dialog.setContentView(R.layout.dialog_add_to_list);
 
-                // Get references to dialog views
                 final EditText editTextNewListName = dialog.findViewById(R.id.editTextNewListName);
                 Button buttonCreateList = dialog.findViewById(R.id.buttonCreateList);
+                Button buttonSave = dialog.findViewById(R.id.buttonSave); // New save button
                 Button buttonCancel = dialog.findViewById(R.id.buttonCancel);
+                Spinner spinnerExistingLists = dialog.findViewById(R.id.spinnerExistingLists);
 
-                // Set up the "Create List" button click listener
+                List<String> existingListNames = getExistingListNames(); // Your method to fetch existing list names
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(MovieDetailActivity.this, android.R.layout.simple_spinner_dropdown_item, existingListNames);
+                spinnerExistingLists.setAdapter(adapter);
+
+                // Handle the newly added Save button
+                buttonSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String selectedListName = spinnerExistingLists.getSelectedItem().toString();
+                        // Handle the saving of the selected list here
+                        Log.d(TAG, "Saved list: " + selectedListName);
+                        // Example: Update UI or save the selection to your data source
+                        Toast.makeText(MovieDetailActivity.this, "Added to list: " + selectedListName, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss(); // Dismiss the dialog after saving
+                    }
+                });
+
                 buttonCreateList.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String newListName = editTextNewListName.getText().toString();
-                        // Here, you can add newListName to your database or list variable
+                        // Add the new list name to your data source
                         Log.d(TAG, "Creating new list with name: " + newListName);
-                        Toast.makeText(MovieDetailActivity.this, getString(R.string.created_list) + newListName, Toast.LENGTH_SHORT).show();
-
-                        // Dismiss the dialog after creating the list
+                        Toast.makeText(MovieDetailActivity.this, "Created list: " + newListName, Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
-
-                        // Optionally, refresh your UI here if necessary
                     }
                 });
 
-                // Set up the "Cancel" button click listener
                 buttonCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Just dismiss the dialog without doing anything
                         dialog.dismiss();
                     }
                 });
@@ -166,6 +180,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
 
         etvOverview.setText(getIntent().getStringExtra("overview"));
         title = getIntent().getStringExtra("title");
@@ -211,7 +226,15 @@ public class MovieDetailActivity extends AppCompatActivity {
         getRecommendMovie();
 
     }
-
+    private List<String> getExistingListNames() {
+        // Placeholder for actual data fetching logic
+        List<String> listNames = new ArrayList<>();
+        listNames.add("Dummy List 1");
+        listNames.add("Dummy List 2");
+        listNames.add("Dummy List 3");
+        // Add more lists as needed
+        return listNames;
+    }
     private void saveRating(float rating, int movieId) {
         Log.d("RatingBar", "saveRating: rating=" + rating);
         SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
