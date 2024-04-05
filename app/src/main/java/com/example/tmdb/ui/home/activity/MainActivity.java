@@ -162,7 +162,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(!newText.isBlank()) {
+                if(newText.isEmpty()) {
+                    restoreOriginalList();
+                } else {
                     filterList(newText);
                 }
                 return true;
@@ -171,6 +173,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void restoreOriginalList() {
+    int currentPosition = viewPager.getCurrentItem();
+    Fragment fragment = fragmentAdapter.createFragment(currentPosition);
+    if (fragment instanceof PopularMoviesFragment) {
+        if (popularMoviesList != null) {
+            ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(popularMoviesList));
+        }
+    } else if (fragment instanceof ListsFragment) {
+        hasShownToast = false;
+        if (collectionList != null) {
+            ((ListsFragment) fragment).setFilteredList(new ArrayList<>(collectionList));
+        }
+    } else if (fragment instanceof UpcomingMoviesFragment) {
+        if (upcomingMoviesList != null) {
+            ((UpcomingMoviesFragment) fragment).setFilteredList(new ArrayList<>(upcomingMoviesList));
+        }
+    }
+}
+
+
+    boolean hasShownToast = false;
+    
     private void filterList (String text) {
         int currentPosition = viewPager.getCurrentItem();
         if (currentPosition == 0) {
@@ -187,9 +211,17 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (currentPosition == 1) {
             ArrayList<Collection> filteredList = new ArrayList<>();
-            for (Collection collection : collectionList) {
-                if (collection.getName().toLowerCase().contains(text.toLowerCase())) {
-                    filteredList.add(collection);
+            try {
+                for (Collection collection : collectionList) {
+                    if (collection.getName().toLowerCase().contains(text.toLowerCase())) {
+                        filteredList.add(collection);
+                    }
+                }
+            } catch (NullPointerException e) {
+                System.out.println("NullPointerException caught: " + e.getMessage());
+                if (!hasShownToast) {
+                    Toast.makeText(this, "Er kan hier niet worden gezocht!", Toast.LENGTH_SHORT).show();
+                    hasShownToast = true;
                 }
             }
             Fragment fragment = fragmentAdapter.createFragment(currentPosition);

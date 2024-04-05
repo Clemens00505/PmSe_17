@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.example.tmdb.Api.CreateListRequest;
 import com.example.tmdb.Api.CreateListResponse;
+import com.example.tmdb.Api.ResponseRequestToken;
+import com.example.tmdb.Api.ResponseSession;
 import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.App;
 import com.example.tmdb.R;
@@ -32,11 +34,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import javax.inject.Inject;
 
+import retrofit2.Call;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -61,11 +69,21 @@ public class ListsFragment extends Fragment {
     }
 
     private void createNewList(String listName) {
+
+        //ResponseRequestToken requestTokenResponse = tmDbAPI.getRequestToken(getApiKey(this.getContext()));
+
+        //String requestToken = requestTokenResponse.getRequestToken();
+        ;
+        String requestToken = getRequestToken();
+        Log.i("ListFragment", "Requesttoken: " + requestToken);
+        String sessionId = getSessionId(requestToken);
+        Log.i("ListFragment", "Sessionid: " + sessionId);
+
         Collection newList = new Collection(listName);
 
         CreateListRequest requestBody = new CreateListRequest(listName);
         AtomicBoolean apiListAdded = new AtomicBoolean(false);
-        tmDbAPI.createList(getApiKey(this.getContext()), requestBody)
+        tmDbAPI.createList(getApiKey(this.getContext()), sessionId, requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -177,5 +195,39 @@ public class ListsFragment extends Fragment {
 
     public void setFilteredList (ArrayList<Collection> filteredList) {
         adapter.setCollections(filteredList);
+    }
+
+    private String parseRequestTokenFromResponse(String response) throws JSONException {
+        JSONObject jsonObject = new JSONObject(response);
+        return jsonObject.getString("request_token");
+    }
+
+    public String getRequestToken() {
+        AtomicReference<String> requestToken = new AtomicReference<>("");
+        Log.i("LALA", "RequestToken initialize: " + requestToken);
+        tmDbAPI.getRequestToken(getApiKey(this.getContext()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                    Log.i("LALA", "response" + response.getRequestToken());
+                    requestToken.set(response.getRequestToken());
+                    Log.i("LALA", "RequestToken set: " + requestToken);
+
+                });
+        Log.i("LALA", "RequestToken return: "+ requestToken);
+        return requestToken.toString();
+
+    }
+
+    public String getSessionId(String requestToken) {
+        AtomicReference<String> sessionId = new AtomicReference<>("");
+        tmDbAPI.getSession(requestToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                    sessionId.set(response.getSessionId());
+                });
+
+        return sessionId.toString();
     }
 }

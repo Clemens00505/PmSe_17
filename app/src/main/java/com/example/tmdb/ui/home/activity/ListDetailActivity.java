@@ -1,18 +1,13 @@
 package com.example.tmdb.ui.home.activity;
 
-import static android.content.Intent.getIntent;
+import static com.example.tmdb.Api.TMDbAPI.getApiKey;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,14 +15,12 @@ import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.App;
 import com.example.tmdb.R;
 import com.example.tmdb.database.CollectionViewModel;
-import com.example.tmdb.domain.Collection;
 import com.example.tmdb.domain.Movie;
-import com.example.tmdb.ui.detail.MovieDetailActivity;
 import com.example.tmdb.ui.home.adapters.MovieAdapter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
@@ -139,5 +132,7 @@ public class ListDetailActivity extends AppCompatActivity {
 //                    ((MutableLiveData<List<Movie>>)moviesInCollection).postValue(movies);
 //                }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage()));
 //    }
+
+
 }
 
