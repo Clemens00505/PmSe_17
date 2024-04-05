@@ -1,18 +1,15 @@
 package com.example.tmdb.ui.home.activity;
 
-import static android.content.Intent.getIntent;
+import static com.example.tmdb.Api.TMDbAPI.getApiKey;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,14 +17,12 @@ import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.App;
 import com.example.tmdb.R;
 import com.example.tmdb.database.CollectionViewModel;
-import com.example.tmdb.domain.Collection;
 import com.example.tmdb.domain.Movie;
-import com.example.tmdb.ui.detail.MovieDetailActivity;
 import com.example.tmdb.ui.home.adapters.MovieAdapter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
@@ -47,8 +42,11 @@ public class ListDetailActivity extends AppCompatActivity {
     ArrayList<Movie> moviesInList;
 
     MovieAdapter adapter;
+
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        updateTheme();
         super.onCreate(savedInstanceState);
         App.instance().appComponent().inject(this);
         setContentView(R.layout.activity_list_detail);
@@ -62,7 +60,7 @@ public class ListDetailActivity extends AppCompatActivity {
         adapter = new MovieAdapter(moviesInList, this);
         recyclerView.setAdapter(adapter);
 
-        viewModel = new ViewModelProvider(this).get(CollectionViewModel.class);
+        //viewModel = new ViewModelProvider(this).get(CollectionViewModel.class);
         int listId = getIntent().getIntExtra("list_id", -1);
         Log.d("ListDetailActivity", "List ID: " + listId);
         if (listId != -1) {
@@ -139,5 +137,19 @@ public class ListDetailActivity extends AppCompatActivity {
 //                    ((MutableLiveData<List<Movie>>)moviesInCollection).postValue(movies);
 //                }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage()));
 //    }
+
+    private void updateTheme() {
+        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
+        boolean darkModeEnabled = sharedPreferences.getBoolean("pref_dark_theme", false);
+        if (darkModeEnabled) {
+            setTheme(R.style.AppTheme_Dark);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            setTheme(R.style.AppTheme_Light);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
+
+
 }
 

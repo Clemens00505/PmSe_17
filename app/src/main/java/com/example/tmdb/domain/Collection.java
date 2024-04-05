@@ -14,12 +14,10 @@ public class Collection implements Serializable {
     @NonNull
     private int collectionId;
     private String name;
-    private String collectionType;
 
-    public Collection(int collectionId, String name, String collectionType) {
-        this.collectionId = collectionId;
+    public Collection(String name) {
+        this.collectionId = 0;
         this.name = name;
-        this.collectionType = collectionType;
     }
 
     public int getCollectionId() {
@@ -30,9 +28,6 @@ public class Collection implements Serializable {
         return name;
     }
 
-    public String getCollectionType() {
-        return collectionType;
-    }
 
     public void setCollectionId(int collectionId) {
         this.collectionId = collectionId;
@@ -42,7 +37,5 @@ public class Collection implements Serializable {
         this.name = name;
     }
 
-    public void setCollectionType(String collectionType) {
-        this.collectionType = collectionType;
-    }
+
 }

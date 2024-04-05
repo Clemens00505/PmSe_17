@@ -80,13 +80,13 @@ public class Repository {
 //                    return Observable.just(movies);
 //                });
 //    }
-    public Observable<CreateListResponse> createListInApi(CreateListRequest createListRequest) {
-        return tmDbAPI.createList(createListRequest)
-                .flatMap(createListResponse -> {
-                    Log.d("Repository", "List created with ID: " + createListResponse.getList_id());
-                    return Observable.just(createListResponse);
-                });
-    }
+//    public Observable<CreateListResponse> createListInApi(CreateListRequest createListRequest) {
+//        return tmDbAPI.createList(createListRequest)
+//                .flatMap(createListResponse -> {
+//                    Log.d("Repository", "List created with ID: " + createListResponse.getList_id());
+//                    return Observable.just(createListResponse);
+//                });
+//    }
 
     public static class insertCollectionAsyncTask extends AsyncTask<Collection, Void, Void> {
         private DAO asyncTaskDao;
