@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -135,13 +136,38 @@ public class MovieDetailActivity extends AppCompatActivity {
         fabAddToList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog = new Dialog(MovieDetailActivity.this);
+                final Dialog dialog = new Dialog(MovieDetailActivity.this);
                 dialog.setContentView(R.layout.dialog_add_to_list);
 
+                // Get references to dialog views
+                final EditText editTextNewListName = dialog.findViewById(R.id.editTextNewListName);
+                Button buttonCreateList = dialog.findViewById(R.id.buttonCreateList);
                 Button buttonCancel = dialog.findViewById(R.id.buttonCancel);
-                buttonCancel.setOnClickListener(v -> dialog.dismiss());
 
-                // Set up the ListView and other elements of the dialog as needed
+                // Set up the "Create List" button click listener
+                buttonCreateList.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String newListName = editTextNewListName.getText().toString();
+                        // Here, you can add newListName to your database or list variable
+                        Log.d(TAG, "Creating new list with name: " + newListName);
+                        Toast.makeText(MovieDetailActivity.this, getString(R.string.created_list) + newListName, Toast.LENGTH_SHORT).show();
+
+                        // Dismiss the dialog after creating the list
+                        dialog.dismiss();
+
+                        // Optionally, refresh your UI here if necessary
+                    }
+                });
+
+                // Set up the "Cancel" button click listener
+                buttonCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Just dismiss the dialog without doing anything
+                        dialog.dismiss();
+                    }
+                });
 
                 dialog.show();
             }

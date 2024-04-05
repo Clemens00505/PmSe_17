@@ -44,7 +44,7 @@
     <string name="pref_language">pref_language</string>
     <string name="pref_theme">pref_theme</string>
     <string name="pref_dark_theme">pref_dark_theme</string>
-
+    <string name="created_list">"Created list: "</string>
 
 
 </resources>

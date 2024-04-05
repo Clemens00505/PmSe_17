@@ -34,4 +34,5 @@
     <string name="choose_language">Kies taal</string>
     <string name="dark_mode_description">Schakel donkere modus in</string>
     <string name="language_description">Voer gewenste taal in</string>
+    <string name="created_list">"Gemaakte lijst: "</string>
 </resources>
