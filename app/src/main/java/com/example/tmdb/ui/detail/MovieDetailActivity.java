@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -78,6 +79,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Check and apply the current theme (light/dark)
         updateTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
@@ -90,6 +92,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         Log.d(TAG, "tmDbAPI instance: " + tmDbAPI);
 
+        // Bind views to their corresponding elements in the layout
         ivVerticalPoster = findViewById(R.id.ivVerticalPoster);
         ivHorizontalPoster = findViewById(R.id.ivHorizontalPoster);
         tvTitle = findViewById(R.id.tvTitle);
@@ -133,7 +136,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Dialog dialog = new Dialog(MovieDetailActivity.this);
-                dialog.setContentView(R.layout.dialog_add_to_list); // replace with your dialog layout name
+                dialog.setContentView(R.layout.dialog_add_to_list);
 
                 Button buttonCancel = dialog.findViewById(R.id.buttonCancel);
                 buttonCancel.setOnClickListener(v -> dialog.dismiss());
@@ -209,20 +212,20 @@ public class MovieDetailActivity extends AppCompatActivity {
                     .subscribe(response -> {
                         if (response != null && response.getCast() != null) {
                             castDataList.addAll(response.getCast());
-                            if (castAdapter != null) {
-                                castAdapter.notifyDataSetChanged();
-                            } else {
-                                Log.e(TAG, "castAdapter is null");
-                            }
+                            castAdapter.notifyDataSetChanged();
                         }
-                    }, e -> {
-                        Timber.e(e, "Error fetching cast info: %s", e.getMessage());
-                        Log.e(TAG, "Error fetching cast info: " + e.getMessage());
+                    }, throwable -> {
+                        Log.e(TAG, "Error fetching cast info: " + throwable.getMessage());
+                        // Notify user of the error (e.g., Toast)
+                        Toast.makeText(MovieDetailActivity.this, "Failed to fetch cast info.", Toast.LENGTH_SHORT).show();
                     });
         } else {
             Log.e(TAG, "tmDbAPI is null");
+            // Notify user of the error
+            Toast.makeText(this, "API is not available.", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     public void getRecommendMovie() {
