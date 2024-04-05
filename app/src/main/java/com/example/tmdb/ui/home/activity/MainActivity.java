@@ -40,6 +40,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Movie> upcomingMoviesList;
     private List<Movie> popularMoviesList;
+    private List<Movie> currentPopularMoviesList;
+    private List<Movie> currentUpcomingMoviesList;
     private List<Collection> collectionList;
     private ViewPager2 viewPager;
     private FragmentAdapter fragmentAdapter;
@@ -64,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ImageButton menuBtn;
     SearchView searchView;
-    MenuItem filtering;
-    MenuItem sorting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         searchView.clearFocus();
         upcomingMoviesList = new ArrayList<>();
         popularMoviesList = new ArrayList<>();
+        currentUpcomingMoviesList = new ArrayList<>();
+        currentPopularMoviesList = new ArrayList<>();
 
         fetchPopularMovies();
         fetchUpcomingMovies();
@@ -111,14 +115,32 @@ public class MainActivity extends AppCompatActivity {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        // Toast message on menu item clicked
-//                        Toast.makeText(MainActivity.this, "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-//                        return true;
-                        if (menuItem.getItemId() == R.id.sorting) {
-
+                        if (currentPopularMoviesList.isEmpty()) {
+                            currentPopularMoviesList = popularMoviesList;
+                        }
+                        if (currentUpcomingMoviesList.isEmpty()) {
+                            currentUpcomingMoviesList = upcomingMoviesList;
+                        }
+                        int currentPosition = viewPager.getCurrentItem();
+                        if (menuItem.getItemId() == R.id.sort_by_rating) {
+                            Toast.makeText(MainActivity.this, "rating", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
                             return true;
-                        } else if (menuItem.getItemId() == R.id.filtering) {
-
+                        } else if (menuItem.getItemId() == R.id.sort_by_release) {
+                            Toast.makeText(MainActivity.this, "release", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
                             return true;
                         } else {
 
@@ -172,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     boolean hasShownToast = false;
-
+    
     private void filterList (String text) {
         int currentPosition = viewPager.getCurrentItem();
         if (currentPosition == 0) {
@@ -185,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment = fragmentAdapter.createFragment(currentPosition);
             if (fragment instanceof PopularMoviesFragment) {
                 ((PopularMoviesFragment) fragment).setFilteredList(filteredList);
+                currentPopularMoviesList = filteredList;
             }
         } else if (currentPosition == 1) {
             ArrayList<Collection> filteredList = new ArrayList<>();
@@ -215,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment = fragmentAdapter.createFragment(currentPosition);
             if (fragment instanceof UpcomingMoviesFragment) {
                 ((UpcomingMoviesFragment) fragment).setFilteredList(filteredList);
+                currentUpcomingMoviesList = filteredList;
             }
         }
     }
