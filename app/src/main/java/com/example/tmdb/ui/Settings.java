@@ -18,6 +18,7 @@ import java.util.Locale;
 import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.R;
 import com.example.tmdb.ui.home.activity.MainActivity;
+import com.example.tmdb.ui.home.adapters.MovieAdapter;
 
 public class Settings extends AppCompatActivity {
 
@@ -52,8 +53,6 @@ public class Settings extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateTheme();
-                setLocale();
                 restartApp();
             }
         });
