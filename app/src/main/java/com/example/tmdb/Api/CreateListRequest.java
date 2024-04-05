@@ -2,11 +2,13 @@ package com.example.tmdb.Api;
 
 public class CreateListRequest {
     private String name;
+
     private String description = "Created via MyApp"; // Default description
 
 
     public CreateListRequest(String name) {
         this.name = name;
+
     }
 
     public String getName() {

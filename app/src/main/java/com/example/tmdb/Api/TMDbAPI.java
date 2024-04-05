@@ -72,11 +72,21 @@ public interface TMDbAPI {
             @Query("page") int page
     );
 
-    // Example assuming name is the only user-provided value
     @POST("list")
-    @Headers({"Content-Type: application/json",
-            "Authorization: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjUxMGRmNWM0NjkzZWJmYmY4MDZjZDljNjkwMGFhYiIsInN1YiI6IjY1Zjk0ZmRmYWJkZWMwMDE4NjZiM2NjOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VF9AifirswDTY5KXFktfN-nmDydEye6WoQK6owmDtQg"})
-    Observable<CreateListResponse> createList(@Body CreateListRequest requestBody);
+    @Headers({"Content-Type: application/json;charset=utf-8"})
+    Observable<CreateListResponse> createList(
+            @Query("api_key") String api_key,
+            @Body CreateListRequest requestBody
+
+    );
+
+
+    // Example assuming name is the only user-provided value
+
+//    @POST("list")
+//    @Headers({"Content-Type: application/json",
+//            "Authorization: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjUxMGRmNWM0NjkzZWJmYmY4MDZjZDljNjkwMGFhYiIsInN1YiI6IjY1Zjk0ZmRmYWJkZWMwMDE4NjZiM2NjOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VF9AifirswDTY5KXFktfN-nmDydEye6WoQK6owmDtQg"})
+//    Observable<CreateListResponse> createList(@Body CreateListRequest requestBody);
 
     @GET("list/{list_id}")
     Observable<ListDetailResponse> getListDetail(

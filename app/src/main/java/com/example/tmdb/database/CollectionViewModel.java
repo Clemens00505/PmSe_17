@@ -41,16 +41,16 @@
                 moviesInCollection = new MutableLiveData<>();
 
             }
-            // Method to call repository to fetch movies for a specific list ID
-            public void fetchMoviesForCollection(int listId) {
-                tmDbAPI.getListDetail(listId,TMDbAPI.getApiKey(this.getApplication()))
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(response -> {
-                            List<Movie> movies = response.getItems();
-                            ((MutableLiveData<List<Movie>>)moviesInCollection).postValue(movies);
-                        }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage()));
-            }
+//            // Method to call repository to fetch movies for a specific list ID
+//            public void fetchMoviesForCollection(int listId) {
+//                tmDbAPI.getListDetail(listId,TMDbAPI.getApiKey(this.getApplication()))
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(response -> {
+//                            List<Movie> movies = response.getItems();
+//                            ((MutableLiveData<List<Movie>>)moviesInCollection).postValue(movies);
+//                        }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage()));
+//            }
 //                tmDbAPI.getListDetail(TMDbAPI.getApiKey(this.getContext()), 1)
 //                        .subscribeOn(Schedulers.io())
 //                        .observeOn(AndroidSchedulers.mainThread())
@@ -91,9 +91,9 @@
 //                        });
 //            }
 
-            public LiveData<List<Movie>> getMoviesInCollection() {
-                return moviesInCollection;
-            }
+//            public LiveData<List<Movie>> getMoviesInCollection() {
+//                return moviesInCollection;
+//            }
             public LiveData<List<Collection>> getAllCollections() {
                 return allCollections;
             }

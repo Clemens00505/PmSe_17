@@ -62,7 +62,7 @@ public class ListDetailActivity extends AppCompatActivity {
         adapter = new MovieAdapter(moviesInList, this);
         recyclerView.setAdapter(adapter);
 
-        viewModel = new ViewModelProvider(this).get(CollectionViewModel.class);
+        //viewModel = new ViewModelProvider(this).get(CollectionViewModel.class);
         int listId = getIntent().getIntExtra("list_id", -1);
         Log.d("ListDetailActivity", "List ID: " + listId);
         if (listId != -1) {
