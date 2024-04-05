@@ -13,7 +13,7 @@
         android:layout_marginStart="3dp"
         android:clickable="true"
         android:src="@drawable/settings"
-        android:tint="?attr/colorTertiary" />
+        app:tint="?attr/colorTertiary" />
 
     <SearchView
         android:id="@+id/search_view"
@@ -31,7 +31,7 @@
         android:backgroundTint="#00FFFFFF"
         android:clickable="true"
         android:src="@drawable/menu"
-        android:tint="?attr/colorTertiary" />
+        app:tint="?attr/colorTertiary" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"

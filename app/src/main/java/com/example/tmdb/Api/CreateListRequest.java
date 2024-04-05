@@ -18,5 +18,9 @@ public class CreateListRequest {
     }
 
     // Getter and setter for name
+
+
     // Other getters might not be needed if the values are fixed or defaulted
+
+
 }

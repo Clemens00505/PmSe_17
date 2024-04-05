@@ -57,8 +57,8 @@ public class MovieDetailActivityTest {
     public void activityLaunches() {
         onView(withId(R.id.tvTitle)).check(matches(withText("Example Movie Title")));
         onView(withId(R.id.etvOverview)).check(matches(withText("Example overview text")));
-        // Add more view assertions to validate the initial state of your activity...
+     
     }
 
-    // Write additional test methods...
+
 }
