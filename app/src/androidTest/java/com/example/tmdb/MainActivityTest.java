@@ -1,12 +1,12 @@
 package com.example.tmdb;
 
-import androidx.test.espresso.Espresso;
+
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.example.tmdb.R;
+
 import com.example.tmdb.ui.home.activity.MainActivity;
 
 import org.junit.Rule;
@@ -29,11 +29,10 @@ public class MainActivityTest {
 
     @Test
     public void testSettingsIconOpensSettings() {
-        // Click on the settings icon
+
         onView(withId(R.id.settings_icon)).perform(click());
 
-        // Check if the Settings activity is opened
-        // Replace 'SettingsActivity.class' with the actual class name of your settings activity
+
         onView(ViewMatchers.withId(R.id.settings_tv)).check(ViewAssertions.matches(isDisplayed()));
     }
 
@@ -49,5 +48,4 @@ public class MainActivityTest {
         onView(withId(R.id.view_pager)).check(ViewAssertions.matches(isDisplayed()));
     }
 
-    // Add more test methods as needed...
 }
