@@ -23,6 +23,31 @@
         android:title="@string/filtering" >
         <menu>
             <item
+                android:id="@+id/filter_by_date"
+                android:title="@string/sort_filter_date" >
+
+                <menu>
+                    <group
+                        android:checkableBehavior="single" >
+                        <item
+                            android:id="@+id/filter_date_2021"
+                            android:title="2021"/>
+                        <item
+                            android:id="@+id/filter_date_2022"
+                            android:title="2022"/>
+                        <item
+                            android:id="@+id/filter_date_2023"
+                            android:title="2023"/>
+                        <item
+                            android:id="@+id/filter_date_2024"
+                            android:title="2024"/>
+                        <item
+                            android:id="@+id/filter_date_2025"
+                            android:title="2025"/>
+                    </group>
+                </menu>
+            </item>
+            <item
                 android:id="@+id/filter_by_rating"
                 android:title="@string/filter_rating" >
 
@@ -62,34 +87,9 @@
                     </group>
                 </menu>
             </item>
-            <item
-                android:id="@+id/filter_by_date"
-                android:title="@string/sort_filter_date" >
-
-                <menu>
-                    <group
-                        android:checkableBehavior="single" >
-                        <item
-                            android:id="@+id/filter_date_2021"
-                            android:title="2021"/>
-                        <item
-                            android:id="@+id/filter_date_2022"
-                            android:title="2022"/>
-                        <item
-                            android:id="@+id/filter_date_2023"
-                            android:title="2023"/>
-                        <item
-                            android:id="@+id/filter_date_2024"
-                            android:title="2024"/>
-                        <item
-                            android:id="@+id/filter_date_2025"
-                            android:title="2025"/>
-                    </group>
-                </menu>
-            </item>
-            <item
-                android:id="@+id/reset_filter"
-                android:title="Reset Filter" />
         </menu>
     </item>
+    <item
+        android:id="@+id/reset_filter_sorting"
+        android:title="Reset Sorting/Filter" />
 </menu>
