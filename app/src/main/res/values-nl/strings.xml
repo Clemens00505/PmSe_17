@@ -38,4 +38,9 @@
     <string name="dark_mode_description">Schakel donkere modus in</string>
     <string name="language_description">Voer gewenste taal in</string>
     <string name="created_list">"Gemaakte lijst: "</string>
+    <string name="rating">Beoordeling:</string>
+    <string name="new_list_name">Nieuwe naam lijst</string>
+    <string name="create_list">Lijst aanmaken</string>
+    <string name="save">Opslaan</string>
+    <string name="cancel">Annuleren</string>
 </resources>

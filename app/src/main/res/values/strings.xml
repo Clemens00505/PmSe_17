@@ -48,6 +48,11 @@
     <string name="pref_theme">pref_theme</string>
     <string name="pref_dark_theme">pref_dark_theme</string>
     <string name="created_list">"Created list: "</string>
+    <string name="rating">Rating</string>
+    <string name="new_list_name">New list name</string>
+    <string name="create_list">Create List</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

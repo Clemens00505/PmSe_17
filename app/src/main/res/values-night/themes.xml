@@ -1,13 +1,31 @@
 <resources>
     <style name="AppTheme_Dark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Define dark mode styles -->
-        <item name="colorPrimary">@color/dark_mode_pink</item>
-        <item name="colorPrimaryDark">#6A1B9A</item>
-        <item name="android:textColorPrimary">@color/off_white</item>
-        <item name="android:textColorSecondary">@color/light_gray</item>
-        <item name="android:textColorTertiary">@color/dark_gray</item>
-        <item name="android:colorBackground">@color/background_gray</item>
-        <item name="colorTertiary">@color/dark_gray</item>
-        <!-- Add more dark mode styles as needed -->
+        <!-- Primary color for app branding - Deep Blue -->
+        <item name="colorPrimary">#2A3C55</item> <!-- Slightly lighter blue for balance against dark grey -->
+
+        <!-- Primary variant color for darker shades - Darker Blue -->
+        <item name="colorPrimaryDark">#233447</item> <!-- Adjusted to complement the dark grey background -->
+
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">#FFFFFF</item> <!-- White remains for primary text for strong contrast -->
+        <item name="android:textColorSecondary">#CAD2D3</item> <!-- Lighter grey for secondary text to stand out more -->
+        <item name="android:textColorTertiary">#AEBBC1</item> <!-- Adjusted grey for tertiary text & hints, for readability -->
+
+        <!-- Background color -->
+        <item name="android:colorBackground">#2E2E2E</item> <!-- Dark grey for sophisticated background -->
+
+        <!-- Tertiary brand color for accents and UI elements - Gold Accent -->
+        <item name="colorTertiary">#FFD700</item> <!-- Gold remains for elegant, luxury accents -->
+
+        <!-- Additional customization for components -->
+        <item name="colorAccent">#FFD700</item> <!-- Gold accent for interactive elements remains unchanged -->
+        <item name="colorSurface">#383838</item> <!-- Darker grey than background for surface differentiation -->
+
+        <!-- Ensure contrasts are accessible -->
+        <item name="colorOnPrimary">#FFFFFF</item> <!-- White text on the primary blue background for readability -->
+        <item name="colorOnBackground">#ECEFF1</item> <!-- Slightly adjusted light grey text on dark backgrounds for contrast -->
+        <item name="colorOnError">#B71C1C</item> <!-- Strong red for errors remains for visibility -->
+        <item name="colorOnSecondary">#000000</item> <!-- Dark text on secondary color backgrounds for contrast -->
+        <item name="colorOnSurface">#E0E0E0</item> <!-- Adjusted for text on grey surfaces, ensuring legibility -->
     </style>
 </resources>
