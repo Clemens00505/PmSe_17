@@ -154,7 +154,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                         // Handle the saving of the selected list here
                         Log.d(TAG, "Saved list: " + selectedListName);
                         // Example: Update UI or save the selection to your data source
-                        Toast.makeText(MovieDetailActivity.this, "Added to list: " + selectedListName, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MovieDetailActivity.this, getString(R.string.added_to_list_toast) + selectedListName, Toast.LENGTH_SHORT).show();
                         dialog.dismiss(); // Dismiss the dialog after saving
                     }
                 });
@@ -165,7 +165,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                         String newListName = editTextNewListName.getText().toString();
                         // Add the new list name to your data source
                         Log.d(TAG, "Creating new list with name: " + newListName);
-                        Toast.makeText(MovieDetailActivity.this, "Created list: " + newListName, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MovieDetailActivity.this, getString(R.string.created_list_toast) + newListName, Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
@@ -260,7 +260,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                     }, throwable -> {
                         Log.e(TAG, "Error fetching cast info: " + throwable.getMessage());
                         // Notify user of the error (e.g., Toast)
-                        Toast.makeText(MovieDetailActivity.this, "Failed to fetch cast info.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MovieDetailActivity.this, getString(R.string.failed_to_fetch_cast_info_toast), Toast.LENGTH_SHORT).show();
                     });
         } else {
             Log.e(TAG, "tmDbAPI is null");

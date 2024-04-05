@@ -101,7 +101,7 @@ public class ListsFragment extends Fragment {
         if (apiListAdded.get()) {
             collectionViewModel.insertCollection(newList);
         } else {
-            Toast.makeText(this.getContext(), "nee is niet gelukt", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), getString(R.string.nee_is_niet_gelukt_toast), Toast.LENGTH_SHORT).show();
         }
 
 

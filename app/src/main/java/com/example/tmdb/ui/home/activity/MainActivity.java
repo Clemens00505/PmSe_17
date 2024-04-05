@@ -123,23 +123,23 @@ public class MainActivity extends AppCompatActivity {
                         }
                         int currentPosition = viewPager.getCurrentItem();
                         if (menuItem.getItemId() == R.id.sort_by_rating) {
-                            Toast.makeText(MainActivity.this, "rating", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getString(R.string.rating_toast), Toast.LENGTH_SHORT).show();
                             if (currentPosition == 0) {
-                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.current_position_popular_toast), Toast.LENGTH_SHORT).show();
                             } else if (currentPosition == 1) {
-                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.sorting_lists_is_not_possible_toast), Toast.LENGTH_SHORT).show();
                             } else if (currentPosition == 2) {
-                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.current_position_upcoming_toast), Toast.LENGTH_SHORT).show();
                             }
                             return true;
                         } else if (menuItem.getItemId() == R.id.sort_by_release) {
-                            Toast.makeText(MainActivity.this, "release", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, getString(R.string.release_toast), Toast.LENGTH_SHORT).show();
                             if (currentPosition == 0) {
-                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.current_position_popular_toastmain), Toast.LENGTH_SHORT).show();
                             } else if (currentPosition == 1) {
-                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.sorting_lists_is_not_possible_toastmain), Toast.LENGTH_SHORT).show();
                             } else if (currentPosition == 2) {
-                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.current_position_upcoming_main), Toast.LENGTH_SHORT).show();
                             }
                             return true;
                         } else {
