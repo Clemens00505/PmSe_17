@@ -55,7 +55,7 @@
             android:id="@+id/tvRatingText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Beoordeling"
+            android:text="@string/rating"
             android:layout_margin="8dp"
             android:layout_row="2"
             android:layout_column="0" />
