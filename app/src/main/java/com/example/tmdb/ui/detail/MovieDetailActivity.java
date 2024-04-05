@@ -59,7 +59,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     ImageView ivHorizontalPoster, ivVerticalPoster;
     TextView tvTitle, tvGenres, tvPopularity, tvReleaseDate;
     ExpandableTextView etvOverview;
-    Button btnToggle;
     ImageButton upBtn;
 
 
@@ -101,7 +100,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvPopularity = findViewById(R.id.tvPopularity);
         tvReleaseDate = findViewById(R.id.tvReleaseDate);
         etvOverview = findViewById(R.id.etvOverview);
-        btnToggle = findViewById(R.id.btnToggle);
         upBtn = findViewById(R.id.upButton);
 
         castDataList = new ArrayList<>();
@@ -118,10 +116,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         etvOverview.setExpandInterpolator(new OvershootInterpolator());
         etvOverview.setCollapseInterpolator(new OvershootInterpolator());
 
-        btnToggle.setOnClickListener(v -> {
-            btnToggle.setBackgroundResource(etvOverview.isExpanded() ? R.drawable.ic_expand_more : R.drawable.ic_expand_less);
-            etvOverview.toggle();
-        });
 
 
         upBtn.setImageResource(R.drawable.ic_back);
