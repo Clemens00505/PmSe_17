@@ -197,116 +197,171 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "Rating 1", Toast.LENGTH_SHORT).show();
                             if (currentPosition == 0) {
                                 Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
-                                ArrayList<Movie> filteredList = new ArrayList<>();
-                                for (Movie movie : currentPopularMoviesList) {
-                                    if (movie.getRating() > 1) {
-                                        filteredList.add(movie);
-                                    }
-                                }
-                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(popularMoviesList));
-                                currentPopularMoviesList = filteredList;
-                            } else if (currentPosition == 1) {
-                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
-                            } else if (currentPosition == 2) {
-                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
-                            }
-                            return true;
-                        } else if (menuItem.getItemId() == R.id.filter_rating_2) {
-                            Toast.makeText(MainActivity.this, "Rating 2", Toast.LENGTH_SHORT).show();
-                            if (currentPosition == 0) {
-                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
-                            } else if (currentPosition == 1) {
-                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
-                            } else if (currentPosition == 2) {
-                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
-                            }
-                            return true;
-                        } else if (menuItem.getItemId() == R.id.filter_rating_3) {
-                            Toast.makeText(MainActivity.this, "Rating 3", Toast.LENGTH_SHORT).show();
-                            if (currentPosition == 0) {
-                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
-                            } else if (currentPosition == 1) {
-                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
-                            } else if (currentPosition == 2) {
-                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
-                            }
-                            return true;
-                        } else if (menuItem.getItemId() == R.id.filter_rating_4) {
-                            Toast.makeText(MainActivity.this, "Rating 4", Toast.LENGTH_SHORT).show();
-                            if (currentPosition == 0) {
-                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
-                            } else if (currentPosition == 1) {
-                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
-                            } else if (currentPosition == 2) {
-                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
-                            }
-                            return true;
-                        } else if (menuItem.getItemId() == R.id.filter_rating_5) {
-                            Toast.makeText(MainActivity.this, "Rating 5", Toast.LENGTH_SHORT).show();
-                            if (currentPosition == 0) {
-                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
-                            } else if (currentPosition == 1) {
-                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
-                            } else if (currentPosition == 2) {
-                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
-                            }
-                            return true;
-                        } else if (menuItem.getItemId() == R.id.filter_rating_6) {
-                            Toast.makeText(MainActivity.this, "Rating 6", Toast.LENGTH_SHORT).show();
-                            if (currentPosition == 0) {
-                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
-                            } else if (currentPosition == 1) {
-                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
-                            } else if (currentPosition == 2) {
-                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
-                            }
-                            return true;
-                        } else if (menuItem.getItemId() == R.id.filter_rating_7) {
-                            Toast.makeText(MainActivity.this, "Rating 7", Toast.LENGTH_SHORT).show();
-                            if (currentPosition == 0) {
-                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
-                                ArrayList<Movie> filteredList = new ArrayList<>();
-                                for (Movie movie : currentPopularMoviesList) {
-                                    if (movie.getVote_average() >= Double.valueOf(7)) {
-                                        filteredList.add(movie);
-                                    }
-                                }
+                                ArrayList<Movie> filteredList = checkRating(1, currentPopularMoviesList);
                                 ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
                                 currentPopularMoviesList = filteredList;
                             } else if (currentPosition == 1) {
                                 Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
                             } else if (currentPosition == 2) {
                                 Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(1, currentUpcomingMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_2) {
+                            Toast.makeText(MainActivity.this, "Rating 2", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(2, currentPopularMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(2, currentUpcomingMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_3) {
+                            Toast.makeText(MainActivity.this, "Rating 3", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(3, currentPopularMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(3, currentUpcomingMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_4) {
+                            Toast.makeText(MainActivity.this, "Rating 4", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(4, currentPopularMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(4, currentUpcomingMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_5) {
+                            Toast.makeText(MainActivity.this, "Rating 5", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(5, currentPopularMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(5, currentUpcomingMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_6) {
+                            Toast.makeText(MainActivity.this, "Rating 6", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(6, currentPopularMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(6, currentUpcomingMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_7) {
+                            Toast.makeText(MainActivity.this, "Rating 7", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(7, currentPopularMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(7, currentUpcomingMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
                             }
                             return true;
                         } else if (menuItem.getItemId() == R.id.filter_rating_8) {
                             Toast.makeText(MainActivity.this, "Rating 8", Toast.LENGTH_SHORT).show();
                             if (currentPosition == 0) {
                                 Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(8, currentPopularMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
                             } else if (currentPosition == 1) {
                                 Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
                             } else if (currentPosition == 2) {
                                 Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(8, currentUpcomingMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
                             }
                             return true;
                         } else if (menuItem.getItemId() == R.id.filter_rating_9) {
                             Toast.makeText(MainActivity.this, "Rating 9", Toast.LENGTH_SHORT).show();
                             if (currentPosition == 0) {
                                 Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(9, currentPopularMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
                             } else if (currentPosition == 1) {
                                 Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
                             } else if (currentPosition == 2) {
                                 Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(9, currentUpcomingMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
                             }
                             return true;
                         } else if (menuItem.getItemId() == R.id.filter_rating_10) {
                             Toast.makeText(MainActivity.this, "Rating 10", Toast.LENGTH_SHORT).show();
                             if (currentPosition == 0) {
                                 Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(10, currentPopularMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
                             } else if (currentPosition == 1) {
                                 Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
                             } else if (currentPosition == 2) {
                                 Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = checkRating(10, currentUpcomingMoviesList);
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.reset_filter) {
+                            if (currentPosition == 0) {
+                                currentPopularMoviesList = popularMoviesList;
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(currentPopularMoviesList));
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                currentUpcomingMoviesList = upcomingMoviesList;
+                                ((UpcomingMoviesFragment) fragment).setFilteredList(new ArrayList<>(currentUpcomingMoviesList));
                             }
                             return true;
                         } else {
@@ -361,6 +416,15 @@ public class MainActivity extends AppCompatActivity {
 
     boolean hasShownToast = false;
 
+    private ArrayList<Movie> checkRating(int i, List<Movie> checkList) {
+        ArrayList<Movie> filteredList = new ArrayList<>();
+        for (Movie movie : checkList) {
+            if (movie.getVote_average() >= Double.valueOf(i)) {
+                filteredList.add(movie);
+            }
+        }
+        return filteredList;
+    }
     private void filterList (String text) {
         int currentPosition = viewPager.getCurrentItem();
         if (currentPosition == 0) {
