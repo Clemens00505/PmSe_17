@@ -1,13 +1,11 @@
         package com.example.tmdb.database;
 
         import android.app.Application;
-        import android.util.Log;
 
         import androidx.annotation.NonNull;
         import androidx.lifecycle.AndroidViewModel;
         import androidx.lifecycle.LiveData;
         import androidx.lifecycle.MutableLiveData;
-        import androidx.lifecycle.ViewModel;
 
         import com.example.tmdb.Api.TMDbAPI;
         import com.example.tmdb.domain.Collection;
@@ -17,11 +15,6 @@
         import java.util.List;
 
         import javax.inject.Inject;
-
-        import rx.Observable;
-        import rx.android.schedulers.AndroidSchedulers;
-        import rx.schedulers.Schedulers;
-        import timber.log.Timber;
 
         public class CollectionViewModel extends AndroidViewModel {
 
@@ -100,6 +93,10 @@
 
             public void insertCollection(Collection collection) {
                 repository.insertCollection(collection);
+            }
+
+            public List<Movie> getAllMoviesFromCollection(int listId) {
+                return repository.getAllMoviesFromCollection(listId);
             }
 
             // Add other methods to insert, update, delete, etc. if needed

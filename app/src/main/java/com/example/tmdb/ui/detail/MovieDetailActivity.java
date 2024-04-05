@@ -8,6 +8,7 @@ import static com.example.tmdb.Api.TMDbAPI.getApiKey;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,8 +37,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.Dagger.Modules.ApplicationModule;
 import com.example.tmdb.R;
+import com.example.tmdb.database.Repository;
 import com.example.tmdb.domain.Cast;
+import com.example.tmdb.domain.Collection;
 import com.example.tmdb.domain.Genres;
+import com.example.tmdb.domain.ListMovies;
 import com.example.tmdb.domain.Movie;
 import com.example.tmdb.ui.Settings;
 import com.example.tmdb.ui.detail.adapters.MovieCastAdapter;
@@ -78,6 +84,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     public List<Movie> recommendDataList;
 
     SharedPreferences sharedPreferences;
+    private Repository repository;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -86,8 +93,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         updateTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
-
-        // App-component initialiseren en injecteren
+        repository = new Repository(this.getApplication());
         ApplicationComponent appComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(getApplication()))
                 .build();
@@ -151,6 +157,8 @@ public class MovieDetailActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         String selectedListName = spinnerExistingLists.getSelectedItem().toString();
+                        ListMovies listMovie = new ListMovies(0, selectedListName, getIntent().getIntExtra("id", 1));
+                        repository.insertMovieInList(listMovie);
                         // Handle the saving of the selected list here
                         Log.d(TAG, "Saved list: " + selectedListName);
                         // Example: Update UI or save the selection to your data source
@@ -227,13 +235,13 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     }
     private List<String> getExistingListNames() {
-        // Placeholder for actual data fetching logic
-        List<String> listNames = new ArrayList<>();
-        listNames.add("Dummy List 1");
-        listNames.add("Dummy List 2");
-        listNames.add("Dummy List 3");
-        // Add more lists as needed
-        return listNames;
+        List<Collection> allCollections = repository.getAllCollectionsList();
+        List<String> allCollectionNames = new ArrayList<>();
+        for(Collection collection : allCollections) {
+            allCollectionNames.add(collection.getName());
+        }
+        return allCollectionNames;
+
     }
     private void saveRating(float rating, int movieId) {
         Log.d("RatingBar", "saveRating: rating=" + rating);

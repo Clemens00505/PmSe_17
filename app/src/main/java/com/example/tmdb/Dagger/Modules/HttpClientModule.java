@@ -1,17 +1,23 @@
 package com.example.tmdb.Dagger.Modules;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.example.tmdb.Dagger.AppScope;
 import com.example.tmdb.Api.TMDbAPI;
 import com.squareup.moshi.Moshi;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -83,4 +89,6 @@ public class HttpClientModule {
 
         return MoshiConverterFactory.create(moshi);
     }
+
+
 }

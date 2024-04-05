@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.tmdb.domain.Collection;
+import com.example.tmdb.domain.ListMovies;
 import com.example.tmdb.domain.Movie;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 @Dao
 public interface DAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertMovie(Movie movie);
+    void insertMovieList(ListMovies movie);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertCollection(Collection collection);
@@ -38,6 +39,14 @@ public interface DAO {
 
     @Query("SELECT * FROM collection_table")
     LiveData<List<Collection>> getAllCollections();
+
+    @Query("SELECT * FROM collection_table")
+    List<Collection> getAllCollectionsList();
+
+    @Query("SELECT * FROM list_movie_join lm INNER JOIN movie_table m ON lm.movieId = m.movie_id WHERE lm.listId = :listId")
+    List<Movie> getAllMoviesFromCollection(int listId);
+
+
 
 
 }

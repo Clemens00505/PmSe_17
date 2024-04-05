@@ -2,12 +2,8 @@ package com.example.tmdb.Api;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.view.PixelCopy;
-
-import androidx.preference.PreferenceManager;
 
 import com.example.tmdb.Dagger.Modules.HttpClientModule;
-import com.example.tmdb.R;
 import com.example.tmdb.domain.ListDetailResponse;
 import com.example.tmdb.domain.ResponseCreditDetail;
 import com.example.tmdb.domain.ResponseMovieDetail;
@@ -16,7 +12,6 @@ import com.example.tmdb.domain.ResponseNowPlaying;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -76,14 +71,14 @@ public interface TMDbAPI {
             @Query("page") int page
     );
 
-    @POST("list")
-    @Headers({"Content-Type: application/json;charset=utf-8"})
-    Observable<CreateListResponse> createList(
-            @Query("api_key") String api_key,
-            @Query("session_id") String session_id,
-            @Body CreateListRequest requestBody
-
-    );
+//    @POST("list")
+//    @Headers({"Content-Type: application/json;charset=utf-8"})
+//    Observable<CreateListResponse> createList(
+//            @Query("api_key") String api_key,
+//            @Query("session_id") String session_id,
+//            @Body CreateListRequest requestBody
+//
+//    );
 
     @GET("list/{list_id}")
     Observable<ListDetailResponse> getListDetail(
@@ -91,15 +86,19 @@ public interface TMDbAPI {
             @Query("api_key") String api_Key
     );
 
-    @GET(HttpClientModule.GET_REQUEST_CODE)
-    Observable<ResponseRequestToken> getRequestToken(
-            @Query("api_key") String api_key
-    );
+//    @GET(HttpClientModule.GET_REQUEST_CODE)
+//    Observable<ResponseRequestToken> getRequestToken(
+//            @Query("api_key") String api_key
+//    );
+//
+//    @POST(HttpClientModule.GET_SESSION)
+//    Call<SessionResponse> getSession(
+//            @Body SessionResponse requestBody,
+//            @Query("api_key") String api_Key
+//    );
 
-    @POST(HttpClientModule.GET_SESSION)
-    Observable<ResponseSession> getSession(
-            @Query("api_key") String api_key,
-            @Body String requestToken
-    );
+
+
+
 }
 

@@ -52,7 +52,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
         inflater = LayoutInflater.from(context);
     }
 
-    public void setMovieList(ArrayList<Movie> movies) {
+    public void setMovieList(List<Movie> movies) {
         this.movieList = movies;
         this.notifyDataSetChanged();
     }

@@ -1,22 +1,22 @@
 package com.example.tmdb.Api;
 
 public class ResponseRequestToken {
-    private String success;
+    private boolean success;
     private String request_token;
 
     private String expires_at;
 
-    public ResponseRequestToken(String success, String request_token, String expires_at) {
+    public ResponseRequestToken(boolean success, String request_token, String expires_at) {
         this.success = success;
         this.request_token = request_token;
         this.expires_at = expires_at;
     }
 
-    public String getSuccess() {
+    public boolean getSuccess() {
         return success;
     }
 
-    public void setSuccess(String success) {
+    public void setSuccess(boolean success) {
         this.success = success;
     }
 

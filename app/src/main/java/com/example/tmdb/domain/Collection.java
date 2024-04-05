@@ -3,9 +3,11 @@ package com.example.tmdb.domain;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @Entity(tableName = "collection_table")
 public class Collection implements Serializable {
@@ -15,9 +17,12 @@ public class Collection implements Serializable {
     private int collectionId;
     private String name;
 
+    //private ArrayList<Movie> movies;
+
     public Collection(String name) {
         this.collectionId = 0;
         this.name = name;
+
     }
 
     public int getCollectionId() {
@@ -36,6 +41,7 @@ public class Collection implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
 
 
 }

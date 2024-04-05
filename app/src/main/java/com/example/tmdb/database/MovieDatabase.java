@@ -6,10 +6,11 @@
     import androidx.room.Database;
 
     import com.example.tmdb.domain.Collection;
+    import com.example.tmdb.domain.ListMovies;
     import com.example.tmdb.domain.Movie;
 
 
-@Database(entities = {Movie.class, Collection.class}, version = 5)
+@Database(entities = {Movie.class, Collection.class, ListMovies.class}, version = 6)
 public abstract class MovieDatabase extends RoomDatabase {
     public abstract DAO getDAO();
 

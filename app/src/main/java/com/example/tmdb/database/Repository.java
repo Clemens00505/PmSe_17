@@ -13,11 +13,13 @@ import com.example.tmdb.Api.CreateListRequest;
 import com.example.tmdb.Api.CreateListResponse;
 import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.domain.Collection;
+import com.example.tmdb.domain.ListMovies;
 import com.example.tmdb.domain.Movie;
 import com.example.tmdb.ui.home.activity.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import rx.Observable;
 
@@ -27,20 +29,20 @@ public class Repository {
     private TMDbAPI tmDbAPI;
 
 
-    Repository(Application application) {
+    public Repository(Application application) {
         MovieDatabase db = MovieDatabase.getDatabase(application);
         dao = db.getDAO();
 
     }
-    void insertMovie(Movie movie) {
-        new insertMovieAsyncTask(dao).execute(movie);
-    }
-
-    void insertAllMovies(ArrayList<Movie> movies) {
-        for(Movie movie : movies) {
-            new insertMovieAsyncTask(dao).execute(movie);
-        }
-    }
+//    void insertMovieInCollection(Movie movie) {
+//        new insertMovieAsyncTask(dao).execute(movie);
+//    }
+//
+//    void insertAllMovies(ArrayList<Movie> movies) {
+//        for(Movie movie : movies) {
+//            new insertMovieAsyncTask(dao).execute(movie);
+//        }
+//    }
 
     void insertCollection(Collection collection) {
         new insertCollectionAsyncTask(dao).execute(collection);
@@ -67,10 +69,36 @@ public class Repository {
     void deleteAllLists() {
         new deleteAllCollectionsAsyncTask(dao).execute();
     }
+    public void insertMovieInList(ListMovies movieInList) {
+        new insertMovieListAsyncTask(dao).execute(movieInList);
+    }
 
     public LiveData<List<Collection>> getAllCollections() {
         return dao.getAllCollections();
     }
+    public List<Collection> getAllCollectionsList() {
+        List<Collection> list;
+        try {
+            list = new selectCollections(dao).execute().get();
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+    public List<Movie> getAllMoviesFromCollection(int listId) {
+        List<Movie> list;
+        try {
+            list = new getMoviesTask(dao).execute(listId).get();
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
 
 //    public Observable<List<Movie>> fetchAndSaveMoviesFromList(int listId, Context context) {
 //        return tmDbAPI.getListDetail(listId, TMDbAPI.getApiKey(context))
@@ -88,6 +116,33 @@ public class Repository {
 //                });
 //    }
 
+    public static class selectCollections extends AsyncTask<Void, Void, List<Collection>> {
+        private DAO asyncTaskDao;
+
+        selectCollections(DAO dao) {
+            asyncTaskDao = dao;
+        }
+        @Override
+        protected List doInBackground(Void... voids) {
+            return asyncTaskDao.getAllCollectionsList();
+        }
+    }
+    public static class getMoviesTask extends AsyncTask<Integer, Void, List<Movie>> {
+        private DAO asyncTaskDao;
+
+
+        getMoviesTask(DAO dao) {
+            asyncTaskDao = dao;
+
+        }
+
+
+        @Override
+        protected List<Movie> doInBackground(Integer... integers) {
+            return asyncTaskDao.getAllMoviesFromCollection(integers[0]);
+        }
+    }
+
     public static class insertCollectionAsyncTask extends AsyncTask<Collection, Void, Void> {
         private DAO asyncTaskDao;
         insertCollectionAsyncTask(DAO dao) {
@@ -101,17 +156,30 @@ public class Repository {
             return null;
         }
     }
-    public static class insertMovieAsyncTask extends AsyncTask<Movie, Void, Void> {
+
+    public static class insertMovieListAsyncTask extends AsyncTask<ListMovies, Void, Void> {
         private DAO asyncTaskDao;
-        insertMovieAsyncTask(DAO dao) {
+        insertMovieListAsyncTask(DAO dao) {
             asyncTaskDao = dao;
         }
+
         @Override
-        protected Void doInBackground(Movie... movies) {
-            asyncTaskDao.insertMovie(movies[0]);
+        protected Void doInBackground(ListMovies... listMovies) {
+            asyncTaskDao.insertMovieList(listMovies[0]);
             return null;
         }
     }
+//    public static class insertMovieAsyncTask extends AsyncTask<Movie, Void, Void> {
+//        private DAO asyncTaskDao;
+//        insertMovieAsyncTask(DAO dao) {
+//            asyncTaskDao = dao;
+//        }
+//        @Override
+//        protected Void doInBackground(Movie... movies) {
+//            asyncTaskDao.insertMovie(movies[0]);
+//            return null;
+//        }
+//    }
 
     public static class updateMovieAsyncTask extends AsyncTask<Movie, Void, Void> {
         private DAO asyncTaskDao;

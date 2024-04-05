@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,8 @@ import com.example.tmdb.Api.TMDbAPI;
 import com.example.tmdb.App;
 import com.example.tmdb.R;
 import com.example.tmdb.database.CollectionViewModel;
+import com.example.tmdb.database.Repository;
+import com.example.tmdb.domain.ListMovies;
 import com.example.tmdb.domain.Movie;
 import com.example.tmdb.ui.home.adapters.MovieAdapter;
 
@@ -39,11 +42,14 @@ public class ListDetailActivity extends AppCompatActivity {
     private static final String LOG_TAG = ListDetailActivity.class.getSimpleName();
 
     private CollectionViewModel viewModel;
-    ArrayList<Movie> moviesInList;
+    List<Movie> moviesInList;
 
     MovieAdapter adapter;
 
     SharedPreferences sharedPreferences;
+    ListMovies listMovies;
+
+    private Repository repository;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         updateTheme();
@@ -60,11 +66,12 @@ public class ListDetailActivity extends AppCompatActivity {
         adapter = new MovieAdapter(moviesInList, this);
         recyclerView.setAdapter(adapter);
 
-        //viewModel = new ViewModelProvider(this).get(CollectionViewModel.class);
+        viewModel = new ViewModelProvider(this).get(CollectionViewModel.class);
         int listId = getIntent().getIntExtra("list_id", -1);
         Log.d("ListDetailActivity", "List ID: " + listId);
         if (listId != -1) {
-            getMovies(listId);
+            viewModel.getAllMoviesFromCollection(listId);
+            adapter.setMovieList(viewModel.getAllMoviesFromCollection(listId));
             Log.e("ListDetailActivity", "valid list ID");
             //viewModel.fetchMoviesForCollection(listId);
             Log.i("ListDetailActivity", "moviesFetched");
@@ -114,20 +121,9 @@ public class ListDetailActivity extends AppCompatActivity {
 //                }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage()));
 //        }
 
-    public void getMovies(int listId) {
-        tmDbAPI.getListDetail(listId, TMDbAPI.getApiKey(this))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
-                     // Check if fragment is still added
-                        moviesInList.addAll(response.getItems());
-                        adapter.notifyDataSetChanged();
 
-                }, e -> {
-                    Timber.e(e, "Error fetching movies in list: %s", e.getMessage());
 
-                });
-    }
+
 //    public void fetchMoviesForCollection(int listId) {
 //        tmDbAPI.getListDetail(listId,TMDbAPI.getApiKey(this.getApplication()))
 //                .subscribeOn(Schedulers.io())
