@@ -203,7 +203,7 @@ public class ListsFragment extends Fragment {
     }
 
     public String getRequestToken() {
-        AtomicReference<String> requestToken = new AtomicReference<>("");
+        AtomicReference<String> requestToken = new AtomicReference<>();
         Log.i("LALA", "RequestToken initialize: " + requestToken);
         tmDbAPI.getRequestToken(getApiKey(this.getContext()))
                 .subscribeOn(Schedulers.io())

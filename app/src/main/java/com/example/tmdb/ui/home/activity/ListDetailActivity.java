@@ -2,11 +2,13 @@ package com.example.tmdb.ui.home.activity;
 
 import static com.example.tmdb.Api.TMDbAPI.getApiKey;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,8 +42,11 @@ public class ListDetailActivity extends AppCompatActivity {
     ArrayList<Movie> moviesInList;
 
     MovieAdapter adapter;
+
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        updateTheme();
         super.onCreate(savedInstanceState);
         App.instance().appComponent().inject(this);
         setContentView(R.layout.activity_list_detail);
@@ -132,6 +137,18 @@ public class ListDetailActivity extends AppCompatActivity {
 //                    ((MutableLiveData<List<Movie>>)moviesInCollection).postValue(movies);
 //                }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage()));
 //    }
+
+    private void updateTheme() {
+        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
+        boolean darkModeEnabled = sharedPreferences.getBoolean("pref_dark_theme", false);
+        if (darkModeEnabled) {
+            setTheme(R.style.AppTheme_Dark);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            setTheme(R.style.AppTheme_Light);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
 
 
 }
