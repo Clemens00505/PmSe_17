@@ -9,15 +9,24 @@
         import androidx.lifecycle.MutableLiveData;
         import androidx.lifecycle.ViewModel;
 
+        import com.example.tmdb.Api.TMDbAPI;
         import com.example.tmdb.domain.Collection;
         import com.example.tmdb.domain.Movie;
 
+        import java.util.ArrayList;
         import java.util.List;
 
+        import javax.inject.Inject;
+
+        import rx.Observable;
         import rx.android.schedulers.AndroidSchedulers;
         import rx.schedulers.Schedulers;
+        import timber.log.Timber;
 
         public class CollectionViewModel extends AndroidViewModel {
+
+            @Inject
+            TMDbAPI tmDbAPI;
 
             private final String LOG_TAG = this.getClass().getSimpleName();
             private Repository repository;
@@ -34,17 +43,53 @@
             }
             // Method to call repository to fetch movies for a specific list ID
             public void fetchMoviesForCollection(int listId) {
-                repository.fetchAndSaveMoviesFromList(listId, getApplication())
+                tmDbAPI.getListDetail(listId,TMDbAPI.getApiKey(this.getApplication()))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(movies -> {
-                            // Assuming you have a LiveData<List<Movie>> to post the result
+                        .subscribe(response -> {
+                            List<Movie> movies = response.getItems();
                             ((MutableLiveData<List<Movie>>)moviesInCollection).postValue(movies);
-                        }, throwable -> {
-                            // Log or handle errors here
-                            Log.e(LOG_TAG, "Error fetching movies for collection", throwable);
-                        });
+                        }, e -> Timber.e(e, "Error fetching now popular movies: %s", e.getMessage()));
             }
+//                tmDbAPI.getListDetail(TMDbAPI.getApiKey(this.getContext()), 1)
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(response -> {
+//
+//                                popularMovieDataList.addAll(response.getResults());
+//                                adapter.notifyDataSetChanged();
+//
+//                        }, e -> {
+//                            Timber.e(e, "Error fetching now popular movies: %s", e.getMessage());
+//
+//                        });
+//                tmDbAPI.getListDetail(TMDbAPI.getApiKey(this.getContext()), 1)
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(response -> {
+//                            List<Movie> movies = response.getItems();
+//                            ((MutableLiveData<List<Movie>>)moviesInCollection).postValue(response);
+//                        }, e -> {
+//                            Timber.e(e, "Error fetching now popular movies: %s", e.getMessage());
+//
+//                        });
+//                tmDbAPI.getListDetail(listId, TMDbAPI.getApiKey(context))
+//                        .flatMap(listDetailResponse -> {
+//                            List<Movie> movies = listDetailResponse.getItems(); // Change "getMovies()" to "getItems()" or whatever the actual method name is based on the JSON structure
+//                            insertAllMovies(new ArrayList<>(movies));
+//                            return Observable.just(movies);
+//                        });
+//                repository.fetchAndSaveMoviesFromList(listId, getApplication())
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(movies -> {
+//                            // Assuming you have a LiveData<List<Movie>> to post the result
+//                            ((MutableLiveData<List<Movie>>)moviesInCollection).postValue(movies);
+//                        }, throwable -> {
+//                            // Log or handle errors here
+//                            Log.e(LOG_TAG, "Error fetching movies for collection", throwable);
+//                        });
+//            }
 
             public LiveData<List<Movie>> getMoviesInCollection() {
                 return moviesInCollection;

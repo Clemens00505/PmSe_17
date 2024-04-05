@@ -25,23 +25,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.ViewModelProvider;
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ListsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ListsFragment extends Fragment {
 
     private CollectionViewModel collectionViewModel;
     private CollectionAdapter adapter;
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -51,24 +43,6 @@ public class ListsFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ListsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ListsFragment newInstance(String param1, String param2) {
-        ListsFragment fragment = new ListsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
     private void createNewList(String listName) {
         // Assuming your Collection has an ID field that is auto-generated
         Collection newList = new Collection(0, listName, "Type or some other attribute");
@@ -78,10 +52,7 @@ public class ListsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
 
@@ -95,7 +66,7 @@ public class ListsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new CollectionAdapter(new ArrayList<>(), collection -> {
             Intent detailIntent = new Intent(getContext(), ListDetailActivity.class);
-            detailIntent.putExtra("collection_key", collection); // Ensure Collection implements Serializable
+            detailIntent.putExtra("list_id", collection.getCollectionId()); // Ensure Collection implements Serializable
             startActivity(detailIntent);
         });
 

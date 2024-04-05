@@ -1,6 +1,7 @@
 package com.example.tmdb.Dagger.Components;
 
 import com.example.tmdb.App;
+import com.example.tmdb.ui.home.activity.ListDetailActivity;
 import com.example.tmdb.ui.home.adapters.MovieAdapter;
 import com.example.tmdb.Dagger.Modules.HttpClientModule;
 import com.example.tmdb.Dagger.Modules.ApplicationModule;
@@ -40,4 +41,8 @@ public interface ApplicationComponent {
     void inject(UpcomingMoviesFragment upcomingMoviesFragment);
 
     void inject(ListsFragment listsFragment);
+
+    void inject(ListDetailActivity listDetailActivity);
+
+
 }

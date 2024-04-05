@@ -72,14 +72,14 @@ public class Repository {
         return dao.getAllCollections();
     }
 
-    public Observable<List<Movie>> fetchAndSaveMoviesFromList(int listId, Context context) {
-        return tmDbAPI.getListDetail(listId, TMDbAPI.getApiKey(context))
-                .flatMap(listDetailResponse -> {
-                    List<Movie> movies = listDetailResponse.getItems(); // Change "getMovies()" to "getItems()" or whatever the actual method name is based on the JSON structure
-                    insertAllMovies(new ArrayList<>(movies));
-                    return Observable.just(movies);
-                });
-    }
+//    public Observable<List<Movie>> fetchAndSaveMoviesFromList(int listId, Context context) {
+//        return tmDbAPI.getListDetail(listId, TMDbAPI.getApiKey(context))
+//                .flatMap(listDetailResponse -> {
+//                    List<Movie> movies = listDetailResponse.getItems(); // Change "getMovies()" to "getItems()" or whatever the actual method name is based on the JSON structure
+//                    insertAllMovies(new ArrayList<>(movies));
+//                    return Observable.just(movies);
+//                });
+//    }
     public Observable<CreateListResponse> createListInApi(CreateListRequest createListRequest) {
         return tmDbAPI.createList(createListRequest)
                 .flatMap(createListResponse -> {

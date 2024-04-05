@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ImageButton menuBtn;
     SearchView searchView;
-    private boolean listsLoaded;
+    MenuItem filtering;
+    MenuItem sorting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         searchView.clearFocus();
         upcomingMoviesList = new ArrayList<>();
         popularMoviesList = new ArrayList<>();
+
         fetchPopularMovies();
         fetchUpcomingMovies();
 
@@ -110,8 +112,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         // Toast message on menu item clicked
-                        Toast.makeText(MainActivity.this, "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                        return true;
+//                        Toast.makeText(MainActivity.this, "You Clicked " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+//                        return true;
+                        if (menuItem.getItemId() == R.id.sorting) {
+
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filtering) {
+
+                            return true;
+                        } else {
+
+                            return false;
+                        }
                     }
                 });
                 // Showing the popup menu
