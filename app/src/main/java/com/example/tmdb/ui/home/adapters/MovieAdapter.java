@@ -93,7 +93,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.movieHolder>
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Share Movie Details");
-                String deepLink = "myapp://detailpage/" + movie.getId(); // replace with your actual deep link
+                String deepLink = "https://www.themoviedb.org/movie/" + movie.getId(); // replace with your actual deep link
                 String shareText = "Movie Title: " + movie.getTitle() + "\nRelease Date: " + movie.getRelease_date() + "\nLink: " + deepLink;
                 intent.putExtra(Intent.EXTRA_TEXT, shareText);
                 context.startActivity(Intent.createChooser(intent, "Share via"));
