@@ -23,72 +23,6 @@
         android:title="@string/filtering" >
         <menu>
             <item
-                android:id="@+id/filter_by_genre"
-                android:title="@string/sort_filter_genre">
-                <menu>
-                    <group
-                        android:checkableBehavior="single" >
-                        <item
-                            android:id="@+id/filtering_action"
-                            android:title="Action" />
-                        <item
-                            android:id="@+id/filtering_adventure"
-                            android:title="Adventure" />
-                        <item
-                            android:id="@+id/filtering_animation"
-                            android:title="Animation" />
-                        <item
-                            android:id="@+id/filtering_comedy"
-                            android:title="Comedy" />
-                        <item
-                            android:id="@+id/filtering_crime"
-                            android:title="Crime" />
-                        <item
-                            android:id="@+id/filtering_documentary"
-                            android:title="Documentary" />
-                        <item
-                            android:id="@+id/filtering_drama"
-                            android:title="Drama" />
-                        <item
-                            android:id="@+id/filtering_family"
-                            android:title="Family" />
-                        <item
-                            android:id="@+id/filtering_fantasy"
-                            android:title="Fantasy" />
-                        <item
-                            android:id="@+id/filtering_history"
-                            android:title="History"/>
-                        <item
-                            android:id="@+id/filtering_horror"
-                            android:title="Horror" />
-                        <item
-                            android:id="@+id/filtering_music"
-                            android:title="Music" />
-                        <item
-                            android:id="@+id/filtering_mystery"
-                            android:title="Mystery" />
-                        <item
-                            android:id="@+id/filtering_romance"
-                            android:title="Romance"/>
-                        <item
-                            android:id="@+id/filtering_science_fiction"
-                            android:title="Science Fiction" />
-                        <item
-                            android:id="@+id/filtering_tv_movie"
-                            android:title="TV Movie" />
-                        <item
-                            android:id="@+id/filtering_thriller"
-                            android:title="Thriller" />
-                        <item
-                            android:id="@+id/filtering_war"
-                            android:title="War" />
-                        <item
-                            android:id="@+id/filtering_western"
-                            android:title="Western" />
-                    </group>
-                </menu>
-            </item>
-            <item
                 android:id="@+id/filter_by_rating"
                 android:title="@string/filter_rating" >
 
@@ -96,35 +30,35 @@
                     <group
                         android:checkableBehavior="single" >
                             <item
-                                android:id="@+id/filter_rating_05"
-                                android:title="0.5" />
-                            <item
-                                android:id="@+id/filter_rating_10"
+                                android:id="@+id/filter_rating_1"
                                 android:title="1.0" />
                             <item
-                                android:id="@+id/filter_rating_15"
-                                android:title="1.5" />
-                            <item
-                                android:id="@+id/filter_rating_20"
+                                android:id="@+id/filter_rating_2"
                                 android:title="2.0" />
                             <item
-                                android:id="@+id/filter_rating_25"
-                                android:title="2.5" />
-                            <item
-                                android:id="@+id/filter_rating_30"
+                                android:id="@+id/filter_rating_3"
                                 android:title="3.0" />
                             <item
-                                android:id="@+id/filter_rating_35"
-                                android:title="3.5" />
-                            <item
-                                android:id="@+id/filter_rating_40"
+                                android:id="@+id/filter_rating_4"
                                 android:title="4.0" />
                             <item
-                                android:id="@+id/filter_rating_45"
-                                android:title="4.5" />
-                            <item
-                                android:id="@+id/filter_rating_50"
+                                android:id="@+id/filter_rating_5"
                                 android:title="5.0" />
+                            <item
+                                android:id="@+id/filter_rating_6"
+                                android:title="6.0" />
+                            <item
+                                android:id="@+id/filter_rating_7"
+                                android:title="7.0" />
+                            <item
+                                android:id="@+id/filter_rating_8"
+                                android:title="8.0" />
+                            <item
+                                android:id="@+id/filter_rating_9"
+                                android:title="9.0" />
+                            <item
+                                android:id="@+id/filter_rating_10"
+                                android:title="10.0" />
                     </group>
                 </menu>
             </item>

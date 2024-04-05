@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                             currentUpcomingMoviesList = upcomingMoviesList;
                         }
                         int currentPosition = viewPager.getCurrentItem();
+                        Fragment fragment = fragmentAdapter.createFragment(currentPosition);
                         if (menuItem.getItemId() == R.id.sort_by_rating) {
                             Toast.makeText(MainActivity.this, "rating", Toast.LENGTH_SHORT).show();
                             if (currentPosition == 0) {
@@ -142,8 +143,173 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
                             }
                             return true;
+                        } else if (menuItem.getItemId() == R.id.filter_date_2021) {
+                            Toast.makeText(MainActivity.this, "release 2021", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_date_2022) {
+                            Toast.makeText(MainActivity.this, "release 2022", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_date_2023) {
+                            Toast.makeText(MainActivity.this, "release 2023", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_date_2024) {
+                            Toast.makeText(MainActivity.this, "release 2024", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_date_2025) {
+                            Toast.makeText(MainActivity.this, "release 2025", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_1) {
+                            Toast.makeText(MainActivity.this, "Rating 1", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = new ArrayList<>();
+                                for (Movie movie : currentPopularMoviesList) {
+                                    if (movie.getRating() > 1) {
+                                        filteredList.add(movie);
+                                    }
+                                }
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(popularMoviesList));
+                                currentPopularMoviesList = filteredList;
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_2) {
+                            Toast.makeText(MainActivity.this, "Rating 2", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_3) {
+                            Toast.makeText(MainActivity.this, "Rating 3", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_4) {
+                            Toast.makeText(MainActivity.this, "Rating 4", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_5) {
+                            Toast.makeText(MainActivity.this, "Rating 5", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_6) {
+                            Toast.makeText(MainActivity.this, "Rating 6", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_7) {
+                            Toast.makeText(MainActivity.this, "Rating 7", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                                ArrayList<Movie> filteredList = new ArrayList<>();
+                                for (Movie movie : currentPopularMoviesList) {
+                                    if (movie.getVote_average() >= Double.valueOf(7)) {
+                                        filteredList.add(movie);
+                                    }
+                                }
+                                ((PopularMoviesFragment) fragment).setFilteredList(new ArrayList<>(filteredList));
+                                currentPopularMoviesList = filteredList;
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_8) {
+                            Toast.makeText(MainActivity.this, "Rating 8", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_9) {
+                            Toast.makeText(MainActivity.this, "Rating 9", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
+                        } else if (menuItem.getItemId() == R.id.filter_rating_10) {
+                            Toast.makeText(MainActivity.this, "Rating 10", Toast.LENGTH_SHORT).show();
+                            if (currentPosition == 0) {
+                                Toast.makeText(MainActivity.this, "current position popular", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 1) {
+                                Toast.makeText(MainActivity.this, "sorting lists is not possible", Toast.LENGTH_SHORT).show();
+                            } else if (currentPosition == 2) {
+                                Toast.makeText(MainActivity.this, "current position upcoming", Toast.LENGTH_SHORT).show();
+                            }
+                            return true;
                         } else {
-
                             return false;
                         }
                     }
@@ -194,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     boolean hasShownToast = false;
-    
+
     private void filterList (String text) {
         int currentPosition = viewPager.getCurrentItem();
         if (currentPosition == 0) {
