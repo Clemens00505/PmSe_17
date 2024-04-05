@@ -78,7 +78,7 @@ public interface TMDbAPI {
             "Authorization: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjUxMGRmNWM0NjkzZWJmYmY4MDZjZDljNjkwMGFhYiIsInN1YiI6IjY1Zjk0ZmRmYWJkZWMwMDE4NjZiM2NjOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VF9AifirswDTY5KXFktfN-nmDydEye6WoQK6owmDtQg"})
     Observable<CreateListResponse> createList(@Body CreateListRequest requestBody);
 
-    @GET("3/list/{list_id}")
+    @GET("list/{list_id}")
     Observable<ListDetailResponse> getListDetail(
             @Path("list_id") int listId,
             @Query("api_key") String apiKey
