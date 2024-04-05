@@ -197,40 +197,46 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void filterList (String text) {
-        int currentPosition = viewPager.getCurrentItem();
-        if (currentPosition == 0) {
-            ArrayList<Movie> filteredList = new ArrayList<>();
-            for (Movie movie : popularMoviesList) {
-                if (movie.getTitle().toLowerCase().contains(text.toLowerCase())) {
-                    filteredList.add(movie);
+        try {
+            int currentPosition = viewPager.getCurrentItem();
+            if (currentPosition == 0) {
+                ArrayList<Movie> filteredList = new ArrayList<>();
+                for (Movie movie : popularMoviesList) {
+                    if (movie.getTitle().toLowerCase().contains(text.toLowerCase())) {
+                        filteredList.add(movie);
+                    }
+                }
+                Fragment fragment = fragmentAdapter.createFragment(currentPosition);
+                if (fragment instanceof PopularMoviesFragment) {
+                    ((PopularMoviesFragment) fragment).setFilteredList(filteredList);
+                }
+            } else if (currentPosition == 1) {
+                ArrayList<Collection> filteredList = new ArrayList<>();
+                for (Collection collection : collectionList) {
+                    if (collection.getName().toLowerCase().contains(text.toLowerCase())) {
+                        filteredList.add(collection);
+                    }
+                }
+                Fragment fragment = fragmentAdapter.createFragment(currentPosition);
+                if (fragment instanceof ListsFragment) {
+                    ((ListsFragment) fragment).setFilteredList(filteredList);
+                }
+            } else if (currentPosition == 2) {
+                ArrayList<Movie> filteredList = new ArrayList<>();
+                for (Movie movie : upcomingMoviesList) {
+                    if (movie.getTitle().toLowerCase().contains(text.toLowerCase())) {
+                        filteredList.add(movie);
+                    }
+                }
+                Fragment fragment = fragmentAdapter.createFragment(currentPosition);
+                if (fragment instanceof UpcomingMoviesFragment) {
+                    ((UpcomingMoviesFragment) fragment).setFilteredList(filteredList);
                 }
             }
-            Fragment fragment = fragmentAdapter.createFragment(currentPosition);
-            if (fragment instanceof PopularMoviesFragment) {
-                ((PopularMoviesFragment) fragment).setFilteredList(filteredList);
-            }
-        } else if (currentPosition == 1) {
-            ArrayList<Collection> filteredList = new ArrayList<>();
-            for (Collection collection : collectionList) {
-                if (collection.getName().toLowerCase().contains(text.toLowerCase())) {
-                    filteredList.add(collection);
-                }
-            }
-            Fragment fragment = fragmentAdapter.createFragment(currentPosition);
-            if (fragment instanceof ListsFragment) {
-                ((ListsFragment) fragment).setFilteredList(filteredList);
-            }
-        } else if (currentPosition == 2) {
-            ArrayList<Movie> filteredList = new ArrayList<>();
-            for (Movie movie : upcomingMoviesList) {
-                if (movie.getTitle().toLowerCase().contains(text.toLowerCase())) {
-                    filteredList.add(movie);
-                }
-            }
-            Fragment fragment = fragmentAdapter.createFragment(currentPosition);
-            if (fragment instanceof UpcomingMoviesFragment) {
-                ((UpcomingMoviesFragment) fragment).setFilteredList(filteredList);
-            }
+        } catch (NullPointerException e) {
+            // Log de fout en toon een foutmelding aan de gebruiker
+            Log.e("MainActivity", "Er is een fout opgetreden: " + e.getMessage());
+            Toast.makeText(this, "Er is een fout opgetreden. Probeer het later opnieuw.", Toast.LENGTH_SHORT).show();
         }
     }
 
