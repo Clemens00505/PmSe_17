@@ -195,48 +195,40 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void filterList(String text) {
-        Log.i("lala", "dit is de text van de searchview:" + text + "!");
-        int currentPosition = viewPager.getCurrentItem();
-        Fragment fragment = fragmentAdapter.createFragment(currentPosition);
 
-        if (currentPosition == 0 && fragment instanceof PopularMoviesFragment) {
+    private void filterList (String text) {
+        int currentPosition = viewPager.getCurrentItem();
+        if (currentPosition == 0) {
             ArrayList<Movie> filteredList = new ArrayList<>();
             for (Movie movie : popularMoviesList) {
                 if (movie.getTitle().toLowerCase().contains(text.toLowerCase())) {
                     filteredList.add(movie);
                 }
             }
-            Log.d("MainActivity", "Filtered list size: " + filteredList.size());
-            if (filteredList.isEmpty()) {
-                Toast.makeText(this, "No data found1", Toast.LENGTH_SHORT).show();
-            } else {
+            Fragment fragment = fragmentAdapter.createFragment(currentPosition);
+            if (fragment instanceof PopularMoviesFragment) {
                 ((PopularMoviesFragment) fragment).setFilteredList(filteredList);
             }
-        } else if (currentPosition == 1 && fragment instanceof ListsFragment) {
+        } else if (currentPosition == 1) {
             ArrayList<Collection> filteredList = new ArrayList<>();
             for (Collection collection : collectionList) {
                 if (collection.getName().toLowerCase().contains(text.toLowerCase())) {
                     filteredList.add(collection);
                 }
             }
-            Log.d("MainActivity", "Filtered list size: " + filteredList.size());
-            if (filteredList.isEmpty()) {
-                Toast.makeText(this, "No data found2", Toast.LENGTH_SHORT).show();
-            } else {
+            Fragment fragment = fragmentAdapter.createFragment(currentPosition);
+            if (fragment instanceof ListsFragment) {
                 ((ListsFragment) fragment).setFilteredList(filteredList);
             }
-        } else if (currentPosition == 2 && fragment instanceof UpcomingMoviesFragment) {
+        } else if (currentPosition == 2) {
             ArrayList<Movie> filteredList = new ArrayList<>();
             for (Movie movie : upcomingMoviesList) {
                 if (movie.getTitle().toLowerCase().contains(text.toLowerCase())) {
                     filteredList.add(movie);
                 }
             }
-            Log.d("MainActivity", "Filtered list size: " + filteredList.size());
-            if (filteredList.isEmpty()) {
-                Toast.makeText(this, "No data found3", Toast.LENGTH_SHORT).show();
-            } else {
+            Fragment fragment = fragmentAdapter.createFragment(currentPosition);
+            if (fragment instanceof UpcomingMoviesFragment) {
                 ((UpcomingMoviesFragment) fragment).setFilteredList(filteredList);
             }
         }
@@ -247,29 +239,26 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static class FragmentAdapter extends FragmentStateAdapter {
+        private final Fragment[] fragments;
 
         public FragmentAdapter(FragmentActivity fragmentActivity) {
             super(fragmentActivity);
+            fragments = new Fragment[] {
+                    PopularMoviesFragment.newInstance(),
+                    new ListsFragment(),
+                    new UpcomingMoviesFragment()
+            };
         }
+
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            switch(position) {
-                case 0:
-                    return PopularMoviesFragment.newInstance();
-                case 1:
-                    return new ListsFragment();
-                case 2:
-                    return new UpcomingMoviesFragment();
-
-                default:
-                    return null;
-            }
+            return fragments[position];
         }
 
         @Override
         public int getItemCount() {
-            return 3;
+            return fragments.length;
         }
     }
 
