@@ -158,17 +158,17 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         if (labelPS != null) {
             String genres = "";
-            for (int i = 0; i < labelPS.size(); i++) {
-                if (labelPS.get(i) == null) continue;
-                if (i == labelPS.size() - 1) {
-                    genres = genres.concat(labelPS.get(i).getName());
-                } else {
-                    genres = genres.concat(labelPS.get(i).getName() + " | ");
+            for (Genres genre : labelPS) {
+                if (genre.getName() != null) {
+                    if (!genres.isEmpty()) {
+                        genres += " | ";
+                    }
+                    genres += genre.getName();
                 }
             }
             tvGenres.setText(genres);
-        } else if (labelPS.size() == 0) {
-            tvGenres.setText("");
+        } else {
+            tvGenres.setText(""); // or some default value
         }
 
         RatingBar ratingBar = findViewById(R.id.ratingBar);
