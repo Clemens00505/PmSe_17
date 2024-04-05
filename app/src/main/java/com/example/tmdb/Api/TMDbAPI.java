@@ -2,15 +2,18 @@ package com.example.tmdb.Api;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.PixelCopy;
 
 import androidx.preference.PreferenceManager;
 
 import com.example.tmdb.Dagger.Modules.HttpClientModule;
+import com.example.tmdb.R;
 import com.example.tmdb.domain.ListDetailResponse;
 import com.example.tmdb.domain.ResponseCreditDetail;
 import com.example.tmdb.domain.ResponseMovieDetail;
 import com.example.tmdb.domain.ResponseNowPlaying;
 
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -76,22 +79,25 @@ public interface TMDbAPI {
     @Headers({"Content-Type: application/json;charset=utf-8"})
     Observable<CreateListResponse> createList(
             @Query("api_key") String api_key,
+            @Query("session_id") String session_id,
             @Body CreateListRequest requestBody
 
     );
-
-
-    // Example assuming name is the only user-provided value
-
-//    @POST("list")
-//    @Headers({"Content-Type: application/json",
-//            "Authorization: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMjUxMGRmNWM0NjkzZWJmYmY4MDZjZDljNjkwMGFhYiIsInN1YiI6IjY1Zjk0ZmRmYWJkZWMwMDE4NjZiM2NjOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VF9AifirswDTY5KXFktfN-nmDydEye6WoQK6owmDtQg"})
-//    Observable<CreateListResponse> createList(@Body CreateListRequest requestBody);
 
     @GET("list/{list_id}")
     Observable<ListDetailResponse> getListDetail(
             @Path("list_id") int listId,
             @Query("api_key") String apiKey
+    );
+
+    @GET(HttpClientModule.GET_REQUEST_CODE)
+    Observable<ResponseRequestToken> getRequestToken(
+            @Query("api_key") String api_key
+    );
+
+    @POST(HttpClientModule.GET_SESSION)
+    Observable<ResponseSession> getSession(
+            @Body String requestToken
     );
 }
 

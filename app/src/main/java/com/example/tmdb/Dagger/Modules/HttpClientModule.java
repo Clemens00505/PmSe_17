@@ -15,7 +15,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
+
+
 
 @Module
 public class HttpClientModule {
@@ -26,6 +29,9 @@ public class HttpClientModule {
     public static final String POPULAR = "movie/popular";
     public static final String MOVIE_DETAILS = "movie/";
     public static final String UPCOMING_MOVIES = "movie/upcoming";
+
+    public static final String GET_REQUEST_CODE ="authentication/token/new";
+    public static final String GET_SESSION = "authentication/session/new";
 
 
 
@@ -60,6 +66,7 @@ public class HttpClientModule {
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(moshiConverterFactory)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 
