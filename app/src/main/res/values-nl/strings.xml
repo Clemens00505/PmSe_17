@@ -17,6 +17,9 @@
     <string name="english">Engels</string>
     <string name="filtering">Filteren op</string>
     <string name="sorting">Sorteren op</string>
+    <string name="sort_filter_genre">Genre</string>
+    <string name="sort_filter_rating">Rating</string>
+    <string name="sort_filter_date">Release</string>
     <string name="cast">Volledige Cast</string>
     <string name="popularity">Populariteit</string>
     <string name="api_key_description">Verander de API key, dit verandert het account</string>
@@ -34,4 +37,5 @@
     <string name="choose_language">Kies taal</string>
     <string name="dark_mode_description">Schakel donkere modus in</string>
     <string name="language_description">Voer gewenste taal in</string>
+    <string name="created_list">"Gemaakte lijst: "</string>
 </resources>

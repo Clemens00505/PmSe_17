@@ -15,10 +15,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -57,7 +59,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     ImageView ivHorizontalPoster, ivVerticalPoster;
     TextView tvTitle, tvGenres, tvPopularity, tvReleaseDate;
     ExpandableTextView etvOverview;
-    Button btnToggle;
     ImageButton upBtn;
 
 
@@ -78,6 +79,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Check and apply the current theme (light/dark)
         updateTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
@@ -90,6 +92,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         Log.d(TAG, "tmDbAPI instance: " + tmDbAPI);
 
+        // Bind views to their corresponding elements in the layout
         ivVerticalPoster = findViewById(R.id.ivVerticalPoster);
         ivHorizontalPoster = findViewById(R.id.ivHorizontalPoster);
         tvTitle = findViewById(R.id.tvTitle);
@@ -97,7 +100,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvPopularity = findViewById(R.id.tvPopularity);
         tvReleaseDate = findViewById(R.id.tvReleaseDate);
         etvOverview = findViewById(R.id.etvOverview);
-        btnToggle = findViewById(R.id.btnToggle);
         upBtn = findViewById(R.id.upButton);
 
         castDataList = new ArrayList<>();
@@ -114,10 +116,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         etvOverview.setExpandInterpolator(new OvershootInterpolator());
         etvOverview.setCollapseInterpolator(new OvershootInterpolator());
 
-        btnToggle.setOnClickListener(v -> {
-            btnToggle.setBackgroundResource(etvOverview.isExpanded() ? R.drawable.ic_expand_more : R.drawable.ic_expand_less);
-            etvOverview.toggle();
-        });
 
 
         upBtn.setImageResource(R.drawable.ic_back);
@@ -132,13 +130,38 @@ public class MovieDetailActivity extends AppCompatActivity {
         fabAddToList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog = new Dialog(MovieDetailActivity.this);
-                dialog.setContentView(R.layout.dialog_add_to_list); // replace with your dialog layout name
+                final Dialog dialog = new Dialog(MovieDetailActivity.this);
+                dialog.setContentView(R.layout.dialog_add_to_list);
 
+                // Get references to dialog views
+                final EditText editTextNewListName = dialog.findViewById(R.id.editTextNewListName);
+                Button buttonCreateList = dialog.findViewById(R.id.buttonCreateList);
                 Button buttonCancel = dialog.findViewById(R.id.buttonCancel);
-                buttonCancel.setOnClickListener(v -> dialog.dismiss());
 
-                // Set up the ListView and other elements of the dialog as needed
+                // Set up the "Create List" button click listener
+                buttonCreateList.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String newListName = editTextNewListName.getText().toString();
+                        // Here, you can add newListName to your database or list variable
+                        Log.d(TAG, "Creating new list with name: " + newListName);
+                        Toast.makeText(MovieDetailActivity.this, getString(R.string.created_list) + newListName, Toast.LENGTH_SHORT).show();
+
+                        // Dismiss the dialog after creating the list
+                        dialog.dismiss();
+
+                        // Optionally, refresh your UI here if necessary
+                    }
+                });
+
+                // Set up the "Cancel" button click listener
+                buttonCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Just dismiss the dialog without doing anything
+                        dialog.dismiss();
+                    }
+                });
 
                 dialog.show();
             }
@@ -158,17 +181,17 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         if (labelPS != null) {
             String genres = "";
-            for (int i = 0; i < labelPS.size(); i++) {
-                if (labelPS.get(i) == null) continue;
-                if (i == labelPS.size() - 1) {
-                    genres = genres.concat(labelPS.get(i).getName());
-                } else {
-                    genres = genres.concat(labelPS.get(i).getName() + " | ");
+            for (Genres genre : labelPS) {
+                if (genre.getName() != null) {
+                    if (!genres.isEmpty()) {
+                        genres += " | ";
+                    }
+                    genres += genre.getName();
                 }
             }
             tvGenres.setText(genres);
-        } else if (labelPS.size() == 0) {
-            tvGenres.setText("");
+        } else {
+            tvGenres.setText(""); // or some default value
         }
 
         RatingBar ratingBar = findViewById(R.id.ratingBar);
@@ -209,20 +232,20 @@ public class MovieDetailActivity extends AppCompatActivity {
                     .subscribe(response -> {
                         if (response != null && response.getCast() != null) {
                             castDataList.addAll(response.getCast());
-                            if (castAdapter != null) {
-                                castAdapter.notifyDataSetChanged();
-                            } else {
-                                Log.e(TAG, "castAdapter is null");
-                            }
+                            castAdapter.notifyDataSetChanged();
                         }
-                    }, e -> {
-                        Timber.e(e, "Error fetching cast info: %s", e.getMessage());
-                        Log.e(TAG, "Error fetching cast info: " + e.getMessage());
+                    }, throwable -> {
+                        Log.e(TAG, "Error fetching cast info: " + throwable.getMessage());
+                        // Notify user of the error (e.g., Toast)
+                        Toast.makeText(MovieDetailActivity.this, "Failed to fetch cast info.", Toast.LENGTH_SHORT).show();
                     });
         } else {
             Log.e(TAG, "tmDbAPI is null");
+            // Notify user of the error
+            Toast.makeText(this, "API is not available.", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     public void getRecommendMovie() {

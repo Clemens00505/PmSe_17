@@ -41,12 +41,6 @@
 
                 </at.blogc.android.views.ExpandableTextView>
 
-                <Button
-                    android:id="@+id/btnToggle"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_gravity="end"
-                    android:background="@drawable/ic_expand_more" />
 
             </LinearLayout>
 
