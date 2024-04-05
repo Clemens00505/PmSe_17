@@ -20,7 +20,7 @@
     <string name="sort_filter_genre">Genre</string>
     <string name="sort_rating">Rating</string>
     <string name="filter_rating">Minimale Rating</string>
-    <string name="sort_filter_date">Release Datum</string>
+    <string name="sort_filter_date">Release Datum (jaar)</string>
     <string name="cast">Volledige Cast</string>
     <string name="popularity">Populariteit</string>
     <string name="api_key_description">Verander de API key, dit verandert het account</string>

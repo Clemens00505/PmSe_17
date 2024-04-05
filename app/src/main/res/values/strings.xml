@@ -26,7 +26,7 @@
     <string name="sort_filter_genre">Genre</string>
     <string name="sort_rating">Rating</string>
     <string name="filter_rating">Minimum Rating</string>
-    <string name="sort_filter_date">Release Date</string>
+    <string name="sort_filter_date">Release Date (year)</string>
     <string name="enter_api_key">Enter API Key</string>
     <string name="choose_language">Choose language</string>
     <string name="dark_mode_description">Enable dark mode</string>
