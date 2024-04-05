@@ -23,6 +23,9 @@
 
     <string name="filtering">Filter by</string>
     <string name="sorting">Sorting by</string>
+    <string name="sort_filter_genre">Sort by genre</string>
+    <string name="sort_filter_rating">Sort by rating</string>
+    <string name="sort_filter_date">Sort by release date</string>
     <string name="enter_api_key">Enter API Key</string>
     <string name="choose_language">Choose language</string>
     <string name="dark_mode_description">Enable dark mode</string>

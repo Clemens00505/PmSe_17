@@ -2,9 +2,39 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/sorting"
-        android:title="@string/sorting" />
+        android:title="@string/sorting" >
+        <menu>
+            <item
+                android:id="@+id/sort_by_genre"
+                android:title="@string/sort_filter_genre"
+                />
+            <item
+                android:id="@+id/sort_by_rating"
+                android:title="@string/sort_filter_rating"
+                />
+            <item
+                android:id="@+id/sort_by_release"
+                android:title="@string/sort_filter_date"
+                />
+        </menu>
+    </item>
 
     <item
         android:id="@+id/filtering"
-        android:title="@string/filtering" />
+        android:title="@string/filtering" >
+        <menu>
+            <item
+                android:id="@+id/filter_by_genre"
+                android:title="@string/sort_filter_genre"
+                />
+            <item
+                android:id="@+id/filter_by_rating"
+                android:title="@string/sort_filter_rating"
+                />
+            <item
+                android:id="@+id/filter_by_release"
+                android:title="@string/sort_filter_date"
+                />
+        </menu>
+    </item>
 </menu>
