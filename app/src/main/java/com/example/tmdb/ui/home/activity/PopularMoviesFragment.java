@@ -64,23 +64,24 @@ public class PopularMoviesFragment extends Fragment {
         rvPopularMovie.setLayoutManager(popularMovieLayoutManager);
         rvPopularMovie.setAdapter(adapter);
 
-        getNowPlaying();
-
+        getNowPlaying(1);  // Start fetching from the first page
         return view;
     }
 
-    public void getNowPlaying() {
-        tmDbAPI.getNowPlaying(TMDbAPI.getApiKey(this.getContext()), 1)
+    public void getNowPlaying(int page) {
+        tmDbAPI.getNowPlaying(TMDbAPI.getApiKey(this.getContext()), page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     if (isAdded()) { // Check if fragment is still added
                         popularMovieDataList.addAll(response.getResults());
                         adapter.notifyDataSetChanged();
+                        if (response.getTotalPages() > page) {
+                            getNowPlaying(page + 1);  // Fetch next page
+                        }
                     }
                 }, e -> {
                     Timber.e(e, "Error fetching now popular movies: %s", e.getMessage());
-
                 });
     }
 

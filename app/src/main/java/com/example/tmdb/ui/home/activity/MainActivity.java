@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         currentUpcomingMoviesList = new ArrayList<>();
         currentPopularMoviesList = new ArrayList<>();
 
-        fetchPopularMovies();
+        fetchPopularMovies(1);
         fetchUpcomingMovies();
 
         settingsIcon.setOnClickListener(new View.OnClickListener() {
@@ -425,6 +426,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
 
+            @SuppressLint("NewApi")
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText.isEmpty()) {
@@ -557,21 +559,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void fetchPopularMovies() {
-        // Fetch popular movies from the API
-        // Example code:
-        tmDbAPI.getPopularMovie(TMDbAPI.getApiKey(this), 1)
+    private void fetchPopularMovies(int page) {
+        tmDbAPI.getPopularMovie(TMDbAPI.getApiKey(this), page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
-                    popularMoviesList = response.getResults();
-                    // Notify fragments or update UI as needed
+                    popularMoviesList.addAll(response.getResults());
+                    if (response.getTotalPages() > page) {
+                        fetchPopularMovies(page + 1);  // Fetch next page
+                    } else {
+                        // Notify fragments or update UI as needed
+                    }
                 }, e -> {
                     Timber.e(e, "Error fetching popular movies: %s", e.getMessage());
                     Toast.makeText(this, "Invalid API Key! Please check your settings.", Toast.LENGTH_SHORT).show();
                 });
-
-
     }
 
     private void fetchUpcomingMovies() {

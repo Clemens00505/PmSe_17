@@ -1,12 +1,20 @@
 package com.example.tmdb.domain;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class ResponseNowPlaying {
 
     private Integer page;
-    private Integer total_pages;
     private List<Movie> results;
+
+    @SerializedName("total_pages")
+    private Integer total_pages;
+
+    public Integer getTotalPages() {
+        return total_pages;
+    }
 
     public Integer getPage() {
         return page;
@@ -14,10 +22,6 @@ public class ResponseNowPlaying {
 
     public void setPage(Integer page) {
         this.page = page;
-    }
-
-    public Integer getTotal_pages() {
-        return total_pages;
     }
 
     public void setTotal_pages(Integer total_pages) {
